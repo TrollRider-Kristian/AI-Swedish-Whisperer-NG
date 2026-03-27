@@ -1,0 +1,12 @@
+[
+    {
+        "question": "Vilken dag är det i dag?",
+        "answer": "Det är fredag i dag.",
+        "feedback": "Correct."
+    },
+    {
+        "question": "Vilken dag var det i går?",
+        "answer": "Det var min födelsedag i går.",
+        "feedback": "Correct."
+    }
+]

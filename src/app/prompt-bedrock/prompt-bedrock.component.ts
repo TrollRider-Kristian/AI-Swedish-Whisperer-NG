@@ -1,17 +1,34 @@
-import { Component, Input, OnInit, output } from '@angular/core';
+import { Component, Inject, Input, OnInit, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  // MatDialogClose,
+} from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '../../../amplify/data/resource';
+
+// https://www.thirdrocktechkno.com/blog/how-to-read-local-json-files-in-angular/
+// KRISTIAN_NOTE - Because I have "resolveJsonModule" set to "true" in tsconfig.json, I can just import.
+// If I didn't, then I'd inject an HttpClientModule into the desired component and subscribe to it to receive json data.
+// KRISTIAN_TODO - Trying the Http Client route now, but WHY doesn't this print anything in ngOnInit?
+// Does it need to be saved in a variable first?  Is it too early in the Angular lifecycle?
+import * as question_answer_feedback_dataset from '../../assets/question-answer-feedback-test-data.json';
 
 const client = generateClient<Schema>();
 
 @Component({
   selector: 'app-prompt-bedrock',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatButtonModule, MatProgressSpinnerModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, MatButtonModule, MatProgressSpinnerModule],
   templateUrl: './prompt-bedrock.component.html',
   styleUrl: './prompt-bedrock.component.scss',
 })
@@ -25,12 +42,17 @@ export class PromptBedrockComponent implements OnInit {
   feedback_is_loading: boolean = false;
   question_is_loading: boolean = false;
 
+  constructor (private _http: HttpClient, public dialog: MatDialog) {}
+
   // KRISTIAN_NOTE - Websocket connection to the URL on my amplify_outputs.json file failed because that URL does not exist anymore.
   // The amplify_outupts.json takes its url from the deployed Amplify app and is produced when I deploy said app.
   // This means that I will fail to receive a response every time I want to test locally unless/until I actually deploy my app.
   // That also means every other operation involving a connection to AWS (eg. prompting an AWS Bedrock LLM) will also fail unless I deploy the app.
   ngOnInit() {
     this.pose_question_based_on_topic(); // send prompt for initial question
+    this._http.get ('../../assets/question-answer-feedback-test-data.json').subscribe (data => {
+      console.log(data); // KRISTIAN_NOTE - Ah, so THIS one works...
+    });
   }
 
   // Take the topic and request a question from the LLM as a prompt.
@@ -69,8 +91,7 @@ export class PromptBedrockComponent implements OnInit {
   async solicit_feedback_for_given_question_and_response (question: string, response: string) {
     let prompt_with_response = 'Given the question of: ' + question +
       ', please provide feedback in English to the spelling and grammatical mistakes of each word in the following ' +
-      ' user response: ' + response + ', and generate some keywords for the linguistic concepts related to the user\'s mistakes' +
-      'as discussed by the feedback.';
+      ' user response: ' + response + ', and generate a list of keywords for the linguistic concepts discussed by the feedback.';
       
     this.feedback_is_loading = true;
 
@@ -81,6 +102,8 @@ export class PromptBedrockComponent implements OnInit {
     if (!errors) {
       console.log (data); // KRISTIAN_NOTE - If the response doesn't populate correctly in the app, then troubleshoot this console log.
       this.feedback = data;
+      let feedback_points = data?.split ('###') // need a regex for splitting all the bullet points
+      console.log (feedback_points);
       this.user_response = '';
     } else {
       console.log(errors);
@@ -94,5 +117,42 @@ export class PromptBedrockComponent implements OnInit {
 
   request_another_topic() {
     this.change_topic.emit();
+  }
+
+  async open_feedback_comparison_dialog_box() {
+    const dialog_ref = this.dialog.open (FeedbackComparisonDialogComponent, {
+      data: this.feedback
+    });
+  }
+}
+
+@Component({
+  selector: 'feedback-comparison-dialog-component',
+  templateUrl: 'feedback-comparison-dialog-component.component.html',
+  standalone: true,
+  imports: [
+    FormsModule,
+    MatButtonModule,
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogContent,
+    MatDialogActions,
+    // MatDialogClose,
+  ],
+})
+export class FeedbackComparisonDialogComponent {
+  feedback_answer_key: string = '';
+  constructor (
+    public dialog_ref: MatDialogRef<FeedbackComparisonDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public ai_provided_feedback: string,
+  ) {}
+
+  score_feedback(): void {
+    // KRISTIAN_TODO - Make scoring prompt here.
+    this.dialog_ref.close();
+  }
+
+  cancel_feedback (): void {
+    this.dialog_ref.close();
   }
 }

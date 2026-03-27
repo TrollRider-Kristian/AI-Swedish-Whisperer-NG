@@ -12,8 +12,15 @@
 <div>
     <!--KRISTIAN_TODO - Need to bullet-point these feedback responses too!-->
     <!--KRISTIAN_TODO - Need to DISABLE buttons while feedback is LOADING!-->
+    <!--KRISTIAN_TODO - Need to DISABLE the "open feedback comparison dialog box" button when feedback does not exist.-->
     <mat-progress-spinner mode="indeterminate" *ngIf="feedback_is_loading === true"></mat-progress-spinner>
     <p>{{ feedback }}</p>
+    <!--KRISTIAN_TODO - Open a dialog box that has the feedback copied and pasted.
+        Allow a text box to compare to other feedback.  A button to send a prompt and request a "score".-->
+    <button mat-button (click)="open_feedback_comparison_dialog_box()"></button>
     <button mat-button (click)="pose_question_based_on_topic()">Request Follow-Up Question</button>
     <button mat-button (click)="request_another_topic ()">Go Back and Change Topic</button>
 </div>
+
+<div>Display json data to make sure it loads correctly</div>
+<div></div>

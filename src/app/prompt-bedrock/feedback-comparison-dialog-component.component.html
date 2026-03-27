@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Submit Feedback For Comparison Here</h2>
+<mat-dialog-content>
+    <p>{{ai_provided_feedback}}</p>
+    <!--KRISTIAN_TODO - This is fine for comparing pairs of feedback statements one-by-one, but
+        I need a mechanism for comparing and scoring dozens and dozens of feedback statements at once.-->
+    <input name="feedback-to-compare" [(ngModel)]="feedback_answer_key"/>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <!--KRISTIAN_TODO - If we lack the feedback_answer_key above, this button should be disabled.-->
+    <!--KRISTIAN_TODO - How to close the dialog and transmit the score?-->
+    <button mat-button (click)="score_feedback()">Score My Feedback!</button>
+    <button mat-button (click)="cancel_feedback()">No Thanks</button>
+</mat-dialog-actions>
