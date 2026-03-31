@@ -100,10 +100,8 @@ export class PromptBedrockComponent implements OnInit {
     });
 
     if (!errors) {
-      console.log (data); // KRISTIAN_NOTE - If the response doesn't populate correctly in the app, then troubleshoot this console log.
+      // console.log (data); // KRISTIAN_NOTE - If the response doesn't populate correctly in the app, then troubleshoot this console log.
       this.feedback = data;
-      let feedback_points = data?.split ('###') // need a regex for splitting all the bullet points
-      console.log (feedback_points);
       this.user_response = '';
     } else {
       console.log(errors);
@@ -115,10 +113,16 @@ export class PromptBedrockComponent implements OnInit {
     this.solicit_feedback_for_given_question_and_response (this.current_question, this.user_response);
   }
 
+  public get split_feedback_into_bullet_points() {
+    return this.feedback?.split (/\d+\./);
+  }
+
   request_another_topic() {
     this.change_topic.emit();
   }
 
+  // KRISTIAN_TODO - How do I score mutliple feedback statements at once?
+  // KRISTIAN_TODO - The split feedback should ALSO populate the dialog box.
   async open_feedback_comparison_dialog_box() {
     const dialog_ref = this.dialog.open (FeedbackComparisonDialogComponent, {
       data: this.feedback

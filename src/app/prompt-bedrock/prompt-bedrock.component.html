@@ -1,5 +1,6 @@
 <!-- prompt-bedrock.component.html -->
 <h2>Question from Bedrock Here:</h2>
+<!--KRISTIAN_TODO - Question and Answer Section should be an accordion.-->
 <div>
     <!--KRISTIAN_TODO - The question uses many, many, MANY words that I do NOT recognize.  Either:-->
     <!--1. Submit, as part of my prompt a means by which to request simpler questions from Bedrock and/or-->
@@ -8,18 +9,28 @@
     <p>{{ current_question }}</p>
     <input name="prompt" [(ngModel)]="user_response"/>
     <button mat-button (click)="solicit_feedback_for_response()">Submit Answer and Solicit Feedback</button>
+    <!--KRISTIAN-TODO - What if I accidentally "go back" and want the old question again?-->
+    <!--KRISTIAN_TODO - What if I want a question in the SAME topic?  I don't wanna go back and pick the same topic again...-->
+    <!--KRISTIAN_TODO - How intuitive is this app? To what other apps can I compare it?-->
 </div>
+<!--KRISTIAN_TODO - Feedback and scoring section should be an accordion.-->
 <div>
     <!--KRISTIAN_TODO - Need to bullet-point these feedback responses too!-->
     <!--KRISTIAN_TODO - Need to DISABLE buttons while feedback is LOADING!-->
     <!--KRISTIAN_TODO - Need to DISABLE the "open feedback comparison dialog box" button when feedback does not exist.-->
     <mat-progress-spinner mode="indeterminate" *ngIf="feedback_is_loading === true"></mat-progress-spinner>
-    <p>{{ feedback }}</p>
+    <!-- KRISTIAN_NOTE - Uncomment feedback if it doesn't populate correctly. -->
+    <!-- <p>{{ feedback }}</p> -->
+    <ng-container *ngFor="let point of split_feedback_into_bullet_points">
+        <li>{{ point }}</li>
+    </ng-container>
     <!--KRISTIAN_TODO - Open a dialog box that has the feedback copied and pasted.
         Allow a text box to compare to other feedback.  A button to send a prompt and request a "score".-->
     <button mat-button (click)="open_feedback_comparison_dialog_box()"></button>
+    <!--KRISTIAN_TODO - Need a way to compare multiple feedback statements, score, and VIEW them all at once! -->
     <button mat-button (click)="pose_question_based_on_topic()">Request Follow-Up Question</button>
     <button mat-button (click)="request_another_topic ()">Go Back and Change Topic</button>
+    <!--KRISTIAN_TODO - Need slightly better button spacing.-->
 </div>
 
 <div>Display json data to make sure it loads correctly</div>
