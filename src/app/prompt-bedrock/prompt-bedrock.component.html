@@ -24,9 +24,8 @@
     <ng-container *ngFor="let point of split_feedback_into_bullet_points">
         <li>{{ point }}</li>
     </ng-container>
-    <!--KRISTIAN_TODO - Open a dialog box that has the feedback copied and pasted.
-        Allow a text box to compare to other feedback.  A button to send a prompt and request a "score".-->
-    <button mat-button (click)="open_feedback_comparison_dialog_box()"></button>
+    <!--KRISTIAN_TODO - Allow a text box to compare to other feedback.  A button to send a prompt and request a "score".-->
+    <button mat-button (click)="open_feedback_comparison_dialog_box()">Score My Feedback!</button>
     <!--KRISTIAN_TODO - Need a way to compare multiple feedback statements, score, and VIEW them all at once! -->
     <button mat-button (click)="pose_question_based_on_topic()">Request Follow-Up Question</button>
     <button mat-button (click)="request_another_topic ()">Go Back and Change Topic</button>

@@ -1,27 +1,13 @@
-import { Component, Inject, Input, OnInit, output } from '@angular/core';
+import { Component, inject, Input, OnInit, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-  MatDialogTitle,
-  MatDialogContent,
-  MatDialogActions,
-  // MatDialogClose,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '../../../amplify/data/resource';
-
-// https://www.thirdrocktechkno.com/blog/how-to-read-local-json-files-in-angular/
-// KRISTIAN_NOTE - Because I have "resolveJsonModule" set to "true" in tsconfig.json, I can just import.
-// If I didn't, then I'd inject an HttpClientModule into the desired component and subscribe to it to receive json data.
-// KRISTIAN_TODO - Trying the Http Client route now, but WHY doesn't this print anything in ngOnInit?
-// Does it need to be saved in a variable first?  Is it too early in the Angular lifecycle?
-import * as question_answer_feedback_dataset from '../../assets/question-answer-feedback-test-data.json';
+import { FeedbackComparisonDialogService } from '../feedback-comparison-dialog/feedback-comparison-dialog-service.service';
 
 const client = generateClient<Schema>();
 
@@ -41,8 +27,9 @@ export class PromptBedrockComponent implements OnInit {
   feedback: string | null = null;
   feedback_is_loading: boolean = false;
   question_is_loading: boolean = false;
+  feedback_comparison_dialog_service = inject (FeedbackComparisonDialogService);
 
-  constructor (private _http: HttpClient, public dialog: MatDialog) {}
+  constructor (private _http: HttpClient, private _dialog: MatDialog) {}
 
   // KRISTIAN_NOTE - Websocket connection to the URL on my amplify_outputs.json file failed because that URL does not exist anymore.
   // The amplify_outupts.json takes its url from the deployed Amplify app and is produced when I deploy said app.
@@ -84,10 +71,6 @@ export class PromptBedrockComponent implements OnInit {
     this.question_is_loading = false;
   }
 
-  // KRISTIAN_TODO - How do I call this to test any question and answer pair?
-  // Do I support another component and call from the outside?
-  // Do I support loading question-answer pairs from file and print out a list of feedbacks?
-  // How to go about this in my app? 
   async solicit_feedback_for_given_question_and_response (question: string, response: string) {
     let prompt_with_response = 'Given the question of: ' + question +
       ', please provide feedback in English to the spelling and grammatical mistakes of each word in the following ' +
@@ -121,42 +104,9 @@ export class PromptBedrockComponent implements OnInit {
     this.change_topic.emit();
   }
 
-  // KRISTIAN_TODO - How do I score mutliple feedback statements at once?
-  // KRISTIAN_TODO - The split feedback should ALSO populate the dialog box.
   async open_feedback_comparison_dialog_box() {
-    const dialog_ref = this.dialog.open (FeedbackComparisonDialogComponent, {
-      data: this.feedback
-    });
+    this.feedback_comparison_dialog_service.open_dialog (this._dialog, this.feedback as string);
   }
 }
 
-@Component({
-  selector: 'feedback-comparison-dialog-component',
-  templateUrl: 'feedback-comparison-dialog-component.component.html',
-  standalone: true,
-  imports: [
-    FormsModule,
-    MatButtonModule,
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogContent,
-    MatDialogActions,
-    // MatDialogClose,
-  ],
-})
-export class FeedbackComparisonDialogComponent {
-  feedback_answer_key: string = '';
-  constructor (
-    public dialog_ref: MatDialogRef<FeedbackComparisonDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public ai_provided_feedback: string,
-  ) {}
 
-  score_feedback(): void {
-    // KRISTIAN_TODO - Make scoring prompt here.
-    this.dialog_ref.close();
-  }
-
-  cancel_feedback (): void {
-    this.dialog_ref.close();
-  }
-}
