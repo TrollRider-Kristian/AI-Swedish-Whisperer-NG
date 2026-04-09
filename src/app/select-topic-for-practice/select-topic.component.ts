@@ -45,14 +45,14 @@ export class SelectTopicForPracticeComponent {
 
     constructor (private _dialog: MatDialog) {}
 
-    submit_new_topic(new_topic: string | null, is_custom_user_topic: boolean | null) {
+    submit_new_topic(new_topic: string | null, is_custom_user_topic: boolean | null): void {
         this.change_topic.emit (new_topic);
         this.is_custom_user_topic.emit (is_custom_user_topic);
     }
 
     // KRISTIAN_TODO - Make a note somewhere in the html that this is for users who ONLY
     // want to compare some known piece of feedback to another piece of feedback without going through the tutor.
-    open_feedback_comparison_dialog_box () {
-        this.feedback_comparison_dialog_service.open_dialog (this._dialog, '');
+    open_feedback_comparison_dialog_box (): void {
+        this.feedback_comparison_dialog_service.open_dialog (this._dialog, null);
     }
 }

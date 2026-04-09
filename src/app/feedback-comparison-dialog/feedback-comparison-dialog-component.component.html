@@ -1,7 +1,14 @@
 <h2 mat-dialog-title>Submit Feedback For Comparison Here</h2>
 <mat-dialog-content>
-    <!--KRISTIAN_TODO - If I don't have ANY feedack, give the user a chance to type their own.-->
-    <p>{{ai_provided_feedback}}</p>
+    <!--KRISTIAN_NOTE - Either the feedback given by a question and answer pair comes from the Mistal AI, or the user types it in themselves. -->
+    @if (ai_provided_feedback == null) {
+        <input name="previously-given-feedback" [(ngModel)]="user_provided_feedback_from_previous_conversation"/>
+    } @else {
+        <ng-container *ngFor="let point of ai_provided_feedback">
+            <li>{{ point }}</li>
+        </ng-container>
+    }
+    <br>
     <!--KRISTIAN_TODO - This is fine for comparing pairs of feedback statements one-by-one, but
         I need a mechanism for comparing and scoring dozens and dozens of feedback statements at once.-->
     <input name="feedback-to-compare" [(ngModel)]="feedback_answer_key"/>

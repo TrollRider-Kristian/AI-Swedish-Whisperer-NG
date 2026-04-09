@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -50,7 +51,7 @@ Rename "Cancel" to "Close"
 
   // KRISTIAN_TODO - How do I score mutliple feedback statements at once?
   // KRISTIAN_TODO - The split feedback should ALSO populate the dialog box.
-  open_dialog(dialog: MatDialog, given_feedback: string): MatDialogRef<FeedbackComparisonDialogComponent, string> {
+  open_dialog(dialog: MatDialog, given_feedback: string[] | null): MatDialogRef<FeedbackComparisonDialogComponent, string[]> {
     return dialog.open (FeedbackComparisonDialogComponent, { // KRISTIAN_TODO - Import the component, and provide service?
       data: given_feedback // KRISTIAN_TODO - give feedback here versus give nothing in the topic-select component
     });
@@ -62,6 +63,7 @@ Rename "Cancel" to "Close"
   templateUrl: 'feedback-comparison-dialog-component.component.html',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     MatButtonModule,
     MatDialogTitle,
@@ -72,10 +74,11 @@ Rename "Cancel" to "Close"
   ],
 })
 export class FeedbackComparisonDialogComponent {
+  user_provided_feedback_from_previous_conversation: string = '';
   feedback_answer_key: string = '';
   constructor (
     public dialog_ref: MatDialogRef<FeedbackComparisonDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public ai_provided_feedback: string,
+    @Inject(MAT_DIALOG_DATA) public ai_provided_feedback: string[] | null,
   ) {}
 
   score_feedback(): void {

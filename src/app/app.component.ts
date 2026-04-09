@@ -24,14 +24,14 @@ export class AppComponent {
   public get is_custom_user_question() {
     return this._is_custom_user_question;
   }
-  request_new_topic() {
+  request_new_topic(): void {
     this._current_topic = null;
     this._is_custom_user_question = null;
   }
-  accept_new_topic(new_topic: string | null) {
+  accept_new_topic(new_topic: string | null): void {
     this._current_topic = new_topic;
   }
-  accept_custom_user_question_flag (is_custom_user_question: boolean | null) {
+  accept_custom_user_question_flag (is_custom_user_question: boolean | null): void {
     this._is_custom_user_question = is_custom_user_question;
   }
 }
