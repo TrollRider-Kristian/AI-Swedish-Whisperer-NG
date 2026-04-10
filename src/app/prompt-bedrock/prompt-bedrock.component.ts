@@ -9,7 +9,7 @@ import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '../../../amplify/data/resource';
 import { FeedbackComparisonDialogService } from '../feedback-comparison-dialog/feedback-comparison-dialog-service.service';
 
-const client = generateClient<Schema>();
+export const client = generateClient<Schema>();
 
 @Component({
   selector: 'app-prompt-bedrock',
@@ -72,14 +72,14 @@ export class PromptBedrockComponent implements OnInit {
   }
 
   async solicit_feedback_for_given_question_and_response (question: string, response: string): Promise<void> {
-    let prompt_with_response = 'Given the question of: ' + question +
+    let prompt_with_response_awaiting_feedback = 'Given the question of: ' + question +
       ', please provide feedback in English to the spelling and grammatical mistakes of each word in the following ' +
       ' user response: ' + response + ', and generate a list of keywords for the linguistic concepts discussed by the feedback.';
       
     this.feedback_is_loading = true;
 
     const { data, errors } = await client.queries.tutorSwedish({
-      prompt: prompt_with_response,
+      prompt: prompt_with_response_awaiting_feedback,
     });
 
     if (!errors) {
@@ -108,6 +108,8 @@ export class PromptBedrockComponent implements OnInit {
   open_feedback_comparison_dialog_box(): void {
     this.feedback_comparison_dialog_service.open_dialog (this._dialog, this.split_feedback_into_bullet_points as string[]);
   }
+
+  // KRISTIAN_TODO - Feedback and scoring history how to...?
 }
 
 

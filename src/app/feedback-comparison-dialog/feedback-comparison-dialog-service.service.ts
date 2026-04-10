@@ -11,42 +11,16 @@ import {
     MatDialogActions,
     // MatDialogClose,
 } from '@angular/material/dialog';
+import { client } from '../prompt-bedrock/prompt-bedrock.component';
 
 @Injectable({ providedIn: 'root' })
 export class FeedbackComparisonDialogService {
-    /**
-     * KRISTIAN_TODO - My approach to comparing two pieces of feedback!
-     * 
-   * I open the dialog box from either page.
-How to represent this?  A button?  An icon?
-
--- OPEN DIALOG --  USE THIS SERVICE!
-	from the topic select page...
-"I already have feedback from a past conversation!"
-
-I enter some feedback manually
-
-	from the prompt page...
-"Score my Most Recent Feedback!"
-
-it gets copied automatically from feedback I generated from an answer
-
--- IN THE DIALOG BOX --
-
-"Feedback Received" -> either manual or automatic
-
-"Correct Feedback Statement" -> I enter a comparing feedback.
-
-"Get Grade" -> I click, my code sends a scoring prompt, and I view the number
-
-Rename "Cancel" to "Close"
-
+  /**
 -- REMAINING TODOs --
 
 1) What other options should I give the user with the score now that the dialog box is open?
 2) How to do and view this for multiple statements?
 3) When the feedback is copied manually, should it be editable?  Or do I give an "Undo and Give Manual Feedback" button?
-
    */
 
   // KRISTIAN_TODO - How do I score mutliple feedback statements at once?
@@ -76,16 +50,27 @@ Rename "Cancel" to "Close"
 export class FeedbackComparisonDialogComponent {
   user_provided_feedback_from_previous_conversation: string = '';
   feedback_answer_key: string = '';
+  feedback_score: string | null = ''; // KRISTIAN_TODO - How to store the score in the dialog?
   constructor (
     public dialog_ref: MatDialogRef<FeedbackComparisonDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public ai_provided_feedback: string[] | null,
   ) {}
 
-  score_feedback(): void {
-    // KRISTIAN_TODO - Make scoring prompt here.
-    // Given the AI-provided feedback of {ai_provided_feedback} and the feedback answer key of {feedback_answer_key}
-    // please provide a score of 1 - 10 on how semantically similar this pair of feedback statements are.
-    this.dialog_ref.close();
+  async score_feedback(): Promise<void> {
+    let prompt_with_feedback_pair_awaiting_score = "Given the AI-provided feedback of " + this.ai_provided_feedback +
+      " and the feedback answer key of " + this.feedback_answer_key + ", please prodivde a score of 1 to 10 on how" +
+      "semantically similar this pair of feedback statements are.";
+
+    const {data, errors} = await client.queries.tutorSwedish({
+      prompt: prompt_with_feedback_pair_awaiting_score,
+    });
+
+    if (!errors) {
+      console.log (data); // KRISTIAN_TODO - How to store the score in the dialog?
+      this.feedback_score = data;
+    } else {
+      console.log (errors);
+    }
   }
 
   // KRISTIAN_TODO - For each statement I've provided in my swedish sentences, provide a question and an incorrect version of that
