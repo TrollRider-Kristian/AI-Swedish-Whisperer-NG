@@ -2,11 +2,61 @@
     {
         "question": "Vilken dag är det i dag?",
         "answer": "Det är fredag i dag.",
-        "feedback": "Correct."
+        "feedback": "Correct.",
+        "comment": "Test triplet #1"
     },
     {
         "question": "Vilken dag var det i går?",
         "answer": "Det var min födelsedag i går.",
-        "feedback": "Correct."
+        "feedback": "Correct.",
+        "comment": "Test triplet #2"
+    },
+    {
+        "question": "Vad tycker du om att göra på en ledig dag?",
+        "answer": "Jag gillar gå till park och läsa bok.",
+        "feedback": "The answer is missing 'att' before each of the infinitives.  It is also missing the definite form for a common place.  The correct sentence is 'Jag gillar att gå till parken och läsa en bok.'",
+        "comment": "Test triplet #3"
+    },
+    {
+        "question": "Hur ofta träffar du din familj?",
+        "answer": "Jag träffar min familj varje veckor.",
+        "feedback": "After 'varje', Swedish uses singular nouns.  The correct sentence is 'Jag träffar min familj varje vecka.'",
+        "comment": "Test triplet #4"
+    },
+    {
+        "question": "Vad är din favoritplats i din stad?",
+        "answer": "Min favorit plats är en café nära centrum.",
+        "feedback": "'Favorit plats' is a compound noun, not two separate words.  There is also an article mismatch, for 'en café' should be 'ett café'.  The correct sentence is: 'Min favoritplats är ett café nära centrum.'",
+        "comment": "Test triplet #5"
+    },
+    {
+        "question": "Hur lär du dig bäst nya saker?",
+        "answer": "Jag lär mig genom läsa och skriva mycket.",
+        "feedback": "Missing 'att' after preposition.  Swedish uses 'genom att' to describe a method by which a goal is achieved.  The correct sentence is :'Jag stannar hemma och vilar hela dagen.'",
+        "comment": "Test triplet #6"
+    },
+    {
+        "question": "Vad gör du när du är sjuk?",
+        "answer": "Jag stannar hemma och vila hela dagen.",
+        "feedback": "Verb form mismatch.  The question and answer are in present tense.  The correct sentence is: 'Jag stannar hemma och vilar hela dagen.'",
+        "comment": "Test triplet #7"
+    },
+    {
+        "question": "Hur viktigt är det att resa?",
+        "answer": "Jag tycker resa är väldigt viktigt för utveckla sig själv.",
+        "feedback": "Missing 'att' after 'tycker'.  Swedish uses 'tycker att' to express an opinion.  Missing 'att' after 'för'.  Swedish uses 'för att' to say 'in order to'.  The correct sentence is 'Jag tycker att det är väldigt viktigt att resa för att utveckla sig själv.'",
+        "comment": "Test triplet #8"
+    },
+    {
+        "question": "Vad gör du för att koppla av?",
+        "answer": "Jag brukar lyssna musik och titta tv.",
+        "feedback": "Missing prepositions.  A Swedish speaker uses 'på' after 'lyssna' to indicate to what one is listening and 'på' after 'titta' to tell what one is watching.  The correct sentence is 'Jag brukar lyssna på musik och titta på tv.'",
+        "comment": "Test triplet #9"
+    },
+    {
+        "question": "Vad tycker du är det svåraste med att prata svenska?",
+        "answer": "Det svåraste är uttalet och att hitta rätt ord snabbt.",
+        "feedback": "Correct.",
+        "comment": "Test triplet #10"
     }
 ]
