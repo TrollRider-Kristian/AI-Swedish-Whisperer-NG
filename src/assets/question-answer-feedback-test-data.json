@@ -3,91 +3,600 @@
         "id": 1,
         "question": "Vilken dag är det i dag?",
         "answer": "Det är fredag i dag.",
-        "feedback": "Correct.",
-        "comments": ""
+        "feedback": "Correct."
     },
     {
         "id": 2,
         "question": "Vilken dag var det i går?",
         "answer": "Det var min födelsedag i går.",
-        "feedback": "Correct.",
-        "comments": ""
+        "feedback": "Correct."
     },
     {
         "id": 3,
         "question": "Vad tycker du om att göra på en ledig dag?",
         "answer": "Jag gillar gå till park och läsa bok.",
-        "feedback": "The answer is missing 'att' before each of the infinitives.  It is also missing the definite form for a common place.  The correct sentence is 'Jag gillar att gå till parken och läsa en bok.'",
-        "comments": ""
+        "feedback": "The answer is missing 'att' before each of the infinitives.  It is also missing the definite form for a common place.  The corrected sentence is: 'Jag gillar att gå till parken och läsa en bok.'"
     },
     {
         "id": 4,
         "question": "Hur ofta träffar du din familj?",
         "answer": "Jag träffar min familj varje veckor.",
-        "feedback": "After 'varje', Swedish uses singular nouns.  The correct sentence is 'Jag träffar min familj varje vecka.'",
-        "comments": ""
+        "feedback": "After 'varje', Swedish uses singular nouns.  The corrected sentence is: 'Jag träffar min familj varje vecka.'"
     },
     {
         "id": 5,
         "question": "Vad är din favoritplats i din stad?",
         "answer": "Min favorit plats är en café nära centrum.",
-        "feedback": "'Favorit plats' is a compound noun, not two separate words.  There is also an article mismatch, for 'en café' should be 'ett café'.  The correct sentence is: 'Min favoritplats är ett café nära centrum.'",
-        "comments": ""
+        "feedback": "'Favorit plats' is a compound noun, not two separate words.  There is also an article mismatch, for 'en café' should be 'ett café'.  The corrected sentence is: 'Min favoritplats är ett café nära centrum.'"
     },
     {
         "id": 6,
         "question": "Hur lär du dig bäst nya saker?",
         "answer": "Jag lär mig genom läsa och skriva mycket.",
-        "feedback": "Missing 'att' after preposition.  Swedish uses 'genom att' to describe a method by which a goal is achieved.  The correct sentence is :'Jag stannar hemma och vilar hela dagen.'",
-        "comments": ""
+        "feedback": "Missing 'att' after preposition.  Swedish uses 'genom att' to describe a method by which a goal is achieved.  The corrected sentence is: 'Jag stannar hemma och vilar hela dagen.'"
     },
     {
         "id": 7,
         "question": "Vad gör du när du är sjuk?",
         "answer": "Jag stannar hemma och vila hela dagen.",
-        "feedback": "Verb form mismatch.  The question and answer are in present tense.  The correct sentence is: 'Jag stannar hemma och vilar hela dagen.'",
-        "comments": ""
+        "feedback": "Verb form mismatch.  The question and answer are in present tense.  The corrected sentence is: 'Jag stannar hemma och vilar hela dagen.'"
     },
     {
         "id": 8,
         "question": "Hur viktigt är det att resa?",
         "answer": "Jag tycker resa är väldigt viktigt för utveckla sig själv.",
-        "feedback": "Missing 'att' after 'tycker'.  Swedish uses 'tycker att' to express an opinion.  Missing 'att' after 'för'.  Swedish uses 'för att' to say 'in order to'.  The correct sentence is 'Jag tycker att det är väldigt viktigt att resa för att utveckla sig själv.'",
-        "comments": ""
+        "feedback": "Missing 'att' after 'tycker'.  Swedish uses 'tycker att' to express an opinion.  Missing 'att' after 'för'.  Swedish uses 'för att' to say 'in order to'.  The corrected sentence is 'Jag tycker att det är väldigt viktigt att resa för att utveckla sig själv.'"
     },
     {
         "id": 9,
         "question": "Vad gör du för att koppla av?",
         "answer": "Jag brukar lyssna musik och titta tv.",
-        "feedback": "Missing prepositions.  A Swedish speaker uses 'på' after 'lyssna' to indicate to what one is listening and 'på' after 'titta' to tell what one is watching.  The correct sentence is 'Jag brukar lyssna på musik och titta på tv.'",
-        "comments": ""
+        "feedback": "Missing prepositions.  A Swedish speaker uses 'på' after 'lyssna' to indicate to what one is listening and 'på' after 'titta' to tell what one is watching.  The corrected sentence is 'Jag brukar lyssna på musik och titta på tv.'"
     },
     {
         "id": 10,
         "question": "Vad tycker du är det svåraste med att prata svenska?",
         "answer": "Det svåraste är uttalet och att hitta rätt ord snabbt.",
-        "feedback": "Correct.",
-        "comments": ""
+        "feedback": "Correct."
     },
     {
         "id": 11,
         "question": "Hur gammal är du?",
         "answer": "Jag har tjugo år.",
-        "feedback": "Incorrect verb.  In Swedish, age is expressed with 'är' (to be), not 'har' (to have).  The correct sentence is 'Jag är tjugo år.'",
-        "comments": ""
+        "feedback": "Incorrect verb.  In Swedish, age is expressed with 'är' (to be), not 'har' (to have).  The corrected sentence is 'Jag är tjugo år.'"
     },
     {
         "id": 12,
         "question": "Vad gör du på fritiden?",
         "answer": "På fritiden jag spelar fotboll och läsa böcker.",
-        "feedback": "Subject and verb are in wrong order.  After a prepositional phrase, the subject in the main clause comes after the verb.  Also, verb tense mismatch: 'läsa' should be 'läser'.  The correct sentence is: 'På fritiden spelar jag fotboll och läser böcker.'",
-        "comments": ""
+        "feedback": "Subject and verb are in wrong order.  After a prepositional phrase, the subject in the main clause comes after the verb.  Also, verb tense mismatch for 'läsa'.  The corrected sentence is: 'På fritiden spelar jag fotboll och läser böcker.'"
     },
     {
         "id": 13,
         "question": "Har du syskon?",
         "answer": "Ja, jag har en bror och två syster.",
-        "feedback": "Plural error. 'Syster' in plural is 'systrar'.  The correct sentence is: 'Ja, jag har en bror och två systrar.'",
-        "comments": ""
+        "feedback": "Plural error. 'Syster' in plural is 'systrar'.  The corrected sentence is: 'Ja, jag har en bror och två systrar.'"
+    },
+    {
+        "id": 14,
+        "question": "Vad gjorde du igår?",
+        "answer": "Igår jag gick till arbete och träffar min vän.",
+        "feedback": "Word order error.  If a sentence begins with 'igår', the subject and verb flip.  Also, verb tense mismatch for 'träffar' and missing definite form for 'arbete'.  The corrected sentence is: 'Igår gick jag till arbetet och träffade min vän.'"
+    },
+    {
+        "id": 15,
+        "question": "Vad ska du göra i morgon?",
+        "answer": "Jag ska att studera svenska i morgon.",
+        "feedback": "After 'ska', do not use 'att'.  The corrected sentence is: 'Jag ska studera svenska i morgon.'"
+    },
+    {
+        "id": 16,
+        "question": "Är du trött nu?",
+        "answer": "Ja, jag är mycket trötthet.",
+        "feedback": "Wrong word class.  Trötthet is a noun (fatigue), but 'är' requires an adjective.  Also, 'väldigt' is preferred over 'mycket' for adjectives.  The corrected sentence is: 'Ja, jag är väldigt trött.'"
+    },
+    {
+        "id": 17,
+        "question": "När börjar du jobba på morgonen.",
+        "answer": "Jag börjar jobba på åtta.",
+        "feedback": "Swedish normally uses 'klockan' when stating a specific time.  The corrected sentence is: 'Jag börjar jobba klockan åtta.'"
+    },
+    {
+        "id": 18,
+        "question": "Vad gjorde du förra helgen?",
+        "answer": "Jag besökte till min vän i Göteborg.",
+        "feedback": "Incorrect preposition.  The verb 'besöka' does not take the preposition 'till'.  The corrected sentence is: 'Jag besökte min vän i Göteborg.'"
+    },
+    {
+        "id": 19,
+        "question": "Hur lär du dig nya ord på svenska?",
+        "answer": "Jag skriver de i en bok och repeterar varje dag.",
+        "feedback": "The pronoun 'de' is a subject pronoun.  Here, you need the object form 'dem'.  The corrected sentence is: 'Jag skriver dem i en bok och repeterar varje dag.'"
+    },
+    {
+        "id": 20,
+        "question": "Hur länge har du bott där du bor nu?",
+        "answer": "Jag har bott här sedan tre år.",
+        "feedback": "Incorrect time expression.  'Sedan' refers to a beginning, not a duration, use 'i' instead.  The corrected sentence is: 'Jag har bott här i tre år.'"
+    },
+    {
+        "id": 21,
+        "question": "Hur ofta tränar du?",
+        "answer": "Jag tränar tre tider i veckan.",
+        "feedback": "Wrong word choice.  'Tider' is plural for 'time' as a concept.  Use 'gånger' for numer of times instead.  The corrected sentence is: 'Jag tränar tre gånger i veckan.'"
+    },
+    {
+        "id": 22,
+        "question": "Vad åt du till lunch idag?",
+        "answer": "Jag åt en soppa och bröd.",
+        "feedback": "Swedish usually omits the article when referring to food items.  The corrected sentence is: 'Jag åt soppa och bröd'."
+    },
+    {
+        "id": 23,
+        "question": "Vad åt du till lunch idag?",
+        "answer": "Jag åt en skål soppa och bröd.",
+        "feedback": "Correct."
+    },
+    {
+        "id": 24,
+        "question": "Vad vill du göra i framtiden?",
+        "answer": "Jag vill att resa mycket.",
+        "feedback": "Do not use 'att' after 'vill'.  The corrected sentence is: 'Jag vill resa mycket.'"
+    },
+    {
+        "id": 25,
+        "question": "Tycker du om att läsa böcker på svenska?",
+        "answer": "Ja, jag tycker om läsa böcker på svenska.",
+        "feedback": "Missing 'att' after 'tycker om'.  The corrected sentence is: 'Jag tycker om att läsa böcker på svenska.'"
+    },
+    {
+        "id": 26,
+        "question": "Gillar du att läsa böcker på svenska?",
+        "answer": "Ja, jag gillar läsa böcker på svenska.",
+        "feedback": "Missing 'att' after 'gillar'.  The corrected sentence is: 'Jag gillar att läsa böcker på svenska.'"
+    },
+    {
+        "id": 27,
+        "question": "Hur är din stad på vintern?",
+        "answer": "Min stad har väldigt is på vinter.",
+        "feedback": "'Mycket' is preferred over 'väldigt' for nouns.  Also, Swedish uses the definite article when speaking about a general phenomenon starting with 'på'.  The corrected sentence is: 'Min stad har mycket is på vintern.'"
+    },
+    {
+        "id": 28,
+        "question": "Varför är det bra att kunna flera språk?",
+        "answer": "Det är bra eftersom man kan förstå mer manniskor.",
+        "feedback": "Incorrect adjective form.  'Mer' is comparative, but 'fler' is better here because 'människor' is countable.  Also, 'manniskor' is spelled incorrectly and should be 'människor'.  The corrected sentence is: 'Det är bra eftersom man kan förstå fler människor.'"
+    },
+    {
+        "id": 29,
+        "question": "Tror du att spionen skulle vilja gömma sig i ditt kök igen?",
+        "answer": "Om jag är en spion, skulle jag gömma mig i mitt kök igen.",
+        "feedback": "Use 'var' instead of 'är'.  Swedish uses the past tense for prepositional phrases starting with 'om' when the sentence involves 'skulle'.  The corrected sentence is: 'Om jag var en spion, skulle jag gömma mig i mitt kök igen.'"
+    },
+    {
+        "id": 30,
+        "question": "Var bor du nu?",
+        "answer": "Jag bor i Öland.",
+        "feedback": "Use 'på' instead of 'i' for islands.  The corrected sentence is: 'Jag bor på Öland.'"
+    },
+    {
+        "id": 31,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 32,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 33,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 34,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 35,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 36,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 37,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 38,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 39,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 40,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 41,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 42,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 43,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 44,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 45,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 46,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 47,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 48,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 49,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 50,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 51,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 52,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 53,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 54,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 55,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 56,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 57,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 58,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 59,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 60,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 61,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 62,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 63,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 64,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 65,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 66,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 67,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 68,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 69,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 70,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 71,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 72,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 73,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 74,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 75,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 76,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 77,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 78,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 79,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 80,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 81,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 82,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 83,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 84,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 85,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 86,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 87,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 88,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 89,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 90,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 91,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 92,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 93,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 94,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 95,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 96,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 97,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 98,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 99,
+        "question": "",
+        "answer": "",
+        "feedback": ""
+    },
+    {
+        "id": 100,
+        "question": "",
+        "answer": "",
+        "feedback": ""
     }
 ]
