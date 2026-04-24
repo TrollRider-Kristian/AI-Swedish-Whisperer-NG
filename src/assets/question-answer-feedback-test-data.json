@@ -218,87 +218,87 @@
     },
     {
         "id": 32,
-        "question": "",
-        "response": "",
-        "feedback": "",
-        "corrected_response": ""
+        "question": "Vad gör du när det regnar mycket?",
+        "response": "När det regnar mycket jag stannar hemma.",
+        "feedback": "Word order error in second clause ('jag stannar')",
+        "corrected_response": "När det regnar mycket stannar jag hemma."
     },
     {
         "id": 33,
-        "question": "",
-        "response": "",
-        "feedback": "",
-        "corrected_response": ""
+        "question": "Vad gjorde du innan du gick och lade dig igår?",
+        "response": "Jag tittade på min mobil länge och sedan jag sov.",
+        "feedback": "Verb choice error.  Swedish uses 'somnade' rather than 'sov' when describing falling asleep.  Also, subject and verb switch after 'sedan'.",
+        "corrected_response": "Jag tittade på min mobil och sedan somnade jag."
     },
     {
         "id": 34,
-        "question": "",
-        "response": "",
-        "feedback": "",
-        "corrected_response": ""
+        "question": "Vad gör en bra lärare?",
+        "response": "En bra lärare hjälper studenter att förstår ämnet.",
+        "feedback": "After 'att', the verb must be in infinitive form ('förstå', not 'forstår').",
+        "corrected_response": "En bra lärare hjälper studenter att förstå ämnet."
     },
     {
         "id": 35,
-        "question": "",
-        "response": "",
-        "feedback": "",
-        "corrected_response": ""
+        "question": "Vad letar du efter?",
+        "response": "Jag letar för spionen vem gömmer sig i köket.",
+        "feedback": "Incorrect preposition.  Follow 'letar' with 'efter', not 'för'.  Incorrect relative pronoun.  Use 'som', not 'vem' to describe 'spionen'.",
+        "corrected_response": "Jag letar efter spionen som gömmer sig i köket."
     },
     {
         "id": 36,
-        "question": "",
-        "response": "",
-        "feedback": "",
-        "corrected_response": ""
+        "question": "Tittar du på svenska filmer ibland?",
+        "response": "Ja, jag tittar på ibland svenska filmer.",
+        "feedback": "Wrong adverb placement.  Place 'ibland' before the preposition, not after it.",
+        "corrected_response": "Ja, jag tittar ibland på svenska filmer."
     },
     {
         "id": 37,
-        "question": "",
-        "response": "",
-        "feedback": "",
-        "corrected_response": ""
+        "question": "Vem pratar du svenska med?",
+        "response": "Jag pratar svenska med mina vän.",
+        "feedback": "Possessive pronoun error.  Use 'min' for singular nouns and 'mina' for plural ones.",
+        "corrected_response": "Jag pratar svenska med min vän."
     },
     {
         "id": 38,
-        "question": "",
-        "response": "",
-        "feedback": "",
-        "corrected_response": ""
+        "question": "Vad gör du när du behöver koncentrera dig?",
+        "response": "Jag stänger min mobil så jag kan koncentrera.",
+        "feedback": "Missing reflexive pronoun for 'koncentrera'.",
+        "corrected_response": "Jag stänger min mobil så jag kan koncentrera mig."
     },
     {
         "id": 39,
-        "question": "",
-        "response": "",
-        "feedback": "",
-        "corrected_response": ""
+        "question": "Vad gör du när du behöver koncentrera dig?",
+        "response": "Jag stänger min mobilen så jag kan koncentrera sig.",
+        "feedback": "No definite form for noun following possessive pronoun.  Also incorrect reflexive pronoun for 'koncentrera' with a sentence subject of 'jag' ('mig' instead of 'sig').",
+        "corrected_response": "Jag stänger min mobil så jag kan koncentrera mig."
     },
     {
         "id": 40,
-        "question": "",
-        "response": "",
-        "feedback": "",
-        "corrected_response": ""
+        "question": "Vad skulle du vilja göra på festen?",
+        "response": "Om är du intresserad, kan vi dansa.",
+        "feedback": "Subject and verb do not switch in a leading prepositional phrase of a sentence.",
+        "corrected_response": "Om du är intresserad, kan vi dansa."
     },
     {
         "id": 41,
-        "question": "",
-        "response": "",
-        "feedback": "",
-        "corrected_response": ""
+        "question": "När kommer dina vänner?",
+        "response": "Mina vänner kommer i fem månader.",
+        "feedback": "To say when a future event is happening, use 'om', not 'i'.",
+        "corrected_response": "Mina vänner kommer om fem månader."
     },
     {
         "id": 42,
-        "question": "",
-        "response": "",
-        "feedback": "",
-        "corrected_response": ""
+        "question": "Hur många trollkarlar bodde i tornet och hur många finns det nu?",
+        "response": "Det har bott två trollkarlar i tornet men en dog nyligen.",
+        "feedback": "Use the preteritum ('bodde') instead of the present perfect ('har bott') to describe a situation that is no longer relevant now.",
+        "corrected_response": "Det bodde två trollkarlar i tornet men en dog nyligen."
     },
     {
         "id": 43,
-        "question": "",
-        "response": "",
-        "feedback": "",
-        "corrected_response": ""
+        "question": "Vad tycker du gör en person intressant?",
+        "response": "Jag tycker om en intressant person är någon som är nyfiket.",
+        "feedback": "Do not use 'om' after 'tycker' if expressing an opinion.  Also, adjective form error.  Use 'nyfiken' to describe an 'en' noun like 'person'.",
+        "corrected_response": "Jag tycker en intressant person är någon som är nyfiken."
     },
     {
         "id": 44,
