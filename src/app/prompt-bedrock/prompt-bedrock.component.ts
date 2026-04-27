@@ -55,7 +55,7 @@ export class PromptBedrockComponent implements OnInit {
         this.user_response = '';
       }
 
-      // KRISTIAN_TODO - Do I throw an error if the user gives an empty response?  Leaning towards no for now...
+      // KRISTIAN_TODO_NOW - Do I throw an error if the user gives an empty response?  Accept the empty response, but warn the user that it's empty.
       const { data, errors } = await client.queries.tutorSwedish({
         prompt: prompt_to_ask,
       });
@@ -71,6 +71,8 @@ export class PromptBedrockComponent implements OnInit {
     this.question_is_loading = false;
   }
 
+  // KRISTIAN_TODO_NOW - I think keyword generation was a bad idea.  I need to change it back.
+  // "Given the question of [question], please provide feedback in English to the spelling and grammatical mistakes of each word in the following user response: [response]."
   async solicit_feedback_for_given_question_and_response (question: string, response: string): Promise<void> {
     let prompt_with_response_awaiting_feedback = 'Given the question of: ' + question +
       ', please provide feedback in English to the spelling and grammatical mistakes of each word in the following ' +
@@ -104,12 +106,10 @@ export class PromptBedrockComponent implements OnInit {
     this.change_topic.emit();
   }
 
-  // KRISTIAN_TODO - What if the user gets a question and asks for feedback BEFORE typing in an answer?
+  // KRISTIAN_TODO_NOW - What if the user gets a question and asks for feedback BEFORE typing in an answer?
   open_feedback_comparison_dialog_box(): void {
     this.feedback_comparison_dialog_service.open_dialog (this._dialog, this.split_feedback_into_bullet_points as string[]);
   }
-
-  // KRISTIAN_TODO - Feedback and scoring history how to...?
 }
 
 

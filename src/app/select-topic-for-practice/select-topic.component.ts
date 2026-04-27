@@ -28,9 +28,7 @@ export class SelectTopicForPracticeComponent {
     change_topic = output<string | null>();
     is_custom_user_topic = output<boolean | null>();
     custom_user_question: string = "";
-    // KRISTIAN_TODO - Do I want this to be an array of strings?
-    // Or do I want some id's to go along with this?
-    // KRISTIAN_TODO - Do I want this to be public?  Or private with a getter?
+    // KRISTIAN_TODO_NOW - Make this private with a getter...
     conversation_topics: string[] = [
         "Hobbies",
         "Work",
@@ -50,8 +48,6 @@ export class SelectTopicForPracticeComponent {
         this.is_custom_user_topic.emit (is_custom_user_topic);
     }
 
-    // KRISTIAN_TODO - Make a note somewhere in the html that this is for users who ONLY
-    // want to compare some known piece of feedback to another piece of feedback without going through the tutor.
     open_feedback_comparison_dialog_box (): void {
         this.feedback_comparison_dialog_service.open_dialog (this._dialog, null);
     }

@@ -1,3 +1,10 @@
+<!--
+KRISTIAN_TODO_NOW - People struggled to understand that "I have a specific question" means they need to type a Swedish question.
+There should be ANOTHER option to submit a CUSTOM topic in English and submit it.
+Option 3 is "Type my EXACT question."
+The app should flow like an essay.  The top should say, "Choose one of the following:" etc...
+-->
+
 <mat-label>Select a Topic:</mat-label>
 <mat-form-field>
     <mat-select [formControl]="user_selected_topic">
@@ -14,5 +21,5 @@
 <button mat-button (click)="submit_new_topic (custom_user_question, true)">
     Submit Custom User Question
 </button>
-<!-- KRISTIAN_TODO - Move this to the right area, once I've tested it.-->
+<!-- KRISTIAN_TODO_NOW - Move this to the right area, once I've tested it.-->
 <button mat-button (click)="open_feedback_comparison_dialog_box()">I Already Have Feedback to Score!</button>
