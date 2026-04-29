@@ -25,11 +25,11 @@ import { FeedbackComparisonDialogService } from '../feedback-comparison-dialog/f
 })
 export class SelectTopicForPracticeComponent {
     user_selected_topic = new FormControl<string | null> (null, Validators.required);
+    custom_user_topic: string = "";
     change_topic = output<string | null>();
-    is_custom_user_topic = output<boolean | null>();
+    is_custom_user_question = output<boolean | null>();
     custom_user_question: string = "";
-    // KRISTIAN_TODO_NOW - Make this private with a getter...
-    conversation_topics: string[] = [
+    private _conversation_topics: string[] = [
         "Hobbies",
         "Work",
         "University",
@@ -39,13 +39,20 @@ export class SelectTopicForPracticeComponent {
         "Family",
         "Art",
     ];
+    public get conversation_topics() {
+        return this._conversation_topics;
+    }
     feedback_comparison_dialog_service = inject (FeedbackComparisonDialogService);
 
     constructor (private _dialog: MatDialog) {}
 
-    submit_new_topic(new_topic: string | null, is_custom_user_topic: boolean | null): void {
+    new_topic_is_empty (new_topic: string | null): boolean {
+        return new_topic == null || new_topic?.length == 0;
+    }
+
+    submit_new_topic(new_topic: string | null, is_custom_user_question: boolean | null): void {
         this.change_topic.emit (new_topic);
-        this.is_custom_user_topic.emit (is_custom_user_topic);
+        this.is_custom_user_question.emit (is_custom_user_question);
     }
 
     open_feedback_comparison_dialog_box (): void {

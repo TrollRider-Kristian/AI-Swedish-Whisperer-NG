@@ -1,25 +1,44 @@
-<!--
-KRISTIAN_TODO_NOW - People struggled to understand that "I have a specific question" means they need to type a Swedish question.
-There should be ANOTHER option to submit a CUSTOM topic in English and submit it.
-Option 3 is "Type my EXACT question."
-The app should flow like an essay.  The top should say, "Choose one of the following:" etc...
--->
+<h3>To Answer a Swedish Question, Please Submit Your Desired Topic via One of the Following Options:</h3>
 
-<mat-label>Select a Topic:</mat-label>
-<mat-form-field>
-    <mat-select [formControl]="user_selected_topic">
-        @for (topic of conversation_topics; track topic) {
-            <mat-option [value]="topic">{{topic}}</mat-option>
-        }
-    </mat-select>
-</mat-form-field>
-<button mat-button (click)="submit_new_topic (user_selected_topic.value, false)">
-    Submit New Topic
-</button>
-<mat-label>If You Have a Specific Question, type it here!</mat-label>
-<input name="question" [(ngModel)]="custom_user_question"/>
-<button mat-button (click)="submit_new_topic (custom_user_question, true)">
-    Submit Custom User Question
-</button>
-<!-- KRISTIAN_TODO_NOW - Move this to the right area, once I've tested it.-->
-<button mat-button (click)="open_feedback_comparison_dialog_box()">I Already Have Feedback to Score!</button>
+<h4>Choice #1: Select a Predefined Topic Here:</h4>
+<div>
+    <mat-form-field>
+        <mat-select [formControl]="user_selected_topic">
+            @for (topic of conversation_topics; track topic) {
+                <mat-option [value]="topic">{{topic}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+    <button mat-button
+            [disabled]="new_topic_is_empty (user_selected_topic.value)"
+            (click)="submit_new_topic (user_selected_topic.value, false)">
+        Submit Selected Topic
+    </button>
+</div>
+
+<h4>Choice #2: Type Your Desired Topic Here (in English):</h4>
+<div>
+    <input name="custom_user_topic" [(ngModel)]="custom_user_topic"/>
+    <button mat-button
+            [disabled]="new_topic_is_empty (custom_user_topic)"
+            (click)="submit_new_topic (custom_user_topic, false)">
+        Submit Custom User Topic
+    </button>
+</div>
+
+<h4>Choice #3: I Have a Specific Swedish Question I Want to Answer!  Type it Here:</h4>
+<div>
+    <input name="question" [(ngModel)]="custom_user_question"/>
+    <button mat-button
+            [disabled]="new_topic_is_empty (custom_user_question)"
+            (click)="submit_new_topic (custom_user_question, true)">
+        Submit Custom User Question
+    </button>
+</div>
+<h4>Skip the Question!  I Already Have Feedback I Want to Measure!</h4>
+<div>
+    <button mat-button
+            (click)="open_feedback_comparison_dialog_box()">
+        Open Feedback Comparison Dialog Box
+    </button>
+</div>

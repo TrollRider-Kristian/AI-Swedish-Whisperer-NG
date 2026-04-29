@@ -16,11 +16,10 @@ import { client } from '../prompt-bedrock/prompt-bedrock.component';
 @Injectable({ providedIn: 'root' })
 export class FeedbackComparisonDialogService {
   /**
--- REMAINING TODOs --
 
-1) What other options should I give the user with the score now that the dialog box is open?
-2) How to do and view this for multiple statements?
-3) When the feedback is copied manually, should it be editable?  Or do I give an "Undo and Give Manual Feedback" button?
+1) KRISTIAN_TODO_NOW - What other options should I give the user with the score now that the dialog box is open?
+2) KRISTIAN_TODO_NOW - How to do and view this for multiple statements?
+3) KRISTIAN_TODO_NOW - When the feedback is copied automatically, should it be editable?  Yes.
    */
 
   // KRISTIAN_TODO_NOW - How do I score mutliple feedback statements at once?
@@ -67,7 +66,8 @@ export class FeedbackComparisonDialogComponent {
     });
 
     if (!errors) {
-      console.log (data); // KRISTIAN_TODO - How to store the score in the dialog?
+      // KRISTIAN_TODO - How to store the score in the dialog?
+      console.log (data);
       this.feedback_score = data;
     } else {
       console.log (errors);

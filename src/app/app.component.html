@@ -4,7 +4,7 @@
     <select-topic-for-practice
         *ngIf="current_topic == null"
         (change_topic)="accept_new_topic($event)"
-        (is_custom_user_topic)="accept_custom_user_question_flag ($event)">
+        (is_custom_user_question)="accept_custom_user_question_flag ($event)">
     </select-topic-for-practice>
     <app-prompt-bedrock
         *ngIf="current_topic != null"
