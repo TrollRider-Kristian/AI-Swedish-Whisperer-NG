@@ -1,19 +1,30 @@
 <h2 mat-dialog-title>Submit Feedback For Comparison Here</h2>
 <mat-dialog-content>
-    <!--KRISTIAN_TODO_NOW - Need accordions for the content areas because the feedback is very large along with the score explanation and the feedback answer key.-->
-    <!--KRISTIAN_NOTE - Either the feedback given by a question and answer pair comes from the Mistal AI, or the user types it in themselves. -->
-    @if (ai_provided_feedback == null) {
-        <input name="previously-given-feedback" [(ngModel)]="user_provided_feedback_from_previous_conversation"/>
-    } @else {
-        <ng-container *ngFor="let point of ai_provided_feedback">
-            <li>{{ point }}</li>
-        </ng-container>
+    <mat-radio-group [(ngModel)]="feedback_submission_method">
+        <mat-radio-button value="a-single-feedback">Score One Feedback Statement</mat-radio-button>
+        <mat-radio-button value="json-file-of-feedbacks">I Have a JSON File Full of Feedbacks I Wish to Score</mat-radio-button>
+    </mat-radio-group>
+    @if (feedback_submission_method === "a-single-feedback") {
+        <!--KRISTIAN_TODO_NOW - Need accordions for the content areas because the feedback is very large along with the score explanation and the feedback answer key.-->
+        <!--KRISTIAN_NOTE - Either the feedback given by a question and answer pair comes from the Mistal AI, or the user types it in themselves. -->
+        @if (ai_provided_feedback == null) {
+            <br>
+            <input name="previously-given-feedback" [(ngModel)]="user_provided_feedback_from_previous_conversation"/>
+        } @else {
+            <ng-container *ngFor="let point of ai_provided_feedback">
+                <li>{{ point }}</li> <!--KRISTIAN_TODO - Make this editable...-->
+            </ng-container>
+        }
+        <br>
+        <!--KRISTIAN_TODO_NOW - This is fine for comparing pairs of feedback statements one-by-one, but
+            I need a mechanism for comparing and scoring dozens and dozens of feedback statements at once.  RADIO BUTTONS!-->
+        <!--KRISTIAN_TODO_NOW - This needs to be a giant text field.-->
+        <input name="feedback-to-compare" [(ngModel)]="feedback_answer_key"/>
     }
-    <br>
-    <!--KRISTIAN_TODO_NOW - This is fine for comparing pairs of feedback statements one-by-one, but
-        I need a mechanism for comparing and scoring dozens and dozens of feedback statements at once.-->
-    <!--KRISTIAN_TODO_NOW - This needs to be a giant text field.-->
-    <input name="feedback-to-compare" [(ngModel)]="feedback_answer_key"/>
+
+    @if (feedback_submission_method === "json-file-of-feedback") {
+        <!--KRISTIAN_TODO - Upload json file UI goes here...-->
+    }
     <br>
     <!--KRISTIAN_TODO_NOW - Need a progress wheel spinning here when the score is loading...-->
     <p>Feedback Score: {{feedback_score}}</p>

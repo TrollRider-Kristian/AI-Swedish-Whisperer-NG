@@ -11,6 +11,7 @@ import {
     MatDialogActions,
     // MatDialogClose,
 } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
 import { client } from '../prompt-bedrock/prompt-bedrock.component';
 
 @Injectable({ providedIn: 'root' })
@@ -40,6 +41,7 @@ export class FeedbackComparisonDialogService {
     CommonModule,
     FormsModule,
     MatButtonModule,
+    MatRadioModule,
     MatDialogTitle,
     MatDialogContent,
     MatDialogContent,
@@ -48,6 +50,7 @@ export class FeedbackComparisonDialogService {
   ],
 })
 export class FeedbackComparisonDialogComponent {
+  feedback_submission_method = "a-single-feedback";
   user_provided_feedback_from_previous_conversation: string = '';
   feedback_answer_key: string = '';
   feedback_score: string | null = ''; // KRISTIAN_TODO - How to store the score in the dialog?
