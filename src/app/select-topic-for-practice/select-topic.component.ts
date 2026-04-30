@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { FeedbackComparisonDialogService } from '../feedback-comparison-dialog/feedback-comparison-dialog-service.service';
 
@@ -19,11 +20,13 @@ import { FeedbackComparisonDialogService } from '../feedback-comparison-dialog/f
         MatButtonModule,
         MatFormFieldModule,
         MatInputModule,
+        MatRadioModule,
         MatSelectModule,
         ReactiveFormsModule,
     ],
 })
 export class SelectTopicForPracticeComponent {
+    topic_selection_method = "choose-predefined-option";
     user_selected_topic = new FormControl<string | null> (null, Validators.required);
     custom_user_topic: string = "";
     change_topic = output<string | null>();

@@ -1,41 +1,51 @@
 <h3>To Answer a Swedish Question, Please Submit Your Desired Topic via One of the Following Options:</h3>
 
-<h4>Choice #1: Select a Predefined Topic Here:</h4>
-<div>
-    <mat-form-field>
-        <mat-select [formControl]="user_selected_topic">
-            @for (topic of conversation_topics; track topic) {
-                <mat-option [value]="topic">{{topic}}</mat-option>
-            }
-        </mat-select>
-    </mat-form-field>
-    <button mat-button
-            [disabled]="new_topic_is_empty (user_selected_topic.value)"
-            (click)="submit_new_topic (user_selected_topic.value, false)">
-        Submit Selected Topic
-    </button>
-</div>
+<mat-radio-group [(ngModel)]="topic_selection_method">
+    <mat-radio-button value="choose-predefined-option">Choice #1: Select a Predefined Topic</mat-radio-button>
+    <mat-radio-button value="type-custom-topic">Choice #2: Type Your Desired Topic (in English)</mat-radio-button>
+    <mat-radio-button value="type-specific-question">Choice #3: I Have a Specific Swedish Question!</mat-radio-button>
+</mat-radio-group>
 
-<h4>Choice #2: Type Your Desired Topic Here (in English):</h4>
-<div>
-    <input name="custom_user_topic" [(ngModel)]="custom_user_topic"/>
-    <button mat-button
-            [disabled]="new_topic_is_empty (custom_user_topic)"
-            (click)="submit_new_topic (custom_user_topic, false)">
-        Submit Custom User Topic
-    </button>
-</div>
+@if (topic_selection_method === "choose-predefined-option") {
+    <div>
+        <mat-form-field>
+            <mat-select [formControl]="user_selected_topic">
+                @for (topic of conversation_topics; track topic) {
+                    <mat-option [value]="topic">{{topic}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <button mat-button
+                [disabled]="new_topic_is_empty (user_selected_topic.value)"
+                (click)="submit_new_topic (user_selected_topic.value, false)">
+            Submit Selected Topic
+        </button>
+    </div>
+}
 
-<h4>Choice #3: I Have a Specific Swedish Question I Want to Answer!  Type it Here:</h4>
-<div>
-    <input name="question" [(ngModel)]="custom_user_question"/>
-    <button mat-button
-            [disabled]="new_topic_is_empty (custom_user_question)"
-            (click)="submit_new_topic (custom_user_question, true)">
-        Submit Custom User Question
-    </button>
-</div>
-<h4>Skip the Question!  I Already Have Feedback I Want to Measure!</h4>
+@if (topic_selection_method === "type-custom-topic") {
+    <div>
+        <input name="custom_user_topic" [(ngModel)]="custom_user_topic"/>
+        <button mat-button
+                [disabled]="new_topic_is_empty (custom_user_topic)"
+                (click)="submit_new_topic (custom_user_topic, false)">
+            Submit Custom User Topic
+        </button>
+    </div>
+}
+
+@if (topic_selection_method === "type-specific-question") {
+    <div>
+        <input name="question" [(ngModel)]="custom_user_question"/>
+        <button mat-button
+                [disabled]="new_topic_is_empty (custom_user_question)"
+                (click)="submit_new_topic (custom_user_question, true)">
+            Submit Custom User Question
+        </button>
+    </div>
+}
+
+<h3>Skip the Question!  I Already Have Feedback I Want to Measure!</h3>
 <div>
     <button mat-button
             (click)="open_feedback_comparison_dialog_box()">
