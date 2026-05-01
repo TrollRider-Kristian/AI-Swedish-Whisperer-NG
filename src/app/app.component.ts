@@ -3,9 +3,13 @@ import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 import outputs from '../../amplify_outputs.json';
 import { PromptBedrockComponent } from './prompt-bedrock/prompt-bedrock.component';
+import { ScoreFeedbackComponent } from './score-feedback/score-feedback.component';
 import { SelectTopicForPracticeComponent } from "./select-topic-for-practice/select-topic.component";
+import { generateClient } from 'aws-amplify/data';
+import type { Schema } from '../../amplify/data/resource';
 
 Amplify.configure(outputs);
+export const client = generateClient<Schema>();
 
 export enum WHICH_PAGE {
   TOPIC_SELECTION_PAGE,
@@ -17,11 +21,12 @@ export enum WHICH_PAGE {
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-  imports: [CommonModule, PromptBedrockComponent, SelectTopicForPracticeComponent],
+  imports: [CommonModule, PromptBedrockComponent, ScoreFeedbackComponent, SelectTopicForPracticeComponent],
 })
 export class AppComponent {
   title = 'AI Swedish Whisperer';
   subtitle = 'A Tutor Assistant for Learners of the Swedish Language';
+
   // KRISTIAN_NOTE - Need to declare the WHICH_PAGE enum type INSIDE the app component in order to access it in if-statements in the html.
   // Inspired by this: https://stackoverflow.com/questions/44045311/cannot-approach-typescript-enum-within-html
   Which_Page_Type = WHICH_PAGE;
@@ -29,6 +34,7 @@ export class AppComponent {
   public get current_app_page(): WHICH_PAGE {
     return this._current_app_page;
   }
+
   private _current_topic: string | null = null;
   private _is_custom_user_question: boolean | null = null;
   public get current_topic() {
@@ -37,6 +43,12 @@ export class AppComponent {
   public get is_custom_user_question() {
     return this._is_custom_user_question;
   }
+
+  private _current_feedback: string = '';
+  public get current_feedback(): string {
+    return this._current_feedback;
+  }
+
   request_new_topic(): void {
     this._current_topic = null;
     this._is_custom_user_question = null;
@@ -48,6 +60,11 @@ export class AppComponent {
   }
   accept_custom_user_question_flag (is_custom_user_question: boolean | null): void {
     this._is_custom_user_question = is_custom_user_question;
+  }
+  direct_user_to_feedback_scoring (feedback_to_copy_over: string | null): void {
+    console.log (feedback_to_copy_over);
+    this._current_feedback = feedback_to_copy_over == null ? '' : feedback_to_copy_over;
+    this._current_app_page = WHICH_PAGE.FEEDBACK_SCORING_PAGE;
   }
 }
 

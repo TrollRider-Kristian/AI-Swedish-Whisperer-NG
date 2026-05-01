@@ -21,12 +21,10 @@
     <ng-container *ngFor="let point of split_feedback_into_bullet_points">
         <li>{{ point }}</li>
     </ng-container>
-    <button mat-button (click)="open_feedback_comparison_dialog_box()">Score My Feedback!</button>
-    <!--KRISTIAN_TODO_NOW - Need a way to compare multiple feedback statements, score, and VIEW them all at once! -->
+    <button mat-button (click)="direct_user_to_feedback_scoring_page()">Score My Feedback!</button>
     <button mat-button (click)="pose_question_based_on_topic()">Request Follow-Up Question</button>
     <button mat-button (click)="request_another_topic ()">Go Back and Change Topic</button>
     <!--KRISTIAN_TODO_NOW - Need slightly better button spacing.-->
 </div>
-
-<div>Display json data to make sure it loads correctly</div>
-<div></div>
+<br>
+<button mat-button (click)="open_feedback_comparison_dialog_box()">What's Actually Left of this Dialog Box Now?</button>

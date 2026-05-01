@@ -12,7 +12,6 @@ import {
     // MatDialogClose,
 } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
-import { client } from '../prompt-bedrock/prompt-bedrock.component';
 
 @Injectable({ providedIn: 'root' })
 export class FeedbackComparisonDialogService {
@@ -50,32 +49,11 @@ export class FeedbackComparisonDialogService {
   ],
 })
 export class FeedbackComparisonDialogComponent {
-  feedback_submission_method = "a-single-feedback";
-  user_provided_feedback_from_previous_conversation: string = '';
-  feedback_answer_key: string = '';
-  feedback_score: string | null = ''; // KRISTIAN_TODO - How to store the score in the dialog?
+
   constructor (
     public dialog_ref: MatDialogRef<FeedbackComparisonDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public ai_provided_feedback: string[] | null,
   ) {}
-
-  async score_feedback(): Promise<void> {
-    let prompt_with_feedback_pair_awaiting_score = "Given the AI-provided feedback of " + this.ai_provided_feedback +
-      " and the feedback answer key of " + this.feedback_answer_key + ", please provide a score of 1 to 10 on how" +
-      "semantically similar this pair of feedback statements are.";
-
-    const {data, errors} = await client.queries.tutorSwedish({
-      prompt: prompt_with_feedback_pair_awaiting_score,
-    });
-
-    if (!errors) {
-      // KRISTIAN_TODO - How to store the score in the dialog?
-      console.log (data);
-      this.feedback_score = data;
-    } else {
-      console.log (errors);
-    }
-  }
 
   cancel_feedback (): void {
     this.dialog_ref.close();

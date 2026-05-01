@@ -5,11 +5,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { generateClient } from 'aws-amplify/data';
-import type { Schema } from '../../../amplify/data/resource';
 import { FeedbackComparisonDialogService } from '../feedback-comparison-dialog/feedback-comparison-dialog-service.service';
+import { client } from '../app.component';
 
-export const client = generateClient<Schema>();
 
 @Component({
   selector: 'app-prompt-bedrock',
@@ -22,6 +20,7 @@ export class PromptBedrockComponent implements OnInit {
   @Input({ required: true }) topic!: string | null;
   @Input({ required: false }) is_custom_user_question!: boolean | null;
   change_topic = output<void>();
+  feedback_scoring_event = output<string | null>();
   current_question: string = '';
   user_response: string = '';
   feedback: string | null = null;
@@ -71,12 +70,10 @@ export class PromptBedrockComponent implements OnInit {
     this.question_is_loading = false;
   }
 
-  // KRISTIAN_TODO_NOW - I think keyword generation was a bad idea.  I need to change it back.
-  // "Given the question of [question], please provide feedback in English to the spelling and grammatical mistakes of each word in the following user response: [response]."
   async solicit_feedback_for_given_question_and_response (question: string, response: string): Promise<void> {
     let prompt_with_response_awaiting_feedback = 'Given the question of: ' + question +
       ', please provide feedback in English to the spelling and grammatical mistakes of each word in the following ' +
-      ' user response: ' + response + ', and generate a list of keywords for the linguistic concepts discussed by the feedback.';
+      ' user response: ' + response;
       
     this.feedback_is_loading = true;
 
@@ -107,6 +104,10 @@ export class PromptBedrockComponent implements OnInit {
   }
 
   // KRISTIAN_TODO_NOW - What if the user gets a question and asks for feedback BEFORE typing in an answer?
+  direct_user_to_feedback_scoring_page(): void {
+    this.feedback_scoring_event.emit(this.feedback);
+  }
+
   open_feedback_comparison_dialog_box(): void {
     this.feedback_comparison_dialog_service.open_dialog (this._dialog, this.split_feedback_into_bullet_points as string[]);
   }

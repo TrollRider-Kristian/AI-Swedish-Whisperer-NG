@@ -1,0 +1,23 @@
+<mat-radio-group [(ngModel)]="current_method">
+    <mat-radio-button [value]="Feedback_Scoring_Method.A_SINGLE_FEEDBACK">Score One Feedback Statement</mat-radio-button>
+    <mat-radio-button [value]="Feedback_Scoring_Method.JSON_FILE_OF_FEEDBACK">I Have a JSON File Full of Feedbacks I Wish to Score</mat-radio-button>
+</mat-radio-group>
+@if (current_method === Feedback_Scoring_Method.A_SINGLE_FEEDBACK) {
+    <!--KRISTIAN_TODO_NOW - Need MUCH better spacing for the feedback.-->
+    <!--KRISTIAN_TODO_NOW - Make this text box HUUUGE.-->
+    <input name="previously-given-feedback" [(ngModel)]="user_provided_feedback"/>
+    <!--KRISTIAN_TODO_NOW - This needs to be a giant text field too.-->
+    <input name="feedback-to-compare" [(ngModel)]="feedback_answer_key"/>
+    <button mat-button (click)="score_feedback()" [disabled]="feedback_and_answer_key_are_empty()">Score My Feedback!</button>
+    @if (feedback_score_is_loading === true) {
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    }
+    <br>
+    <!--KRISTIAN_TODO_NOW - Clean up this score.  Explanations need to be hidden behind a "View Details" button or expansion panel.-->
+    <p>Feedback Score: {{feedback_score}}</p>
+}
+@if (current_method === Feedback_Scoring_Method.JSON_FILE_OF_FEEDBACK) {
+    <!--KRISTIAN_TODO_NOW - Implement a mechanism for comparing and scoring dozens and dozens of feedback statements at once.-->
+    <p>placeholder</p>
+}
+<button mat-button (click)="redirect_user_to_topic_page()">Go Back And Choose Topic</button>

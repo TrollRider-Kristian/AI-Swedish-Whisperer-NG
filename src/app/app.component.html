@@ -4,17 +4,23 @@
     @if (this.current_app_page === Which_Page_Type.TOPIC_SELECTION_PAGE) {
         <select-topic-for-practice
             (change_topic)="accept_new_topic($event)"
-            (is_custom_user_question)="accept_custom_user_question_flag ($event)">
+            (is_custom_user_question)="accept_custom_user_question_flag ($event)"
+            (go_to_feedback_scoring_page)="direct_user_to_feedback_scoring($event)">
         </select-topic-for-practice>
     }
     @if (this.current_app_page === Which_Page_Type.ANSWER_AND_FEEDBACK_PAGE) {
         <app-prompt-bedrock
             [topic]="current_topic"
             [is_custom_user_question]="is_custom_user_question"
-            (change_topic)="request_new_topic()">
+            (change_topic)="request_new_topic()"
+            (feedback_scoring_event)="direct_user_to_feedback_scoring($event)">
         </app-prompt-bedrock>
     }
     @if (this.current_app_page === Which_Page_Type.FEEDBACK_SCORING_PAGE) {
-        <!--KRISTIAN_TODO - Make another component here...-->
+        <!--KRISTIAN_TODO - Feedback should come from the output flag if it exists.-->
+        <score-feedback-component
+            [user_provided_feedback]="current_feedback"
+            (back_to_topic_page)="request_new_topic()">
+        </score-feedback-component>
     }
 </main>

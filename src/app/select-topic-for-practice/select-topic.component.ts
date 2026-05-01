@@ -1,13 +1,11 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { FeedbackComparisonDialogService } from '../feedback-comparison-dialog/feedback-comparison-dialog-service.service';
 
 export enum TOPIC_SELECTION_METHOD {
     CHOOSE_PREDEFINED_OPTION,
@@ -38,6 +36,7 @@ export class SelectTopicForPracticeComponent {
     custom_user_topic: string = "";
     change_topic = output<string | null>();
     is_custom_user_question = output<boolean | null>();
+    go_to_feedback_scoring_page = output<null>();
     custom_user_question: string = "";
     private _conversation_topics: string[] = [
         "Hobbies",
@@ -52,9 +51,6 @@ export class SelectTopicForPracticeComponent {
     public get conversation_topics() {
         return this._conversation_topics;
     }
-    feedback_comparison_dialog_service = inject (FeedbackComparisonDialogService);
-
-    constructor (private _dialog: MatDialog) {}
 
     new_topic_is_empty (new_topic: string | null): boolean {
         return new_topic == null || new_topic?.length == 0;
@@ -65,8 +61,7 @@ export class SelectTopicForPracticeComponent {
         this.is_custom_user_question.emit (is_custom_user_question);
     }
 
-    // KRISTIAN_TODO - Instead of opening a dialog, needs to send a flag to app component to switch to the feedback scoring page.
-    open_feedback_comparison_dialog_box (): void {
-        this.feedback_comparison_dialog_service.open_dialog (this._dialog, null);
+    direct_user_to_feedback_scoring_page () {
+        this.go_to_feedback_scoring_page.emit(null);
     }
 }
