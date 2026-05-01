@@ -7,6 +7,12 @@ import { SelectTopicForPracticeComponent } from "./select-topic-for-practice/sel
 
 Amplify.configure(outputs);
 
+export enum WHICH_PAGE {
+  TOPIC_SELECTION_PAGE,
+  ANSWER_AND_FEEDBACK_PAGE,
+  FEEDBACK_SCORING_PAGE,
+};
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,6 +22,13 @@ Amplify.configure(outputs);
 export class AppComponent {
   title = 'AI Swedish Whisperer';
   subtitle = 'A Tutor Assistant for Learners of the Swedish Language';
+  // KRISTIAN_NOTE - Need to declare the WHICH_PAGE enum type INSIDE the app component in order to access it in if-statements in the html.
+  // Inspired by this: https://stackoverflow.com/questions/44045311/cannot-approach-typescript-enum-within-html
+  Which_Page_Type = WHICH_PAGE;
+  private _current_app_page = WHICH_PAGE.TOPIC_SELECTION_PAGE;
+  public get current_app_page(): WHICH_PAGE {
+    return this._current_app_page;
+  }
   private _current_topic: string | null = null;
   private _is_custom_user_question: boolean | null = null;
   public get current_topic() {
@@ -27,9 +40,11 @@ export class AppComponent {
   request_new_topic(): void {
     this._current_topic = null;
     this._is_custom_user_question = null;
+    this._current_app_page = WHICH_PAGE.TOPIC_SELECTION_PAGE;
   }
   accept_new_topic(new_topic: string | null): void {
     this._current_topic = new_topic;
+    this._current_app_page = WHICH_PAGE.ANSWER_AND_FEEDBACK_PAGE;
   }
   accept_custom_user_question_flag (is_custom_user_question: boolean | null): void {
     this._is_custom_user_question = is_custom_user_question;

@@ -1,12 +1,12 @@
 <h3>To Answer a Swedish Question, Please Submit Your Desired Topic via One of the Following Options:</h3>
 
-<mat-radio-group [(ngModel)]="topic_selection_method">
-    <mat-radio-button value="choose-predefined-option">Choice #1: Select a Predefined Topic</mat-radio-button>
-    <mat-radio-button value="type-custom-topic">Choice #2: Type Your Desired Topic (in English)</mat-radio-button>
-    <mat-radio-button value="type-specific-question">Choice #3: I Have a Specific Swedish Question!</mat-radio-button>
+<mat-radio-group [(ngModel)]="current_method">
+    <mat-radio-button [value]="Topic_Selection_Method.CHOOSE_PREDEFINED_OPTION">Choice #1: Select a Predefined Topic</mat-radio-button>
+    <mat-radio-button [value]="Topic_Selection_Method.TYPE_CUSTOM_TOPIC">Choice #2: Type Your Desired Topic (in English)</mat-radio-button>
+    <mat-radio-button [value]="Topic_Selection_Method.TYPE_SPECIFIC_QUESTION">Choice #3: I Have a Specific Swedish Question!</mat-radio-button>
 </mat-radio-group>
 
-@if (topic_selection_method === "choose-predefined-option") {
+@if (current_method === Topic_Selection_Method.CHOOSE_PREDEFINED_OPTION) {
     <div>
         <mat-form-field>
             <mat-select [formControl]="user_selected_topic">
@@ -23,7 +23,7 @@
     </div>
 }
 
-@if (topic_selection_method === "type-custom-topic") {
+@if (current_method === Topic_Selection_Method.TYPE_CUSTOM_TOPIC) {
     <div>
         <input name="custom_user_topic" [(ngModel)]="custom_user_topic"/>
         <button mat-button
@@ -34,7 +34,7 @@
     </div>
 }
 
-@if (topic_selection_method === "type-specific-question") {
+@if (current_method === Topic_Selection_Method.TYPE_SPECIFIC_QUESTION) {
     <div>
         <input name="question" [(ngModel)]="custom_user_question"/>
         <button mat-button

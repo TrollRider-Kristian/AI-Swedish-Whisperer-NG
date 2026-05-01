@@ -9,6 +9,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { FeedbackComparisonDialogService } from '../feedback-comparison-dialog/feedback-comparison-dialog-service.service';
 
+export enum TOPIC_SELECTION_METHOD {
+    CHOOSE_PREDEFINED_OPTION,
+    TYPE_CUSTOM_TOPIC,
+    TYPE_SPECIFIC_QUESTION,
+};
+
 @Component({
     selector: 'select-topic-for-practice',
     templateUrl: 'select-topic.component.html',
@@ -26,7 +32,8 @@ import { FeedbackComparisonDialogService } from '../feedback-comparison-dialog/f
     ],
 })
 export class SelectTopicForPracticeComponent {
-    topic_selection_method = "choose-predefined-option";
+    Topic_Selection_Method = TOPIC_SELECTION_METHOD;
+    current_method = TOPIC_SELECTION_METHOD.CHOOSE_PREDEFINED_OPTION;
     user_selected_topic = new FormControl<string | null> (null, Validators.required);
     custom_user_topic: string = "";
     change_topic = output<string | null>();
@@ -58,6 +65,7 @@ export class SelectTopicForPracticeComponent {
         this.is_custom_user_question.emit (is_custom_user_question);
     }
 
+    // KRISTIAN_TODO - Instead of opening a dialog, needs to send a flag to app component to switch to the feedback scoring page.
     open_feedback_comparison_dialog_box (): void {
         this.feedback_comparison_dialog_service.open_dialog (this._dialog, null);
     }

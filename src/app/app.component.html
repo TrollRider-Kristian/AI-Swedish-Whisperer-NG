@@ -1,15 +1,20 @@
 <main>
     <h1>{{title}}</h1>
     <h2>{{subtitle}}</h2>
-    <select-topic-for-practice
-        *ngIf="current_topic == null"
-        (change_topic)="accept_new_topic($event)"
-        (is_custom_user_question)="accept_custom_user_question_flag ($event)">
-    </select-topic-for-practice>
-    <app-prompt-bedrock
-        *ngIf="current_topic != null"
-        [topic]="current_topic"
-        [is_custom_user_question]="is_custom_user_question"
-        (change_topic)="request_new_topic()">
-    </app-prompt-bedrock>
+    @if (this.current_app_page === Which_Page_Type.TOPIC_SELECTION_PAGE) {
+        <select-topic-for-practice
+            (change_topic)="accept_new_topic($event)"
+            (is_custom_user_question)="accept_custom_user_question_flag ($event)">
+        </select-topic-for-practice>
+    }
+    @if (this.current_app_page === Which_Page_Type.ANSWER_AND_FEEDBACK_PAGE) {
+        <app-prompt-bedrock
+            [topic]="current_topic"
+            [is_custom_user_question]="is_custom_user_question"
+            (change_topic)="request_new_topic()">
+        </app-prompt-bedrock>
+    }
+    @if (this.current_app_page === Which_Page_Type.FEEDBACK_SCORING_PAGE) {
+        <!--KRISTIAN_TODO - Make another component here...-->
+    }
 </main>
