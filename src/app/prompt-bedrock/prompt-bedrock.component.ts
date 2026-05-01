@@ -1,18 +1,16 @@
 import { Component, inject, Input, OnInit, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FeedbackComparisonDialogService } from '../feedback-comparison-dialog/feedback-comparison-dialog-service.service';
 import { client } from '../app.component';
 
-
 @Component({
   selector: 'app-prompt-bedrock',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule, MatButtonModule, MatProgressSpinnerModule],
+  imports: [CommonModule, FormsModule, MatButtonModule, MatProgressSpinnerModule],
   templateUrl: './prompt-bedrock.component.html',
   styleUrl: './prompt-bedrock.component.scss',
 })
@@ -28,7 +26,7 @@ export class PromptBedrockComponent implements OnInit {
   question_is_loading: boolean = false;
   feedback_comparison_dialog_service = inject (FeedbackComparisonDialogService);
 
-  constructor (private _http: HttpClient, private _dialog: MatDialog) {}
+  constructor (private _dialog: MatDialog) {}
 
   // KRISTIAN_NOTE - Websocket connection to the URL on my amplify_outputs.json file failed because that URL does not exist anymore.
   // The amplify_outupts.json takes its url from the deployed Amplify app and is produced when I deploy said app.
@@ -36,9 +34,6 @@ export class PromptBedrockComponent implements OnInit {
   // That also means every other operation involving a connection to AWS (eg. prompting an AWS Bedrock LLM) will also fail unless I deploy the app.
   ngOnInit(): void {
     this.pose_question_based_on_topic(); // send prompt for initial question
-    this._http.get ('../../assets/question-answer-feedback-test-data.json').subscribe (data => {
-      console.log(data); // KRISTIAN_NOTE - Ah, so THIS one works...
-    });
   }
 
   // Take the topic and request a question from the LLM as a prompt.

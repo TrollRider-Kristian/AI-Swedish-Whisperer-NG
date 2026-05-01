@@ -18,6 +18,6 @@
 }
 @if (current_method === Feedback_Scoring_Method.JSON_FILE_OF_FEEDBACK) {
     <!--KRISTIAN_TODO_NOW - Implement a mechanism for comparing and scoring dozens and dozens of feedback statements at once.-->
-    <p>placeholder</p>
+    <input type="file" (change)="on_json_file_uploaded($event)">
 }
 <button mat-button (click)="redirect_user_to_topic_page()">Go Back And Choose Topic</button>
