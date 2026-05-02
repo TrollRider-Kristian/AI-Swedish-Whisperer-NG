@@ -18,7 +18,7 @@
     <!-- <p>{{ feedback }}</p> -->
     <ng-container *ngFor="let point of split_feedback_into_bullet_points">
         <li>{{ point }}</li>
-    </ng-container>
+    </ng-container> <!--KRISTIAN_TODO_NOW - View Feedback in a dialog box.-->
     <button mat-button (click)="direct_user_to_feedback_scoring_page()">Score My Feedback!</button>
     <button mat-button (click)="pose_question_based_on_topic()">Request Follow-Up Question</button>
     <button mat-button (click)="request_another_topic ()">Go Back and Change Topic</button>
