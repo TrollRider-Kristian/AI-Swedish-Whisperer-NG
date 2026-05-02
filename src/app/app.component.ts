@@ -62,7 +62,6 @@ export class AppComponent {
     this._is_custom_user_question = is_custom_user_question;
   }
   direct_user_to_feedback_scoring (feedback_to_copy_over: string | null): void {
-    console.log (feedback_to_copy_over);
     this._current_feedback = feedback_to_copy_over == null ? '' : feedback_to_copy_over;
     this._current_app_page = WHICH_PAGE.FEEDBACK_SCORING_PAGE;
   }

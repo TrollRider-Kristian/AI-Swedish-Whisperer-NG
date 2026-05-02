@@ -1,6 +1,4 @@
-<!-- prompt-bedrock.component.html -->
 <h2>Question from Bedrock Here:</h2>
-<!--KRISTIAN_TODO_NOW - Question and Answer Section should be an accordion.-->
 <div>
     <!--KRISTIAN_TODO_NOW - The question uses many, many, MANY words that I do NOT recognize.  Either:-->
     <!--1. Submit, as part of my prompt a means by which to request simpler questions from Bedrock and/or-->
@@ -11,7 +9,7 @@
     <button mat-button (click)="solicit_feedback_for_response()">Submit Answer and Solicit Feedback</button>
     <!--KRISTIAN-TODO_NOW - What if I accidentally "go back" and want the old question again?-->
 </div>
-<!--KRISTIAN_TODO_NOW - Feedback and scoring section should be an accordion.-->
+<!--KRISTIAN_TODO_NOW - Feedback should be in a dialog.-->
 <div>
     <!--KRISTIAN_TODO_NOW - Need to DISABLE buttons while feedback is LOADING!-->
     <!--KRISTIAN_TODO_NOW - Need to DISABLE the "open feedback comparison dialog box" button when feedback does not exist.-->
@@ -24,7 +22,7 @@
     <button mat-button (click)="direct_user_to_feedback_scoring_page()">Score My Feedback!</button>
     <button mat-button (click)="pose_question_based_on_topic()">Request Follow-Up Question</button>
     <button mat-button (click)="request_another_topic ()">Go Back and Change Topic</button>
-    <!--KRISTIAN_TODO_NOW - Need slightly better button spacing.-->
+    <!--KRISTIAN_TODO_NOW - Need better button spacing.-->
 </div>
 <br>
 <button mat-button (click)="open_feedback_comparison_dialog_box()">What's Actually Left of this Dialog Box Now?</button>

@@ -5,10 +5,14 @@
 @if (current_method === Feedback_Scoring_Method.A_SINGLE_FEEDBACK) {
     <!--KRISTIAN_TODO_NOW - Need MUCH better spacing for the feedback.-->
     <!--KRISTIAN_TODO_NOW - Make this text box HUUUGE.-->
-    <input name="previously-given-feedback" [(ngModel)]="user_provided_feedback"/>
+    <input name="previously-given-feedback" [(ngModel)]="ai_generated_feedback"/>
     <!--KRISTIAN_TODO_NOW - This needs to be a giant text field too.-->
     <input name="feedback-to-compare" [(ngModel)]="feedback_answer_key"/>
-    <button mat-button (click)="score_feedback()" [disabled]="feedback_and_answer_key_are_empty()">Score My Feedback!</button>
+    <button mat-button
+            (click)="score_feedback(this.ai_generated_feedback, this.feedback_answer_key)"
+            [disabled]="feedback_and_answer_key_are_empty()">
+        Score My Feedback!
+    </button>
     @if (feedback_score_is_loading === true) {
         <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
     }
@@ -18,6 +22,17 @@
 }
 @if (current_method === Feedback_Scoring_Method.JSON_FILE_OF_FEEDBACK) {
     <!--KRISTIAN_TODO_NOW - Implement a mechanism for comparing and scoring dozens and dozens of feedback statements at once.-->
-    <input type="file" (change)="on_json_file_uploaded($event)">
+    <!-- KRISTIAN_NOTE - Make the above input look better using some "make another button click this input and hide the input" trick I found here: -->
+    <!-- https://medium.com/nerd-for-tech/save-and-upload-file-in-angular-7d4a212c2c58 -->
+    <input #fileUpload class="file-upload-input-to-hide" type="file" (change)="on_json_file_uploaded($event)">
+    <button mat-button (click)="fileUpload.click()">Upload JSON File</button>
+    <!--KRISTIAN_TODO_NOW - Give a button to "View Results" for the json file to acknowledge that it has been uploaded successfully.  It should open a dialog box...-->
+    <!-- KRISTIAN_TODO_NOW - This button should be disabled until the file is uploaded.  So should the "Generate Feedback" button below. -->
+    <button mat-button (click)="give_feedback_for_json_file()">Generate Feedback for Entire File</button>
+    <!-- KRISTIAN_TODO_NOW - Give a button to "View Results" for the generated feedback from the above button.  It should open a dialog box... -->
+    <!-- KRISTIAN_TODO_NOW - This button should be disabled until the file is uploaded. So should the "Score Generated Feedback List" button below... -->
+    <button mat-button (click)="score_feedback_generated_list()">Score Generated Feedback List</button>
+    <!-- KRISTIAN_TODO_NOW - Give a button to "View Results" for the generated scores from the above button.  It should open a dialog box...-->
+    <!-- KRISTIAN_TODO_NOW - This "View Results" dialog button should also be disabled until the feedback scores exist. -->
 }
 <button mat-button (click)="redirect_user_to_topic_page()">Go Back And Choose Topic</button>

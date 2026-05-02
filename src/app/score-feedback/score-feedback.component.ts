@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, Input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,11 +14,11 @@ export enum FEEDBACK_SCORING_METHOD {
 @Component({
   selector: 'score-feedback-component',
   templateUrl: 'score-feedback.component.html',
+  styleUrl: 'score-feedback.component.scss',
   standalone: true,
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule,
     MatButtonModule,
     MatProgressSpinnerModule,
     MatRadioModule,
@@ -28,26 +27,23 @@ export enum FEEDBACK_SCORING_METHOD {
 export class ScoreFeedbackComponent {
     Feedback_Scoring_Method = FEEDBACK_SCORING_METHOD;
     current_method = FEEDBACK_SCORING_METHOD.A_SINGLE_FEEDBACK;
-    @Input({ required: false }) user_provided_feedback: string = '';
+    @Input({ required: false }) ai_generated_feedback: string = '';
     back_to_topic_page = output<void>();
     feedback_answer_key: string = '';
     feedback_score_is_loading: boolean = false;
-    feedback_score: string | null = ''; // KRISTIAN_TODO - How to store the score in this component?
-
-    constructor (private _http: HttpClient) {
-      // KRISTIAN_TODO_NOW - Do I still need this http client?
-      this._http.get ('../../assets/question-answer-feedback-test-data.json').subscribe (data => {
-        console.log(data);
-      });
+    feedback_score: string | null = '';
+    private _uploaded_json_content: any = null;
+    public get uploaded_json_content(): any {
+      return this._uploaded_json_content;
     }
 
     feedback_and_answer_key_are_empty() {
-      return this.user_provided_feedback?.length <= 0 || this.feedback_answer_key?.length <= 0;
+      return this.ai_generated_feedback?.length <= 0 || this.feedback_answer_key?.length <= 0;
     }
 
-    async score_feedback(): Promise<void> {
-        let prompt_with_feedback_pair_awaiting_score = "Given the AI-provided feedback of " + this.user_provided_feedback +
-          " and the feedback answer key of " + this.feedback_answer_key + ", please provide a score of 1 to 10 to measure" +
+    async score_feedback(ai_generated_feedback: string, feedback_answer_key: string): Promise<void> {
+        let prompt_with_feedback_pair_awaiting_score = "Given the AI-provided feedback of " + ai_generated_feedback +
+          " and the feedback answer key of " + feedback_answer_key + ", please provide a score of 1 to 10 to measure" +
           "the semantic accuracy of the given AI-provided feedback based upon the given feedback answer key.";
         
         this.feedback_score_is_loading = true;
@@ -57,9 +53,9 @@ export class ScoreFeedbackComponent {
         });
 
         if (!errors) {
-          // KRISTIAN_TODO - How to store the score in this component?
+          // KRISTIAN_TODO_NOW - How to store the score in this component?  Store its details in a dialog that offers the user to save it in a file...
           console.log (data);
-          this.feedback_score = data;
+          this.feedback_score = data; // KRISTIAN_TODO_NOW - Return this so I can reuse the method in score_feedback_generated_list.
           } else {
           console.log (errors);
         }
@@ -67,15 +63,32 @@ export class ScoreFeedbackComponent {
     }
 
     on_json_file_uploaded (event: any) {
-      // console.log (event?.target?.value); // KRISTIAN_NOTE - fakepath for security reasons... cannot read http from there...
-
-      // KRISTIAN_TODO_NOW - Is any of this useful??
+      // KRISTIAN_NOTE - In theory, one can obtain A filepath from event.target.value, BUT it is a fakepath for security reasons.
+      // The simplest way I found to read the contents of an uploaded file is to call readAsText with JavaScript's own FileReader
+      // and parse the raw string back into JSON. 
       // https://dev.to/mayvid14/file-uploads-in-angular-10-or-javascript-in-general-4g9p
       const file_reader = new FileReader();
       file_reader.onload = (reader_event: any) => {
-        console.log (JSON.parse(reader_event?.target?.result)); // KRISTIAN_NOTE - It's beautiful!  THIS is what I want...
+        this._uploaded_json_content = JSON.parse (reader_event?.target?.result);
       };
-      file_reader.readAsText (event.target.files[0]); // KRISTIAN_NOTE - Tada! We have a string of our contents.
+      file_reader.readAsText (event?.target?.files[0]);
+    }
+
+    give_feedback_for_json_file() {
+      // KRISTIAN_TODO_NOW - Given an uploaded JSON file, send a prompt for EVERY question and answer pair in the file and return it somewhere...
+      // KRISTIAN_TODO_NOW - Error handling if the uploaded json content is empty?
+      for (const ix in this._uploaded_json_content) {
+        console.log (ix);
+        console.log (this._uploaded_json_content[ix]['question']);
+        console.log (this._uploaded_json_content[ix]['response']);
+      }
+    }
+
+    score_feedback_generated_list() {
+      // KRISTIAN_TODO_NOW - Given a series of feedback statements generated by the previous function
+      // AND 
+      // a "feedback answer key" list,
+      // score ALL the feedback statements and a return a list.
     }
 
     redirect_user_to_topic_page(): void {

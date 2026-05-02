@@ -19,7 +19,7 @@
     @if (this.current_app_page === Which_Page_Type.FEEDBACK_SCORING_PAGE) {
         <!--KRISTIAN_TODO - Feedback should come from the output flag if it exists.-->
         <score-feedback-component
-            [user_provided_feedback]="current_feedback"
+            [ai_generated_feedback]="current_feedback"
             (back_to_topic_page)="request_new_topic()">
         </score-feedback-component>
     }
