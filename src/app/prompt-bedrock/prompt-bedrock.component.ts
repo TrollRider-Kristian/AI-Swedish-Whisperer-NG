@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Subject } from 'rxjs';
-import { FeedbackComparisonDialogService } from '../feedback-comparison-dialog/feedback-comparison-dialog-service.service';
 import { client } from '../app.component';
 
 export async function solicit_feedback_for_given_question_and_response (question: string, response: string, progress_spinner_flag: Subject<boolean>): Promise<string> {
@@ -47,7 +46,6 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   private _feedback_is_loading_signal = new Subject <boolean>();
   feedback_is_loading: boolean = false;
   question_is_loading: boolean = false;
-  feedback_comparison_dialog_service = inject (FeedbackComparisonDialogService);
 
   constructor (private _dialog: MatDialog) {
     // KRISTIAN_NOTE - takeUntilDestroyed works for a very common use case, where I want a component to receive signals until it's destroyed.
@@ -122,10 +120,5 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
 
   direct_user_to_feedback_scoring_page(): void {
     this.feedback_scoring_event.emit(this.feedback);
-  }
-
-  // KRISTIAN_TODO_NOW - Get rid of this function once I've reappropriated the dialog to my own purposes...
-  open_feedback_comparison_dialog_box(): void {
-    this.feedback_comparison_dialog_service.open_dialog (this._dialog, this.split_feedback_into_bullet_points as string[]);
   }
 }

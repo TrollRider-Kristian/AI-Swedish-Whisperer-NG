@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, output } from '@angular/core';
+import { Component, inject, Input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { client } from '../app.component';
+import { ResultsViewerDialogService } from '../results-viewer-dialog/results-viewer-dialog.service';
 import { solicit_feedback_for_given_question_and_response } from '../prompt-bedrock/prompt-bedrock.component';
 import { Subject } from 'rxjs';
 
@@ -43,6 +45,9 @@ export class ScoreFeedbackComponent {
     public get json_feedback_statements(): any {
       return this._json_feedback_statements;
     }
+    results_viewer_dialog_service = inject (ResultsViewerDialogService);
+
+    constructor (private _dialog: MatDialog) {}
 
     feedback_and_answer_key_are_empty() {
       return this.ai_generated_feedback?.length <= 0 || this.feedback_answer_key?.length <= 0;
@@ -79,6 +84,10 @@ export class ScoreFeedbackComponent {
         this._uploaded_json_content = JSON.parse (reader_event?.target?.result);
       };
       file_reader.readAsText (event?.target?.files[0]);
+    }
+
+    open_uploaded_json_file_dialog (): void {
+      this.results_viewer_dialog_service.open_dialog (this._dialog, this._uploaded_json_content);
     }
 
     async give_feedback_for_json_file (): Promise<void> {

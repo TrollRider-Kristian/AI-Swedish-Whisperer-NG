@@ -27,7 +27,7 @@
     <input #fileUpload class="file-upload-input-to-hide" type="file" (change)="on_json_file_uploaded($event)">
     <!-- KRISTIAN_TODO_NOW - Don't forget the progress spinner for each of these buttons! -->
     <button mat-button (click)="fileUpload.click()">Upload JSON File</button>
-    <!--KRISTIAN_TODO_NOW - Give a button to "View Results" for the json file to acknowledge that it has been uploaded successfully.  It should open a dialog box...-->
+    <button mat-button (click)="open_uploaded_json_file_dialog()">View Uploaded JSON File</button>
     <!-- KRISTIAN_TODO_NOW - This button should be disabled until the file is uploaded.  So should the "Generate Feedback" button below. -->
     <button mat-button (click)="give_feedback_for_json_file()">Generate Feedback for Entire File</button>
     <!-- KRISTIAN_TODO_NOW - Give a button to "View Results" for the generated feedback from the above button.  It should open a dialog box... -->

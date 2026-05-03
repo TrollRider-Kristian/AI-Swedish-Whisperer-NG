@@ -14,7 +14,7 @@ import {
 import { MatRadioModule } from '@angular/material/radio';
 
 @Injectable({ providedIn: 'root' })
-export class FeedbackComparisonDialogService {
+export class ResultsViewerDialogService {
   /**
 
 1) KRISTIAN_TODO_NOW - What other options should I give the user with the score now that the dialog box is open?
@@ -25,16 +25,16 @@ export class FeedbackComparisonDialogService {
   // KRISTIAN_TODO_NOW - How do I score mutliple feedback statements at once?
   // KRISTIAN_TODO_NOW - The split feedback should ALSO populate the dialog box.
   // The same dialog box should have 2 options.  Either, "Give me a feedback answer key" OR "I have many feedback statements to grade at once.  This will be a wizard, in a way..."
-  open_dialog(dialog: MatDialog, given_feedback: string[] | null): MatDialogRef<FeedbackComparisonDialogComponent, string[]> {
-    return dialog.open (FeedbackComparisonDialogComponent, {
-      data: given_feedback
+  open_dialog(dialog: MatDialog, results_to_display: any): MatDialogRef<ResultsViewerDialogComponent, string[]> {
+    return dialog.open (ResultsViewerDialogComponent, {
+      data: results_to_display, // KRISTIAN_TODO_NOW - HINT: modify this function to make the triplets convenient...
     });
   }
 }
 
 @Component({
-  selector: 'feedback-comparison-dialog-component',
-  templateUrl: 'feedback-comparison-dialog-component.component.html',
+  selector: 'results-viewer-dialog',
+  templateUrl: 'results-viewer-dialog.component.html',
   standalone: true,
   imports: [
     CommonModule,
@@ -48,14 +48,16 @@ export class FeedbackComparisonDialogService {
     // MatDialogClose,
   ],
 })
-export class FeedbackComparisonDialogComponent {
+export class ResultsViewerDialogComponent {
 
   constructor (
-    public dialog_ref: MatDialogRef<FeedbackComparisonDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public ai_provided_feedback: string[] | null,
-  ) {}
+    public dialog_ref: MatDialogRef<ResultsViewerDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public result_data: any, // KRISTIAN_TODO_NOW - Make a REAL type for this thing....
+  ) {
+    // console.log (this.result_data);
+  }
 
-  cancel_feedback (): void {
+  close_dialog (): void {
     this.dialog_ref.close();
   }
 }
