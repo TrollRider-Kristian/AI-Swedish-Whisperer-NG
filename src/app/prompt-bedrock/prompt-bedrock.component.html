@@ -6,23 +6,38 @@
     <mat-progress-spinner mode="indeterminate" *ngIf="question_is_loading == true"></mat-progress-spinner>
     <p>{{ current_question }}</p>
     <input name="prompt" [(ngModel)]="user_response"/>
-    <button mat-button (click)="solicit_feedback_for_response()">Submit Answer and Solicit Feedback</button>
-    <!--KRISTIAN-TODO_NOW - What if I accidentally "go back" and want the old question again?-->
+    <button mat-button
+            (click)="solicit_feedback_for_response()"
+            [disabled]="question_or_feedback_is_loading === true || response_is_empty === true">
+        Submit Answer and Solicit Feedback
+    </button>
 </div>
-<!--KRISTIAN_TODO_NOW - Feedback should be in a dialog.-->
 <div>
-    <!--KRISTIAN_TODO_NOW - Need to DISABLE buttons while feedback is LOADING!-->
-    <!--KRISTIAN_TODO_NOW - Need to DISABLE the "open feedback comparison dialog box" button when feedback does not exist.-->
     <mat-progress-spinner mode="indeterminate" *ngIf="feedback_is_loading === true"></mat-progress-spinner>
     <!-- KRISTIAN_NOTE - Uncomment feedback if it doesn't populate correctly. -->
     <!-- <p>{{ feedback }}</p> -->
-    <ng-container *ngFor="let point of split_feedback_into_bullet_points">
-        <li>{{ point }}</li>
-    </ng-container> <!--KRISTIAN_TODO_NOW - View Feedback in a dialog box.-->
-    <button mat-button (click)="direct_user_to_feedback_scoring_page()">Score My Feedback!</button>
-    <button mat-button (click)="pose_question_based_on_topic()">Request Follow-Up Question</button>
-    <button mat-button (click)="request_another_topic ()">Go Back and Change Topic</button>
-    <!--KRISTIAN_TODO_NOW - Need better button spacing.-->
+    @if (feedback != null) {
+        @for (point of split_feedback_into_bullet_points; track point) {
+            <li>{{ point }}</li>
+        }
+    } @else {
+        <p>Feedback will load here once you answer a question...</p>
+    }
+    <button mat-button
+            (click)="direct_user_to_feedback_scoring_page()"
+            [disabled]="question_or_feedback_is_loading === true">
+        Score My Feedback!
+    </button>
+    <button mat-button 
+            (click)="pose_question_based_on_topic()"
+            [disabled]="question_or_feedback_is_loading === true">
+        Request Follow-Up Question
+    </button>
+    <button mat-button
+            (click)="request_another_topic ()"
+            [disabled]="question_or_feedback_is_loading === true">
+        Go Back and Change Topic
+    </button>
 </div>
 <br>
 <button mat-button (click)="open_feedback_comparison_dialog_box()">What's Actually Left of this Dialog Box Now?</button>

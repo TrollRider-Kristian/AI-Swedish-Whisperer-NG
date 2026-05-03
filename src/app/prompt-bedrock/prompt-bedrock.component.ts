@@ -1,11 +1,33 @@
-import { Component, inject, Input, OnInit, output } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit, output } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Subject } from 'rxjs';
 import { FeedbackComparisonDialogService } from '../feedback-comparison-dialog/feedback-comparison-dialog-service.service';
 import { client } from '../app.component';
+
+export async function solicit_feedback_for_given_question_and_response (question: string, response: string, progress_spinner_flag: Subject<boolean>): Promise<string> {
+  let prompt_with_response_awaiting_feedback = 'Given the question of: ' + question +
+    ', please provide feedback in English to the spelling and grammatical mistakes of each word in the following ' +
+    ' user response: ' + response;
+    
+  progress_spinner_flag.next(true);
+
+  const { data, errors } = await client.queries.tutorSwedish({
+    prompt: prompt_with_response_awaiting_feedback,
+  });
+
+  if (!errors) {
+    // console.log (data); // KRISTIAN_NOTE - If the response doesn't populate correctly in the app, then troubleshoot this console log.
+  } else {
+    console.log(errors);
+  }
+  progress_spinner_flag.next(false);
+  return data != null ? data as string : '';
+}
 
 @Component({
   selector: 'app-prompt-bedrock',
@@ -14,7 +36,7 @@ import { client } from '../app.component';
   templateUrl: './prompt-bedrock.component.html',
   styleUrl: './prompt-bedrock.component.scss',
 })
-export class PromptBedrockComponent implements OnInit {
+export class PromptBedrockComponent implements OnInit, OnDestroy {
   @Input({ required: true }) topic!: string | null;
   @Input({ required: false }) is_custom_user_question!: boolean | null;
   change_topic = output<void>();
@@ -22,27 +44,46 @@ export class PromptBedrockComponent implements OnInit {
   current_question: string = '';
   user_response: string = '';
   feedback: string | null = null;
+  private _feedback_is_loading_signal = new Subject <boolean>();
   feedback_is_loading: boolean = false;
   question_is_loading: boolean = false;
   feedback_comparison_dialog_service = inject (FeedbackComparisonDialogService);
 
-  constructor (private _dialog: MatDialog) {}
+  constructor (private _dialog: MatDialog) {
+    // KRISTIAN_NOTE - takeUntilDestroyed works for a very common use case, where I want a component to receive signals until it's destroyed.
+    // Simple way to prevent memory leaks.
+    // https://angular.dev/ecosystem/rxjs-interop/take-until-destroyed
+    this._feedback_is_loading_signal.pipe (takeUntilDestroyed()).subscribe ((feedback_loading_state: boolean) => {
+      this.feedback_is_loading = feedback_loading_state;
+    });
+  }
 
   // KRISTIAN_NOTE - Websocket connection to the URL on my amplify_outputs.json file failed because that URL does not exist anymore.
   // The amplify_outupts.json takes its url from the deployed Amplify app and is produced when I deploy said app.
   // This means that I will fail to receive a response every time I want to test locally unless/until I actually deploy my app.
   // That also means every other operation involving a connection to AWS (eg. prompting an AWS Bedrock LLM) will also fail unless I deploy the app.
-  ngOnInit(): void {
-    this.pose_question_based_on_topic(); // send prompt for initial question
+  async ngOnInit(): Promise<void> {
+    this.current_question = await this.pose_question_based_on_topic();
+  }
+
+  ngOnDestroy (): void {
+    this._feedback_is_loading_signal.unsubscribe();
+  }
+
+  public get question_or_feedback_is_loading(): boolean {
+    return this.question_is_loading === true || this.feedback_is_loading === true;
+  }
+
+  public get response_is_empty(): boolean {
+    return this.user_response.length <= 0;
   }
 
   // Take the topic and request a question from the LLM as a prompt.
-  async pose_question_based_on_topic (): Promise<void> {
-    this.question_is_loading = true;
-
+  async pose_question_based_on_topic (): Promise<string> {
     if (this.is_custom_user_question === true) {
-      this.current_question = typeof(this.topic) === 'string' ? this.topic : '';
+      return typeof(this.topic) === 'string' ? this.topic : '';
     } else {
+      this.question_is_loading = true;
       let prompt_to_ask = 'Please ask me a question in Swedish about: ' + this.topic + '.';
       if (this.user_response.length > 0) {
         prompt_to_ask += 'Please make this question a follow-up to our user\'s last response of: ' + this.user_response + '.';
@@ -55,39 +96,20 @@ export class PromptBedrockComponent implements OnInit {
       });
 
       if (!errors) {
-        console.log (data); // KRISTIAN_NOTE - If the response doesn't populate correctly in the app, then troubleshoot this console log.
+        // console.log (data); // KRISTIAN_NOTE - If the response doesn't populate correctly in the app, then troubleshoot this console log.
         this.current_question = data !== null ? data : '';
       } else {
         console.log (errors);
       }
+      this.question_is_loading = false;
+      return data != null ? data as string : '';
     }
-
-    this.question_is_loading = false;
-  }
-
-  async solicit_feedback_for_given_question_and_response (question: string, response: string): Promise<void> {
-    let prompt_with_response_awaiting_feedback = 'Given the question of: ' + question +
-      ', please provide feedback in English to the spelling and grammatical mistakes of each word in the following ' +
-      ' user response: ' + response;
-      
-    this.feedback_is_loading = true;
-
-    const { data, errors } = await client.queries.tutorSwedish({
-      prompt: prompt_with_response_awaiting_feedback,
-    });
-
-    if (!errors) {
-      // console.log (data); // KRISTIAN_NOTE - If the response doesn't populate correctly in the app, then troubleshoot this console log.
-      this.feedback = data;
-      this.user_response = '';
-    } else {
-      console.log(errors);
-    }
-    this.feedback_is_loading = false;
   }
 
   async solicit_feedback_for_response (): Promise<void> {
-    this.solicit_feedback_for_given_question_and_response (this.current_question, this.user_response);
+    this.feedback = await solicit_feedback_for_given_question_and_response (this.current_question, this.user_response, this._feedback_is_loading_signal);
+    // If feedback was successful, clear the user response.  Otherwise, save it so the user can try again without losing data.
+    if (this.feedback?.length > 0) this.user_response = '';
   }
 
   public get split_feedback_into_bullet_points(): string[] | undefined {
@@ -98,7 +120,6 @@ export class PromptBedrockComponent implements OnInit {
     this.change_topic.emit();
   }
 
-  // KRISTIAN_TODO_NOW - What if the user gets a question and asks for feedback BEFORE typing in an answer?
   direct_user_to_feedback_scoring_page(): void {
     this.feedback_scoring_event.emit(this.feedback);
   }
@@ -107,5 +128,3 @@ export class PromptBedrockComponent implements OnInit {
     this.feedback_comparison_dialog_service.open_dialog (this._dialog, this.split_feedback_into_bullet_points as string[]);
   }
 }
-
-

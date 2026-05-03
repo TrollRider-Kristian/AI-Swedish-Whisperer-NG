@@ -4,6 +4,15 @@ input {
     width: 100%;
 }
 
+li {
+    margin: 12px 0px;
+}
+
 button {
     @include white-button-styles;
+    margin-top: 12px;
+}
+
+button + button {
+    margin-left: 12px;
 }

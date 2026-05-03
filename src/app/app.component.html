@@ -17,7 +17,6 @@
         </app-prompt-bedrock>
     }
     @if (this.current_app_page === Which_Page_Type.FEEDBACK_SCORING_PAGE) {
-        <!--KRISTIAN_TODO - Feedback should come from the output flag if it exists.-->
         <score-feedback-component
             [ai_generated_feedback]="current_feedback"
             (back_to_topic_page)="request_new_topic()">

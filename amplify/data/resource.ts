@@ -5,14 +5,15 @@ The section below creates a Swedish tutor function and a database table we
 might need later in the capstone project.
 =========================================================================*/
 
-export const MISTRAL_MODEL_ID = 'mistral.mistral-large-3-675b-instruct'
+export const MISTRAL_MODEL_ID = 'mistral.mistral-large-3-675b-instruct';
+// KRISTIAN_TODO_NOW - Add 2 more LLM's here.
 
 export const tutorSwedishFunction = defineFunction({
   entry: "./tutorSwedish.ts",
   environment: {
     MISTRAL_MODEL_ID,
   }
-})
+});
 
 const schema = a.schema({
   tutorSwedish: a
