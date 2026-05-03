@@ -124,6 +124,7 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
     this.feedback_scoring_event.emit(this.feedback);
   }
 
+  // KRISTIAN_TODO_NOW - Get rid of this function once I've reappropriated the dialog to my own purposes...
   open_feedback_comparison_dialog_box(): void {
     this.feedback_comparison_dialog_service.open_dialog (this._dialog, this.split_feedback_into_bullet_points as string[]);
   }
