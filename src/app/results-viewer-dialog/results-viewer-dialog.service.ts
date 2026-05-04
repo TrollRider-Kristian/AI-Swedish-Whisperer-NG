@@ -54,7 +54,7 @@ export class ResultsViewerDialogComponent {
     public dialog_ref: MatDialogRef<ResultsViewerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public result_data: any, // KRISTIAN_TODO_NOW - Make a REAL type for this thing....
   ) {
-    // console.log (this.result_data);
+    console.log (this.result_data);
   }
 
   close_dialog (): void {

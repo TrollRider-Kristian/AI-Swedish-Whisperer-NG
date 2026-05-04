@@ -30,10 +30,10 @@
     <button mat-button (click)="open_uploaded_json_file_dialog()">View Uploaded JSON File</button>
     <!-- KRISTIAN_TODO_NOW - This button should be disabled until the file is uploaded.  So should the "Generate Feedback" button below. -->
     <button mat-button (click)="give_feedback_for_json_file()">Generate Feedback for Entire File</button>
-    <!-- KRISTIAN_TODO_NOW - Give a button to "View Results" for the generated feedback from the above button.  It should open a dialog box... -->
+    <button mat-button (click)="open_json_feedback_statements_dialog()">View Generated Feedback List for JSON File</button>
     <!-- KRISTIAN_TODO_NOW - This button should be disabled until the file is uploaded. So should the "Score Generated Feedback List" button below... -->
     <button mat-button (click)="score_feedback_generated_list()">Score Generated Feedback List</button>
-    <!-- KRISTIAN_TODO_NOW - Give a button to "View Results" for the generated scores from the above button.  It should open a dialog box...-->
+    <button mat-button (click)="open_json_scores_list_dialog()">View Scores List for Feedback</button>
     <!-- KRISTIAN_TODO_NOW - This "View Results" dialog button should also be disabled until the feedback scores exist. -->
 }
 <button mat-button (click)="redirect_user_to_topic_page()">Go Back And Choose Topic</button>

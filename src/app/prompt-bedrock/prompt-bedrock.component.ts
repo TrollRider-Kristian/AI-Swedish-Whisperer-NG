@@ -95,7 +95,7 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
 
       if (!errors) {
         // console.log (data); // KRISTIAN_NOTE - If the response doesn't populate correctly in the app, then troubleshoot this console log.
-        this.current_question = data !== null ? data : '';
+        this.current_question = data != null ? data : '';
       } else {
         console.log (errors);
       }
