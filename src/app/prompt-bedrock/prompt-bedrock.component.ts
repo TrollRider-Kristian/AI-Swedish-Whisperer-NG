@@ -47,6 +47,8 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   feedback_is_loading: boolean = false;
   question_is_loading: boolean = false;
 
+  nova_question_for_test: string = '';
+
   constructor (private _dialog: MatDialog) {
     // KRISTIAN_NOTE - takeUntilDestroyed works for a very common use case, where I want a component to receive signals until it's destroyed.
     // Simple way to prevent memory leaks.
@@ -62,6 +64,7 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   // That also means every other operation involving a connection to AWS (eg. prompting an AWS Bedrock LLM) will also fail unless I deploy the app.
   async ngOnInit(): Promise<void> {
     this.current_question = await this.pose_question_based_on_topic();
+    this.nova_question_for_test = await this.test_nova_question_based_on_topic();
   }
 
   ngOnDestroy (): void {
@@ -95,13 +98,27 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
 
       if (!errors) {
         // console.log (data); // KRISTIAN_NOTE - If the response doesn't populate correctly in the app, then troubleshoot this console log.
-        this.current_question = data != null ? data : '';
       } else {
         console.log (errors);
       }
       this.question_is_loading = false;
       return data != null ? data as string : '';
     }
+  }
+
+  async test_nova_question_based_on_topic (): Promise<string> {
+    console.log (client);
+    let prompt_to_ask = 'Please ask me a question in Swedish about: ' + this.topic + '.';
+    const { data, errors } = await client.queries.novaSwedish({
+      prompt: prompt_to_ask,
+    });
+
+    if (!errors) {
+    } else {
+      console.log (errors);
+    }
+
+    return data != null ? data : '';
   }
 
   async solicit_feedback_for_response (): Promise<void> {

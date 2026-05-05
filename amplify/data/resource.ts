@@ -7,12 +7,20 @@ This database table would be a solid follow-up suggestion after the capstone.
 =========================================================================*/
 
 export const MISTRAL_MODEL_ID = 'mistral.mistral-large-3-675b-instruct';
-// KRISTIAN_TODO_NOW - Add 2 more LLM's here.
+export const NOVA_MODEL_ID = 'amazon.nova-pro-v1:0';
+// KRISTIAN_TODO_NOW - Add 1 more LLM here.
 
 export const tutorSwedishFunction = defineFunction({
   entry: "./tutorSwedish.ts",
   environment: {
     MISTRAL_MODEL_ID,
+  }
+});
+
+export const novaSwedishFunction = defineFunction({
+  entry: "./novaSwedish.ts",
+  environment: {
+    NOVA_MODEL_ID,
   }
 });
 
@@ -23,6 +31,13 @@ const schema = a.schema({
     .returns(a.string())
     .authorization((allow) => [allow.publicApiKey()])
     .handler(a.handler.function(tutorSwedishFunction)),
+
+  novaSwedish: a
+    .query()
+    .arguments({ prompt: a.string().required() })
+    .returns(a.string())
+    .authorization((allow) => [allow.publicApiKey()])
+    .handler(a.handler.function(novaSwedishFunction)),
 });
 
 export type Schema = ClientSchema<typeof schema>;
