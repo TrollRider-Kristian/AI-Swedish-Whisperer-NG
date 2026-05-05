@@ -1,8 +1,9 @@
 import { type ClientSchema, a, defineData, defineFunction } from '@aws-amplify/backend';
 
 /*== STEP 1 ===============================================================
-The section below creates a Swedish tutor function and a database table we
-might need later in the capstone project.
+The section below creates a Swedish tutor function and a database table
+currently out of the scope of the Springboard ML capstone project.
+This database table would be a solid follow-up suggestion after the capstone.
 =========================================================================*/
 
 export const MISTRAL_MODEL_ID = 'mistral.mistral-large-3-675b-instruct';
