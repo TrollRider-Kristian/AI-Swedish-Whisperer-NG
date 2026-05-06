@@ -7,8 +7,8 @@ This database table would be a solid follow-up suggestion after the capstone.
 =========================================================================*/
 
 export const MISTRAL_MODEL_ID = 'mistral.mistral-large-3-675b-instruct';
-export const NOVA_MODEL_ID = 'amazon.nova-pro-v1:0';
-// KRISTIAN_TODO_NOW - Add 1 more LLM here.
+export const GEMMA_MODEL_ID = 'google.gemma-3-27b-it';
+export const PALMYRA_MODEL_ID = 'writer.palmyra-x5-v1:0';
 
 export const tutorSwedishFunction = defineFunction({
   entry: "./tutorSwedish.ts",
@@ -17,10 +17,17 @@ export const tutorSwedishFunction = defineFunction({
   }
 });
 
-export const novaSwedishFunction = defineFunction({
-  entry: "./novaSwedish.ts",
+export const gemmaSwedishFunction = defineFunction({
+  entry: "./gemmaSwedish.ts",
   environment: {
-    NOVA_MODEL_ID,
+    GEMMA_MODEL_ID,
+  }
+});
+
+export const palmyraSwedishFunction = defineFunction({
+  entry: "./palmyraSwedish.ts",
+  environment: {
+    PALMYRA_MODEL_ID,
   }
 });
 
@@ -32,12 +39,19 @@ const schema = a.schema({
     .authorization((allow) => [allow.publicApiKey()])
     .handler(a.handler.function(tutorSwedishFunction)),
 
-  novaSwedish: a
+  gemmaSwedish: a
     .query()
     .arguments({ prompt: a.string().required() })
     .returns(a.string())
     .authorization((allow) => [allow.publicApiKey()])
-    .handler(a.handler.function(novaSwedishFunction)),
+    .handler(a.handler.function(gemmaSwedishFunction)),
+
+  palmyraSwedish: a
+    .query()
+    .arguments({ prompt: a.string().required() })
+    .returns(a.string())
+    .authorization((allow) => [allow.publicApiKey()])
+    .handler(a.handler.function(palmyraSwedishFunction)),
 });
 
 export type Schema = ClientSchema<typeof schema>;

@@ -1,9 +1,8 @@
-import { Component, inject, Input, OnDestroy, OnInit, output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Subject } from 'rxjs';
 import { client } from '../app.component';
@@ -47,9 +46,10 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   feedback_is_loading: boolean = false;
   question_is_loading: boolean = false;
 
-  nova_question_for_test: string = '';
+  gemma_question_for_test: string = '';
+  palmyra_question_for_test: string = '';
 
-  constructor (private _dialog: MatDialog) {
+  constructor () {
     // KRISTIAN_NOTE - takeUntilDestroyed works for a very common use case, where I want a component to receive signals until it's destroyed.
     // Simple way to prevent memory leaks.
     // https://angular.dev/ecosystem/rxjs-interop/take-until-destroyed
@@ -64,7 +64,8 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   // That also means every other operation involving a connection to AWS (eg. prompting an AWS Bedrock LLM) will also fail unless I deploy the app.
   async ngOnInit(): Promise<void> {
     this.current_question = await this.pose_question_based_on_topic();
-    this.nova_question_for_test = await this.test_nova_question_based_on_topic();
+    this.gemma_question_for_test = await this.test_gemma_question_based_on_topic();
+    this.palmyra_question_for_test = await this.test_palmyra_question_based_on_topic();
   }
 
   ngOnDestroy (): void {
@@ -106,10 +107,24 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
     }
   }
 
-  async test_nova_question_based_on_topic (): Promise<string> {
+  async test_gemma_question_based_on_topic (): Promise<string> {
     console.log (client);
     let prompt_to_ask = 'Please ask me a question in Swedish about: ' + this.topic + '.';
-    const { data, errors } = await client.queries.novaSwedish({
+    const { data, errors } = await client.queries.gemmaSwedish({
+      prompt: prompt_to_ask,
+    });
+
+    if (!errors) {
+    } else {
+      console.log (errors);
+    }
+
+    return data != null ? data : '';
+  }
+
+  async test_palmyra_question_based_on_topic (): Promise<string> {
+    let prompt_to_ask = 'Please ask me a question in Swedish about: ' + this.topic + '.';
+    const { data, errors } = await client.queries.palmyraSwedish({
       prompt: prompt_to_ask,
     });
 
