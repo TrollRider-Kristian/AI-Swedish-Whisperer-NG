@@ -1,13 +1,24 @@
 import { defineBackend } from '@aws-amplify/backend';
 import { auth } from './auth/resource';
-import { data, COHERE_MODEL_ID, GEMMA_MODEL_ID, MISTRAL_MODEL_ID, cohereSwedishFunction, gemmaSwedishFunction, tutorSwedishFunction } from './data/resource';
+import {
+  data,
+  GEMMA_MODEL_ID,
+  GEMMA_MINI_MODEL_ID,
+  MINISTRAL_MODEL_ID,
+  MISTRAL_MODEL_ID,
+  gemmaSwedishFunction,
+  gemmaMiniSwedishFunction,
+  ministralSwedishFunction,
+  tutorSwedishFunction,
+} from './data/resource';
 import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
 
 export const backend = defineBackend({
   auth,
   data,
-  cohereSwedishFunction,
+  ministralSwedishFunction,
   gemmaSwedishFunction,
+  gemmaMiniSwedishFunction,
   tutorSwedishFunction,
 });
 
@@ -31,12 +42,22 @@ backend.gemmaSwedishFunction.resources.lambda.addToRolePolicy(
   })
 );
 
-backend.cohereSwedishFunction.resources.lambda.addToRolePolicy(
+backend.gemmaMiniSwedishFunction.resources.lambda.addToRolePolicy(
   new PolicyStatement({
     effect: Effect.ALLOW,
     actions: ["bedrock:InvokeModel"],
     resources: [
-      `arn:aws:bedrock:*::foundation-model/${COHERE_MODEL_ID}`,
+      `arn:aws:bedrock:*::foundation-model/${GEMMA_MINI_MODEL_ID}`,
+    ],
+  })
+);
+
+backend.ministralSwedishFunction.resources.lambda.addToRolePolicy(
+  new PolicyStatement({
+    effect: Effect.ALLOW,
+    actions: ["bedrock:InvokeModel"],
+    resources: [
+      `arn:aws:bedrock:*::foundation-model/${MINISTRAL_MODEL_ID}`,
     ],
   })
 );

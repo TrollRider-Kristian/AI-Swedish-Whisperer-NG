@@ -46,8 +46,9 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   feedback_is_loading: boolean = false;
   question_is_loading: boolean = false;
 
+  ministral_question_for_test: string = '';
   gemma_question_for_test: string = '';
-  cohere_question_for_test: string = '';
+  gemma_mini_question_for_test: string = '';
 
   constructor () {
     // KRISTIAN_NOTE - takeUntilDestroyed works for a very common use case, where I want a component to receive signals until it's destroyed.
@@ -64,8 +65,9 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   // That also means every other operation involving a connection to AWS (eg. prompting an AWS Bedrock LLM) will also fail unless I deploy the app.
   async ngOnInit(): Promise<void> {
     this.current_question = await this.pose_question_based_on_topic();
+    this.ministral_question_for_test = await this.test_ministral_question_based_on_topic();
     this.gemma_question_for_test = await this.test_gemma_question_based_on_topic();
-    this.cohere_question_for_test = await this.test_cohere_question_based_on_topic();
+    this.gemma_mini_question_for_test = await this.test_gemma_mini_question_based_on_topic();
   }
 
   ngOnDestroy (): void {
@@ -107,7 +109,6 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Gemma works!!
   async test_gemma_question_based_on_topic (): Promise<string> {
     console.log (client);
     let prompt_to_ask = 'Please ask me a question in Swedish about: ' + this.topic + '.';
@@ -123,9 +124,24 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
     return data != null ? data : '';
   }
 
-  async test_cohere_question_based_on_topic (): Promise<string> {
+  async test_gemma_mini_question_based_on_topic (): Promise<string> {
+    console.log (client);
     let prompt_to_ask = 'Please ask me a question in Swedish about: ' + this.topic + '.';
-    const { data, errors } = await client.queries.cohereSwedish({
+    const { data, errors } = await client.queries.gemmaMiniSwedish({
+      prompt: prompt_to_ask,
+    });
+
+    if (!errors) {
+    } else {
+      console.log (errors);
+    }
+
+    return data != null ? data : '';
+  }
+
+  async test_ministral_question_based_on_topic (): Promise<string> {
+    let prompt_to_ask = 'Please ask me a question in Swedish about: ' + this.topic + '.';
+    const { data, errors } = await client.queries.ministralSwedish({
       prompt: prompt_to_ask,
     });
 

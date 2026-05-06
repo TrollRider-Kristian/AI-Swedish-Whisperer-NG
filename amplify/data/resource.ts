@@ -7,8 +7,9 @@ This database table would be a solid follow-up suggestion after the capstone.
 =========================================================================*/
 
 export const MISTRAL_MODEL_ID = 'mistral.mistral-large-3-675b-instruct';
+export const MINISTRAL_MODEL_ID = 'mistral.ministral-3-3b-instruct';
 export const GEMMA_MODEL_ID = 'google.gemma-3-27b-it';
-export const COHERE_MODEL_ID = 'cohere.rerank-v3-5:0';
+export const GEMMA_MINI_MODEL_ID = 'google.gemma-3-4b-it';
 
 export const tutorSwedishFunction = defineFunction({
   entry: "./tutorSwedish.ts",
@@ -17,6 +18,13 @@ export const tutorSwedishFunction = defineFunction({
   }
 });
 
+export const ministralSwedishFunction = defineFunction({
+  entry: "./ministralSwedish.ts",
+  environment: {
+    MINISTRAL_MODEL_ID,
+  }
+})
+
 export const gemmaSwedishFunction = defineFunction({
   entry: "./gemmaSwedish.ts",
   environment: {
@@ -24,10 +32,10 @@ export const gemmaSwedishFunction = defineFunction({
   }
 });
 
-export const cohereSwedishFunction = defineFunction({
-  entry: "./cohereSwedish.ts",
+export const gemmaMiniSwedishFunction = defineFunction({
+  entry: "./gemmaMiniSwedish.ts",
   environment: {
-    COHERE_MODEL_ID,
+    GEMMA_MINI_MODEL_ID,
   }
 });
 
@@ -39,6 +47,13 @@ const schema = a.schema({
     .authorization((allow) => [allow.publicApiKey()])
     .handler(a.handler.function(tutorSwedishFunction)),
 
+  ministralSwedish: a
+    .query()
+    .arguments({ prompt: a.string().required() })
+    .returns(a.string())
+    .authorization((allow) => [allow.publicApiKey()])
+    .handler(a.handler.function(ministralSwedishFunction)),
+
   gemmaSwedish: a
     .query()
     .arguments({ prompt: a.string().required() })
@@ -46,12 +61,12 @@ const schema = a.schema({
     .authorization((allow) => [allow.publicApiKey()])
     .handler(a.handler.function(gemmaSwedishFunction)),
 
-  cohereSwedish: a
+  gemmaMiniSwedish: a
     .query()
     .arguments({ prompt: a.string().required() })
     .returns(a.string())
     .authorization((allow) => [allow.publicApiKey()])
-    .handler(a.handler.function(cohereSwedishFunction)),
+    .handler(a.handler.function(gemmaMiniSwedishFunction)),
 });
 
 export type Schema = ClientSchema<typeof schema>;
