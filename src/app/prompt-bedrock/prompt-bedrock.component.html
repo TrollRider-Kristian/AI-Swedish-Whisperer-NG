@@ -6,7 +6,7 @@
     <mat-progress-spinner mode="indeterminate" *ngIf="question_is_loading == true"></mat-progress-spinner>
     <p>{{ current_question }}</p>
     <p>{{ gemma_question_for_test }}</p>
-    <p>{{ palmyra_question_for_test }}</p>
+    <p>{{ cohere_question_for_test }}</p>
     <input name="prompt" [(ngModel)]="user_response"/>
     <button mat-button
             (click)="solicit_feedback_for_response()"

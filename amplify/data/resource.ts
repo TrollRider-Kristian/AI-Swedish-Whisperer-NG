@@ -8,7 +8,7 @@ This database table would be a solid follow-up suggestion after the capstone.
 
 export const MISTRAL_MODEL_ID = 'mistral.mistral-large-3-675b-instruct';
 export const GEMMA_MODEL_ID = 'google.gemma-3-27b-it';
-export const PALMYRA_MODEL_ID = 'writer.palmyra-x5-v1:0';
+export const COHERE_MODEL_ID = 'cohere.rerank-v3-5:0';
 
 export const tutorSwedishFunction = defineFunction({
   entry: "./tutorSwedish.ts",
@@ -24,10 +24,10 @@ export const gemmaSwedishFunction = defineFunction({
   }
 });
 
-export const palmyraSwedishFunction = defineFunction({
-  entry: "./palmyraSwedish.ts",
+export const cohereSwedishFunction = defineFunction({
+  entry: "./cohereSwedish.ts",
   environment: {
-    PALMYRA_MODEL_ID,
+    COHERE_MODEL_ID,
   }
 });
 
@@ -46,12 +46,12 @@ const schema = a.schema({
     .authorization((allow) => [allow.publicApiKey()])
     .handler(a.handler.function(gemmaSwedishFunction)),
 
-  palmyraSwedish: a
+  cohereSwedish: a
     .query()
     .arguments({ prompt: a.string().required() })
     .returns(a.string())
     .authorization((allow) => [allow.publicApiKey()])
-    .handler(a.handler.function(palmyraSwedishFunction)),
+    .handler(a.handler.function(cohereSwedishFunction)),
 });
 
 export type Schema = ClientSchema<typeof schema>;

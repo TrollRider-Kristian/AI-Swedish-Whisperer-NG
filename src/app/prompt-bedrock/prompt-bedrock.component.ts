@@ -47,7 +47,7 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   question_is_loading: boolean = false;
 
   gemma_question_for_test: string = '';
-  palmyra_question_for_test: string = '';
+  cohere_question_for_test: string = '';
 
   constructor () {
     // KRISTIAN_NOTE - takeUntilDestroyed works for a very common use case, where I want a component to receive signals until it's destroyed.
@@ -65,7 +65,7 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     this.current_question = await this.pose_question_based_on_topic();
     this.gemma_question_for_test = await this.test_gemma_question_based_on_topic();
-    this.palmyra_question_for_test = await this.test_palmyra_question_based_on_topic();
+    this.cohere_question_for_test = await this.test_cohere_question_based_on_topic();
   }
 
   ngOnDestroy (): void {
@@ -107,6 +107,7 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Gemma works!!
   async test_gemma_question_based_on_topic (): Promise<string> {
     console.log (client);
     let prompt_to_ask = 'Please ask me a question in Swedish about: ' + this.topic + '.';
@@ -122,9 +123,9 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
     return data != null ? data : '';
   }
 
-  async test_palmyra_question_based_on_topic (): Promise<string> {
+  async test_cohere_question_based_on_topic (): Promise<string> {
     let prompt_to_ask = 'Please ask me a question in Swedish about: ' + this.topic + '.';
-    const { data, errors } = await client.queries.palmyraSwedish({
+    const { data, errors } = await client.queries.cohereSwedish({
       prompt: prompt_to_ask,
     });
 

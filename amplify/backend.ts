@@ -1,13 +1,13 @@
 import { defineBackend } from '@aws-amplify/backend';
 import { auth } from './auth/resource';
-import { data, GEMMA_MODEL_ID, PALMYRA_MODEL_ID, MISTRAL_MODEL_ID, gemmaSwedishFunction, palmyraSwedishFunction, tutorSwedishFunction } from './data/resource';
+import { data, COHERE_MODEL_ID, GEMMA_MODEL_ID, MISTRAL_MODEL_ID, cohereSwedishFunction, gemmaSwedishFunction, tutorSwedishFunction } from './data/resource';
 import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
 
 export const backend = defineBackend({
   auth,
   data,
+  cohereSwedishFunction,
   gemmaSwedishFunction,
-  palmyraSwedishFunction,
   tutorSwedishFunction,
 });
 
@@ -31,12 +31,12 @@ backend.gemmaSwedishFunction.resources.lambda.addToRolePolicy(
   })
 );
 
-backend.palmyraSwedishFunction.resources.lambda.addToRolePolicy(
+backend.cohereSwedishFunction.resources.lambda.addToRolePolicy(
   new PolicyStatement({
     effect: Effect.ALLOW,
     actions: ["bedrock:InvokeModel"],
     resources: [
-      `arn:aws:bedrock:*::foundation-model/${PALMYRA_MODEL_ID}`,
+      `arn:aws:bedrock:*::foundation-model/${COHERE_MODEL_ID}`,
     ],
   })
 );
