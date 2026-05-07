@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 import { Amplify } from 'aws-amplify';
 import outputs from '../../amplify_outputs.json';
 import { PromptBedrockComponent } from './prompt-bedrock/prompt-bedrock.component';
@@ -21,11 +23,32 @@ export enum WHICH_PAGE {
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-  imports: [CommonModule, PromptBedrockComponent, ScoreFeedbackComponent, SelectTopicForPracticeComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatSelectModule,
+    PromptBedrockComponent,
+    ReactiveFormsModule,
+    ScoreFeedbackComponent,
+    SelectTopicForPracticeComponent
+  ],
 })
 export class AppComponent {
   title = 'AI Swedish Whisperer';
   subtitle = 'A Tutor Assistant for Learners of the Swedish Language';
+
+  // KRISTIAN_TODO_NOW - Need an interface by which selecting a tutor returns client.queries.(tutorSwedish/ministralSwedish/gemmaSwedish/gemmaMiniSwedish)
+  // and binds to ALL prompt functions in the app.
+  current_swedish_tutor = new FormControl<string | null> (null, Validators.required);
+  private _swedish_LLM_tutors: string[] = [
+    'Mistral',
+    'Ministral',
+    'Gemma',
+    'Gemma-Mini',
+  ];
+  public get swedish_LLM_tutors(): string[] {
+    return this._swedish_LLM_tutors;
+  }
 
   // KRISTIAN_NOTE - Need to declare the WHICH_PAGE enum type INSIDE the app component in order to access it in if-statements in the html.
   // Inspired by this: https://stackoverflow.com/questions/44045311/cannot-approach-typescript-enum-within-html
@@ -71,10 +94,7 @@ export class AppComponent {
 
 // KRISTIAN_TODO_NOW - Also, README and documentation are important!  Update them as I go along!
 
-// KRISTIAN_TODO_NOW - How do I know how effective Mistral is?  Compare to other models.
-
-// KRISTIAN_TODO_NOW - How interactive is the application itself?
-// I should be able to hover over a specific word and get its English translation.  Max # of characters is my friend here...
+// KRISTIAN_TODO_NOW - Allow a text box where the user asks for clarification on an unknown word or phrase in the question.  In prompt-bedrock/*
 
 // Future Work:
 // KRISTIAN_TODO_PART_2 - What if the user answers in English or refuses to answer in Swedish?

@@ -8,14 +8,6 @@
         margin-top: 12px;
     }
 
-    div {
-        display: flex;
-        gap: 30px;
-        :first-child {
-            flex-grow: 1;
-        }
-    }
-
     button {
         @include white-button-styles;
         &.mat-mdc-button-disabled {

@@ -1,6 +1,14 @@
 <main>
     <h1>{{title}}</h1>
     <h2>{{subtitle}}</h2>
+    <h3>My Chosen Swedish Tutor Is:</h3>
+    <mat-form-field>
+        <mat-select [formControl]="current_swedish_tutor">
+            @for (tutor of swedish_LLM_tutors; track tutor) {
+                <mat-option [value]="tutor">{{tutor}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
     @if (this.current_app_page === Which_Page_Type.TOPIC_SELECTION_PAGE) {
         <select-topic-for-practice
             (change_topic)="accept_new_topic($event)"

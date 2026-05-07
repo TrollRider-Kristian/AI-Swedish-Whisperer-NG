@@ -33,7 +33,7 @@ export class ScoreFeedbackComponent {
     current_method = FEEDBACK_SCORING_METHOD.A_SINGLE_FEEDBACK;
     @Input({ required: false }) ai_generated_feedback: string = '';
     back_to_topic_page = output<void>();
-    private _ai_feedback_is_loading_signal = new Subject<boolean>(); // KRISTIAN_TODO_NOW - Use this as a progress signnifier to how many feedback statements are generated.
+    private _ai_feedback_is_loading_signal = new Subject<boolean>(); // KRISTIAN_TODO_NOW - Use this as a progress signifier to how many feedback statements are generated.
     feedback_answer_key: string = '';
     feedback_score_is_loading: boolean = false;
     feedback_score: string | null = '';
@@ -101,11 +101,14 @@ export class ScoreFeedbackComponent {
         console.log (ix);
         const question = this._uploaded_json_content[ix]['question'];
         const response = this._uploaded_json_content[ix]['response'];
-        // KRISTIAN_TODO_NOW - Better error handling...
+        // KRISTIAN_TODO_PART_2 - Improve the error handling by signaling to the user exactly which questions and responses are missing.
+        // Display that on the screen.
         if (question?.length > 0 && response?.length > 0) {
           const feedback = await solicit_feedback_for_given_question_and_response (question, response, this._ai_feedback_is_loading_signal);
           // console.log (feedback);
           json_feedback_statements.push (feedback);
+        } else {
+          console.warn ("Either the question or the response is missing.  Please check #" + ix);
         }
       }
       this._json_feedback_statements = json_feedback_statements;

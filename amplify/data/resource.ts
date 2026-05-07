@@ -6,6 +6,9 @@ currently out of the scope of the Springboard ML capstone project.
 This database table would be a solid follow-up suggestion after the capstone.
 =========================================================================*/
 
+// KRISTIAN_TODO_NOW - Now that I have 4 functional LLM's, consider the medium versions (12B for gemma, 14B for Mistral).
+// How can the user switch between LLM's?
+// But only AFTER I fix the rest of the app, ESPECIALLY the scoring page...
 export const MISTRAL_MODEL_ID = 'mistral.mistral-large-3-675b-instruct';
 export const MINISTRAL_MODEL_ID = 'mistral.ministral-3-3b-instruct';
 export const GEMMA_MODEL_ID = 'google.gemma-3-27b-it';

@@ -94,7 +94,7 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
         this.user_response = '';
       }
 
-      // KRISTIAN_TODO_NOW - Do I throw an error if the user gives an empty response?  Accept the empty response, but warn the user that it's empty.
+      // KRISTIAN_TODO_NOW - Disable the "Submit Feedback" button until the user starts typing a response.  Have an icon that switches from "X" to a check mark.
       const { data, errors } = await client.queries.tutorSwedish({
         prompt: prompt_to_ask,
       });

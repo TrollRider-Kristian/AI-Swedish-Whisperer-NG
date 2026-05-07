@@ -7,48 +7,40 @@
 </mat-radio-group>
 
 @if (current_method === Topic_Selection_Method.CHOOSE_PREDEFINED_OPTION) {
-    <div>
-        <mat-form-field>
-            <mat-select [formControl]="user_selected_topic">
-                @for (topic of conversation_topics; track topic) {
-                    <mat-option [value]="topic">{{topic}}</mat-option>
-                }
-            </mat-select>
-        </mat-form-field>
-        <button mat-button
-                [disabled]="new_topic_is_empty (user_selected_topic.value)"
-                (click)="submit_new_topic (user_selected_topic.value, false)">
-            Submit Selected Topic
-        </button>
-    </div>
+    <mat-form-field>
+        <mat-select [formControl]="user_selected_topic">
+            @for (topic of conversation_topics; track topic) {
+                <mat-option [value]="topic">{{topic}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+    <button mat-button
+            [disabled]="new_topic_is_empty (user_selected_topic.value)"
+            (click)="submit_new_topic (user_selected_topic.value, false)">
+        Submit Selected Topic
+    </button>
 }
 
 @if (current_method === Topic_Selection_Method.TYPE_CUSTOM_TOPIC) {
-    <div>
-        <input name="custom_user_topic" [(ngModel)]="custom_user_topic"/>
-        <button mat-button
-                [disabled]="new_topic_is_empty (custom_user_topic)"
-                (click)="submit_new_topic (custom_user_topic, false)">
-            Submit Custom User Topic
-        </button>
-    </div>
+    <input name="custom_user_topic" [(ngModel)]="custom_user_topic"/>
+    <button mat-button
+            [disabled]="new_topic_is_empty (custom_user_topic)"
+            (click)="submit_new_topic (custom_user_topic, false)">
+        Submit Custom User Topic
+    </button>
 }
 
 @if (current_method === Topic_Selection_Method.TYPE_SPECIFIC_QUESTION) {
-    <div>
-        <input name="question" [(ngModel)]="custom_user_question"/>
-        <button mat-button
-                [disabled]="new_topic_is_empty (custom_user_question)"
-                (click)="submit_new_topic (custom_user_question, true)">
-            Submit Custom User Question
-        </button>
-    </div>
+    <input name="question" [(ngModel)]="custom_user_question"/>
+    <button mat-button
+            [disabled]="new_topic_is_empty (custom_user_question)"
+            (click)="submit_new_topic (custom_user_question, true)">
+        Submit Custom User Question
+    </button>
 }
 
-<div>
-    <h3>Skip the Question!  I Already Have Feedback I Want to Measure!</h3>
-    <button mat-button
-            (click)="direct_user_to_feedback_scoring_page ()">
-        Skip to Feedback Scoring Page
-    </button>
-</div>
+<h3>Skip the Question!  I Already Have Feedback I Want to Measure!</h3>
+<button mat-button
+        (click)="direct_user_to_feedback_scoring_page ()">
+    Skip to Feedback Scoring Page
+</button>

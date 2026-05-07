@@ -3,12 +3,11 @@
     <mat-radio-button [value]="Feedback_Scoring_Method.JSON_FILE_OF_FEEDBACK">I Have a JSON File Full of Feedbacks I Wish to Score</mat-radio-button>
 </mat-radio-group>
 @if (current_method === Feedback_Scoring_Method.A_SINGLE_FEEDBACK) {
-    <!--KRISTIAN_TODO_NOW - Need MUCH better spacing for the feedback.-->
-    <!--KRISTIAN_TODO_NOW - Make this text box HUUUGE.-->
-    <input name="previously-given-feedback" [(ngModel)]="ai_generated_feedback"/>
-    <!--KRISTIAN_TODO_NOW - This needs to be a giant text field too.-->
-    <input name="feedback-to-compare" [(ngModel)]="feedback_answer_key"/>
-    <button mat-button
+    <h3>Please place the AI-Provided Feedback Here:</h3>
+    <textarea name="previously-given-feedback" [(ngModel)]="ai_generated_feedback"></textarea>
+    <h3>Please place the Feedback "Answer Key" Here:</h3>
+    <textarea name="feedback-to-compare" [(ngModel)]="feedback_answer_key"></textarea>
+    <button mat-button class="single-feedback-score-button"
             (click)="score_feedback(this.ai_generated_feedback, this.feedback_answer_key)"
             [disabled]="feedback_and_answer_key_are_empty()">
         Score My Feedback!
@@ -16,24 +15,24 @@
     @if (feedback_score_is_loading === true) {
         <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
     }
-    <br>
-    <!--KRISTIAN_TODO_NOW - Clean up this score.  Explanations need to be hidden behind a "View Details" button or expansion panel.-->
-    <p>Feedback Score: {{feedback_score}}</p>
+    <h3>And the Feedback Score Is:</h3>
+    <p>{{feedback_score}}</p>
 }
 @if (current_method === Feedback_Scoring_Method.JSON_FILE_OF_FEEDBACK) {
-    <!--KRISTIAN_TODO_NOW - Implement a mechanism for comparing and scoring dozens and dozens of feedback statements at once.-->
-    <!-- KRISTIAN_NOTE - Make the above input look better using some "make another button click this input and hide the input" trick I found here: -->
-    <!-- https://medium.com/nerd-for-tech/save-and-upload-file-in-angular-7d4a212c2c58 -->
-    <input #fileUpload class="file-upload-input-to-hide" type="file" (change)="on_json_file_uploaded($event)">
-    <!-- KRISTIAN_TODO_NOW - Don't forget the progress spinner for each of these buttons! -->
-    <button mat-button (click)="fileUpload.click()">Upload JSON File</button>
-    <button mat-button (click)="open_uploaded_json_file_dialog()">View Uploaded JSON File</button>
-    <!-- KRISTIAN_TODO_NOW - This button should be disabled until the file is uploaded.  So should the "Generate Feedback" button below. -->
-    <button mat-button (click)="give_feedback_for_json_file()">Generate Feedback for Entire File</button>
-    <button mat-button (click)="open_json_feedback_statements_dialog()">View Generated Feedback List for JSON File</button>
-    <!-- KRISTIAN_TODO_NOW - This button should be disabled until the file is uploaded. So should the "Score Generated Feedback List" button below... -->
-    <button mat-button (click)="score_feedback_generated_list()">Score Generated Feedback List</button>
-    <button mat-button (click)="open_json_scores_list_dialog()">View Scores List for Feedback</button>
-    <!-- KRISTIAN_TODO_NOW - This "View Results" dialog button should also be disabled until the feedback scores exist. -->
+    <div class="json-feedback-buttons">
+        <!-- KRISTIAN_NOTE - Made the above input look better using some "make another button click this input and hide the input" trick I found here: -->
+        <!-- https://medium.com/nerd-for-tech/save-and-upload-file-in-angular-7d4a212c2c58 -->
+        <input #fileUpload class="file-upload-input-to-hide" type="file" (change)="on_json_file_uploaded($event)">
+        <button mat-button (click)="fileUpload.click()">Upload JSON File</button>
+        <button mat-button (click)="open_uploaded_json_file_dialog()">View Uploaded JSON File</button>
+        <!-- KRISTIAN_TODO_NOW - This button should be disabled until the file is uploaded.  So should the "Generate Feedback" button below. -->
+        <button mat-button (click)="give_feedback_for_json_file()">Generate Feedback for Entire File</button>
+        <button mat-button (click)="open_json_feedback_statements_dialog()">View Generated Feedback List for JSON File</button>
+        <!-- KRISTIAN_TODO_NOW - This button should be disabled until the file is uploaded. So should the "Score Generated Feedback List" button below... -->
+        <button mat-button (click)="score_feedback_generated_list()">Score Generated Feedback List</button>
+        <button mat-button (click)="open_json_scores_list_dialog()">View Scores List for Feedback</button>
+        <!-- KRISTIAN_TODO_NOW - This "View Results" dialog button should also be disabled until the feedback scores exist. -->
+    </div>
+    <!--KRISTIAN_TODO_NOW - Progress spinner with "% of file uploaded / feedback-ed / scored" should be present here. -->
 }
 <button mat-button (click)="redirect_user_to_topic_page()">Go Back And Choose Topic</button>

@@ -1,3 +1,26 @@
+@import '../../mixins.scss';
+
+textarea {
+    display: block;
+    width: 80%;
+    height: 150px;
+}
+
+.single-feedback-score-button {
+    margin-top: 24px;
+}
+
 .file-upload-input-to-hide {
     display: none;
+}
+
+.json-feedback-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0px;
+}
+
+button {
+    @include white-button-styles;
 }

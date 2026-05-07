@@ -1,7 +1,22 @@
-<h2 mat-dialog-title>Display Results:</h2> <!--KRISTIAN_TODO - Need better title here?-->
+<h2 mat-dialog-title>Display Results:</h2> <!--KRISTIAN_TODO_NOW - Need better title here?-->
 <mat-dialog-content>
+    @for (result of result_data; track result) {
+        @if (check_result_type (result) === 'string') {
+            <p>{{ result }}</p>
+        } @else {
+            @if (result?.question?.length > 0) {
+                <p>{{ result['question'] }}</p>
+            }
+            @if (result?.response?.length > 0) {
+                <p>{{ result['response'] }}</p>
+            }
+            @if (result?.feedback?.length > 0) {
+                <p>{{ result['feedback'] }}</p>
+            }
+        }
+    }
 </mat-dialog-content>
 <mat-dialog-actions>
+    <!--KRISTIAN_TODO_NOW - I should have a "Save" button for downloading the feedback or scoring results to my hard drive.-->
     <button mat-button (click)="close_dialog()">Close</button>
 </mat-dialog-actions>
-<!--KRISTIAN_TODO_NOW - I should have a "Save" button for downloading the feedback or scoring results to my hard drive.-->
