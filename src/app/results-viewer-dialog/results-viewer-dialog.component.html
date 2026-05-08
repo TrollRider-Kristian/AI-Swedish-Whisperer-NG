@@ -1,17 +1,24 @@
-<h2 mat-dialog-title>Display Results:</h2> <!--KRISTIAN_TODO_NOW - Need better title here?-->
+<h2 mat-dialog-title>{{ result_data['title'] }}</h2>
 <mat-dialog-content>
-    @for (result of result_data; track result) {
+    @for (result of result_data['body']; track result; let ix = $index) {
+        <h5># {{ ix + 1 }}</h5>
         @if (check_result_type (result) === 'string') {
             <p>{{ result }}</p>
         } @else {
             @if (result?.question?.length > 0) {
-                <p>{{ result['question'] }}</p>
+                <p>Question: {{ result['question'] }}</p>
             }
             @if (result?.response?.length > 0) {
-                <p>{{ result['response'] }}</p>
+                <p>Response: {{ result['response'] }}</p>
             }
-            @if (result?.feedback?.length > 0) {
-                <p>{{ result['feedback'] }}</p>
+            @if (result?.ai_feedback?.length > 0) {
+                <p>AI-Feedback: {{ result['ai_feedback'] }}</p>
+            }
+            @if (result?.answer_key?.length > 0) {
+                <p>Feedback Answer Key: {{ result['answer_key'] }}</p>
+            }
+            @if (result?.score?.length > 0) {
+                <p>Score: {{ result['score'] }}</p>
             }
         }
     }

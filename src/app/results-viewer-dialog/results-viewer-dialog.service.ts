@@ -15,10 +15,12 @@ import { MatRadioModule } from '@angular/material/radio';
 
 @Injectable({ providedIn: 'root' })
 export class ResultsViewerDialogService {
-  open_dialog(dialog: MatDialog, results_to_display: any): MatDialogRef<ResultsViewerDialogComponent, string[]> {
+  open_dialog(dialog: MatDialog, dialog_title: string, results_to_display: any): MatDialogRef<ResultsViewerDialogComponent, string[]> {
     return dialog.open (ResultsViewerDialogComponent, {
-      // KRISTIAN_TODO_NOW - Make this a JSON object.  It should pass the type of results, which is fashioned into a title and dictates the result dialog's formatting.
-      data: results_to_display,
+      data: { 
+        'title': dialog_title,
+        'body': results_to_display,
+      }
     });
   }
 }
@@ -45,11 +47,11 @@ export class ResultsViewerDialogComponent {
     public dialog_ref: MatDialogRef<ResultsViewerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public result_data: any, // KRISTIAN_TODO_NOW - Make a REAL type for this thing....
   ) {
-    console.log (this.result_data);
+    // console.log (this.result_data); // KRISTIAN_NOTE - Uncomment to troubleshoot if dialog fails to display appropriate data.
   }
 
-  check_result_type(result: any) {
-    return typeof(result);
+  check_result_type(result_body: any) {
+    return typeof(result_body);
   }
 
   close_dialog (): void {
