@@ -15,6 +15,12 @@ export enum FEEDBACK_SCORING_METHOD {
     JSON_FILE_OF_FEEDBACK,
 };
 
+export interface Question_Answer_Feedback_Triplet {
+  'question': string;
+  'response': string;
+  'feedback': string;
+}
+
 @Component({
   selector: 'score-feedback-component',
   templateUrl: 'score-feedback.component.html',
@@ -37,16 +43,16 @@ export class ScoreFeedbackComponent {
     feedback_answer_key: string = '';
     feedback_score_is_loading: boolean = false;
     feedback_score: string | null = '';
-    private _uploaded_json_content: any = null; // KRISTIAN_TODO_NOW - Need better type here.
-    public get uploaded_json_content(): any {
+    private _uploaded_json_content: Question_Answer_Feedback_Triplet[] | null = null;
+    public get uploaded_json_content(): Question_Answer_Feedback_Triplet[] | null {
       return this._uploaded_json_content;
     }
-    private _json_feedback_statements: any = null; // KRISTIAN_TODO_NOW - Need better type here.
-    public get json_feedback_statements(): any {
+    private _json_feedback_statements: string[] | null = null;
+    public get json_feedback_statements(): string[] | null {
       return this._json_feedback_statements;
     }
-    private _json_scores_list: any = null; // KRISTIAN_TODO_NOW - Need better type here.
-    public get json_scores_list(): any {
+    private _json_scores_list: string[] | null = null;
+    public get json_scores_list(): string[] | null {
       return this._json_scores_list;
     }
     results_viewer_dialog_service = inject (ResultsViewerDialogService);
@@ -69,14 +75,16 @@ export class ScoreFeedbackComponent {
         });
 
         if (!errors) {
-          // KRISTIAN_TODO_NOW - How to store the score in this component?  Store its details in a dialog that offers the user to save it in a file...
           // console.log (data);
-          this.feedback_score = data; // KRISTIAN_TODO_NOW - Return this so I can reuse the method in score_feedback_generated_list.
           } else {
           console.log (errors);
         }
         this.feedback_score_is_loading = false;
         return data != null ? data : '';
+    }
+
+    async set_feedback_score (ai_generated_feedback: string, feedback_answer_key: string) {
+      this.feedback_score = await this.score_feedback (ai_generated_feedback, feedback_answer_key);
     }
 
     on_json_file_uploaded (event: any): void {
@@ -96,21 +104,19 @@ export class ScoreFeedbackComponent {
     }
 
     async give_feedback_for_json_file (): Promise<void> {
-      let json_feedback_statements = [];
-      for (const ix in this._uploaded_json_content) {
-        console.log (ix);
-        const question = this._uploaded_json_content[ix]['question'];
-        const response = this._uploaded_json_content[ix]['response'];
+      let json_feedback_statements: string[] = [];
+      this._uploaded_json_content?.forEach (async (qaf: Question_Answer_Feedback_Triplet, ix: number) => {
+        const question = qaf['question'];
+        const response = qaf['response'];
         // KRISTIAN_TODO_PART_2 - Improve the error handling by signaling to the user exactly which questions and responses are missing.
         // Display that on the screen.
         if (question?.length > 0 && response?.length > 0) {
-          const feedback = await solicit_feedback_for_given_question_and_response (question, response, this._ai_feedback_is_loading_signal);
-          // console.log (feedback);
+          const feedback: string = await solicit_feedback_for_given_question_and_response (question, response, this._ai_feedback_is_loading_signal);
           json_feedback_statements.push (feedback);
         } else {
           console.warn ("Either the question or the response is missing.  Please check #" + ix);
         }
-      }
+      });
       this._json_feedback_statements = json_feedback_statements;
     }
 
@@ -119,16 +125,15 @@ export class ScoreFeedbackComponent {
     }
 
     async score_feedback_generated_list(): Promise<void> {
-      let scores = [];
-      for (const ix in this._uploaded_json_content) {
-        console.log (ix);
+      let scores: string[] = [];
+      this._uploaded_json_content?.forEach (async (qaf: Question_Answer_Feedback_Triplet, ix: number) => {
         // KRISTIAN_TODO_NOW - What if there's more ai feedback than feedback answers?
         // Message: "X out of Y feedback statements had a feedback answer key and were graded successfully.  The rest are omitted."
-        const ai_feedback = this._json_feedback_statements[ix];
-        const feedback_answer = this._uploaded_json_content[ix]['feedback'];
-        const score = await this.score_feedback (ai_feedback, feedback_answer);
+        const ai_feedback = this._json_feedback_statements?.at(ix);
+        const feedback_answer = qaf['feedback'];
+        const score = await this.score_feedback (ai_feedback as string, feedback_answer);
         scores.push (score);
-      }
+      });
       this._json_scores_list = scores;
     }
 

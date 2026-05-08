@@ -9,6 +9,7 @@
             }
         </mat-select>
     </mat-form-field>
+    <br>
     @if (this.current_app_page === Which_Page_Type.TOPIC_SELECTION_PAGE) {
         <select-topic-for-practice
             (change_topic)="accept_new_topic($event)"

@@ -8,7 +8,7 @@
     <h3>Please place the Feedback "Answer Key" Here:</h3>
     <textarea name="feedback-to-compare" [(ngModel)]="feedback_answer_key"></textarea>
     <button mat-button class="single-feedback-score-button"
-            (click)="score_feedback(this.ai_generated_feedback, this.feedback_answer_key)"
+            (click)="set_feedback_score (this.ai_generated_feedback, this.feedback_answer_key)"
             [disabled]="feedback_and_answer_key_are_empty()">
         Score My Feedback!
     </button>
