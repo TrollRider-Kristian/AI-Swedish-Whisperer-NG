@@ -16,12 +16,15 @@ export enum FEEDBACK_SCORING_METHOD {
 };
 
 export interface Question_Response_Feedback_Triplet {
+  'id': number,
   'question': string;
   'response': string;
   'ai_feedback': string;
 };
 
-export interface Feedback_AnswerKey_Score_Triplet {
+export interface Feedback_AnswerKey_Score_Quintuplet {
+  'question': string,
+  'response': string,
   'ai_feedback': string;
   'answer_key': string;
   'score': string;
@@ -57,8 +60,8 @@ export class ScoreFeedbackComponent {
     public get json_feedback_statements(): Question_Response_Feedback_Triplet[] | null {
       return this._json_feedback_statements;
     }
-    private _json_scores_list: Feedback_AnswerKey_Score_Triplet[] | null = null;
-    public get json_scores_list(): Feedback_AnswerKey_Score_Triplet[] | null {
+    private _json_scores_list: Feedback_AnswerKey_Score_Quintuplet[] | null = null;
+    public get json_scores_list(): Feedback_AnswerKey_Score_Quintuplet[] | null {
       return this._json_scores_list;
     }
     results_viewer_dialog_service = inject (ResultsViewerDialogService);
@@ -109,16 +112,20 @@ export class ScoreFeedbackComponent {
       this.results_viewer_dialog_service.open_dialog (this._dialog, "Uploaded JSON Test Data", this._uploaded_json_content);
     }
 
+    // KRISTIAN_TODO_PART_2 - Improve the error handling by signaling to the user exactly which questions and responses are missing.
+    // Display that on the screen.
     async give_feedback_for_json_file (): Promise<void> {
       let json_feedback_statements: Question_Response_Feedback_Triplet[] = [];
       this._uploaded_json_content?.forEach (async (qaf: Question_Response_Feedback_Triplet, ix: number) => {
         const question = qaf['question'];
         const response = qaf['response'];
-        // KRISTIAN_TODO_PART_2 - Improve the error handling by signaling to the user exactly which questions and responses are missing.
-        // Display that on the screen.
         if (question?.length > 0 && response?.length > 0) {
           const feedback: string = await solicit_feedback_for_given_question_and_response (question, response, this._ai_feedback_is_loading_signal);
+          // KRISTIAN_NOTE - Because the feedback statements from the LLM are asynchronous, the feedbacks are not being returned in the same order
+          // as the questions and answers appeared in the original uploaded JSON file.  Therefore, we track the id here to guarantee the correctness
+          // of the score_feedback_generated_list method below. 
           json_feedback_statements.push ({
+            'id': ix,
             'question': qaf['question'],
             'response': qaf['response'],
             'ai_feedback': feedback,
@@ -134,29 +141,28 @@ export class ScoreFeedbackComponent {
       this.results_viewer_dialog_service.open_dialog (this._dialog, "LLM-Generated Feedback", this._json_feedback_statements);
     }
 
+    // KRISTIAN_TODO_PART_2 - What if there's more ai feedback than feedback answers?  Display to the user a signal with a nice icon saying:
+    // "X out of Y feedback statements had a feedback answer key and were graded successfully.  The rest are omitted."
     async score_feedback_generated_list(): Promise<void> {
-      let scores: Feedback_AnswerKey_Score_Triplet[] = [];
-      this._uploaded_json_content?.forEach (async (qaf: Question_Response_Feedback_Triplet, ix: number) => {
-        // KRISTIAN_TODO_PART_2 - What if there's more ai feedback than feedback answers?  Display to the user a signal with a nice icon saying:
-        // "X out of Y feedback statements had a feedback answer key and were graded successfully.  The rest are omitted."
-        const check_json_line = this._json_feedback_statements as Question_Response_Feedback_Triplet[];
-        const json_line = check_json_line[ix] != null ? (check_json_line)[ix] : '';
-        let ai_feedback;
-        if (json_line !== '') {
-          const json_line_as_triplet = json_line as Question_Response_Feedback_Triplet;
-          if (json_line_as_triplet['ai_feedback'] != null) {
-            ai_feedback = json_line_as_triplet['ai_feedback'];
-          }
+      let scores: Feedback_AnswerKey_Score_Quintuplet[] = [];
+      this._json_feedback_statements?.forEach (async (qaf: Question_Response_Feedback_Triplet) => {
+        let ai_feedback = qaf['ai_feedback'];
+        // KRISTIAN_NOTE - Now, we look to the original _json_feedback_statements to get the feedback answer key and ask for a score.
+        // Because the _json_feedback_statements were obtained asynchronously, we need to check the _json_feedback_statements
+        // for the index of the original content to match the correct feedback statement with the correct feedback answer key.
+        let feedback_answer: string = '';
+        let corresponding_ix = qaf['id'];
+        feedback_answer = (this._uploaded_json_content as Question_Response_Feedback_Triplet[])[corresponding_ix]['ai_feedback'];
+        if (ai_feedback?.length > 0 && feedback_answer?.length > 0) {
+          const score = await this.score_feedback (ai_feedback, feedback_answer);
+          scores.push ({
+            'question': qaf['question'],
+            'response': qaf['response'],
+            'ai_feedback': ai_feedback,
+            'answer_key': feedback_answer,
+            'score': score,
+          });
         }
-        const feedback_answer = qaf == null ? '' : (qaf as Question_Response_Feedback_Triplet)['ai_feedback'];
-        const score = await this.score_feedback (ai_feedback as string, feedback_answer);
-        // KRISTIAN_TODO_NOW - Scores aren't coming in order since it's async.  Buuuut, is that ok anyway as long as the ai_feedback and the feedback_answer_key
-        // correspond to the correct score?
-        scores.push ({
-          'ai_feedback': ai_feedback as string,
-          'answer_key': feedback_answer,
-          'score': score,
-        });
       });
       this._json_scores_list = scores;
     }
