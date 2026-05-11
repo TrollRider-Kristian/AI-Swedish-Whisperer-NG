@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 import { client } from '../app.component';
 
 export async function solicit_feedback_for_given_question_and_response (question: string, response: string, progress_spinner_flag: Subject<boolean>): Promise<string> {
+  // KRISTIAN_TODO_PART_2 - What if the user answers in English or refuses to answer in Swedish?
   let prompt_with_response_awaiting_feedback = 'Given the question of: ' + question +
     ', please provide feedback in English to the spelling and grammatical mistakes of each word in the following ' +
     ' user response: ' + response;
@@ -83,6 +84,8 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   }
 
   // Take the topic and request a question from the LLM as a prompt.
+  // KRISTIAN_TODO_PART_2 - Consider a "chat history" of the conversation between user and LLM thus far.  Have a way to track common user errors and allow
+  // the system to prompt the user with more focused questions to shore up specific weaknesses (eg. prepositions).
   async pose_question_based_on_topic (): Promise<string> {
     if (this.is_custom_user_question === true) {
       return typeof(this.topic) === 'string' ? this.topic : '';

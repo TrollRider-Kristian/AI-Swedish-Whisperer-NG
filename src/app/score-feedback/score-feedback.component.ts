@@ -92,6 +92,8 @@ export class ScoreFeedbackComponent {
         return data != null ? data : '';
     }
 
+    // KRISTIAN_TODO_NOW - get score as number.
+
     async set_feedback_score (ai_generated_feedback: string, feedback_answer_key: string) {
       this.feedback_score = await this.score_feedback (ai_generated_feedback, feedback_answer_key);
     }
@@ -140,6 +142,8 @@ export class ScoreFeedbackComponent {
     open_json_feedback_statements_dialog (): void {
       this.results_viewer_dialog_service.open_dialog (this._dialog, "LLM-Generated Feedback", this._json_feedback_statements);
     }
+
+    // KRISTIAN_TODO_NOW - Get the list of scores from _json_feedback_statements as an array of floats.
 
     // KRISTIAN_TODO_PART_2 - What if there's more ai feedback than feedback answers?  Display to the user a signal with a nice icon saying:
     // "X out of Y feedback statements had a feedback answer key and were graded successfully.  The rest are omitted."

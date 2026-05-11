@@ -2,28 +2,25 @@
 <mat-dialog-content>
     @for (result of result_data['body']; track result; let ix = $index) {
         <h5># {{ ix + 1 }}</h5>
-        @if (check_result_type (result) === 'string') {
-            <p>{{ result }}</p>
-        } @else {
-            @if (result?.question?.length > 0) {
+        @if (result?.question?.length != null) {
                 <p>Question: {{ result['question'] }}</p>
-            }
-            @if (result?.response?.length > 0) {
-                <p>Response: {{ result['response'] }}</p>
-            }
-            @if (result?.ai_feedback?.length > 0) {
-                <p>AI-Feedback: {{ result['ai_feedback'] }}</p>
-            }
-            @if (result?.answer_key?.length > 0) {
-                <p>Feedback Answer Key: {{ result['answer_key'] }}</p>
-            }
-            @if (result?.score?.length > 0) {
-                <p>Score: {{ result['score'] }}</p>
-            }
+        }
+        @if (result?.response?.length != null) {
+            <p>Response: {{ result['response'] }}</p>
+        }
+        @if (result?.ai_feedback?.length != null) {
+            <p>AI-Feedback: {{ result['ai_feedback'] }}</p>
+        }
+        @if (result?.answer_key?.length != null) {
+            <p>Feedback Answer Key: {{ result['answer_key'] }}</p>
+        }
+        @if (result?.score?.length != null) {
+            <p>Score: {{ result['score'] }}</p>
         }
     }
+    <!--KRISTIAN_TODO_NOW - Using the numerical scores, get the mean, median, and standard deviation scores for a given LLM.  Get highest and lowest scores too! -->
 </mat-dialog-content>
 <mat-dialog-actions>
-    <!--KRISTIAN_TODO_NOW - I should have a "Save" button for downloading the feedback or scoring results to my hard drive.-->
+    <!--KRISTIAN_TODO_PART_2 - Make a "Save" button for downloading the feedback and scoring results to my hard drive.-->
     <button mat-button (click)="close_dialog()">Close</button>
 </mat-dialog-actions>

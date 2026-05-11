@@ -39,6 +39,12 @@ export class AppComponent {
 
   // KRISTIAN_TODO_NOW - Need an interface by which selecting a tutor returns client.queries.(tutorSwedish/ministralSwedish/gemmaSwedish/gemmaMiniSwedish)
   // and binds to ALL prompt functions in the app.
+  // KRISTIAN_TODO_PART_2 - If I get more specific with my prompting, I risk a sending a LOT of tokens to Bedrock.
+  // And Bedrock costs $$$.  Part of the purpose of this app is to measure the comprehension of the LLM's as Swedish tutors.
+  // These tokens are necessary.  However, I can create my own custom LLM in the future.
+  // Perhaps there are some hard and fast rules in Swedish that don't require an LLM at all?  It's a prediction machine, but parts of Swedish are logical.
+  // For example, all nouns ending with "a" (eg. "lampa") have plural forms ending in "or" (eg. "lampor").
+  // Short-circuiting some model prediction with my own learnings in Swedish might be of some help.
   current_swedish_tutor = new FormControl<string | null> (null, Validators.required);
   private _swedish_LLM_tutors: string[] = [
     'Mistral',
@@ -89,21 +95,3 @@ export class AppComponent {
     this._current_app_page = WHICH_PAGE.FEEDBACK_SCORING_PAGE;
   }
 }
-
-// For THIS capstone:
-
-// KRISTIAN_TODO_NOW - Also, README and documentation are important!  Update them as I go along!
-
-// KRISTIAN_TODO_NOW - Allow a text box where the user asks for clarification on an unknown word or phrase in the question.  In prompt-bedrock/*
-
-// Future Work:
-// KRISTIAN_TODO_PART_2 - What if the user answers in English or refuses to answer in Swedish?
-
-// KRISTIAN_TODO_PART_2 - How do I go about the chat history?  Saving this for part 2... AFTER the springboard course.
-
-// KRISTIAN_TODO_PART_2 - If I get more specific with my prompting, I risk a sending a LOT of tokens to Bedrock.
-// And Bedrock costs $$$.
-// Perhaps, I can have some code examine some hard and fast rules and help "cover" for Bedrock?
-// For example, all nouns ending with "a" (eg. "lampa") have plural forms ending in "or" (eg. "lampor").
-// Short-circuiting some model prediction with my own learnings in Swedish might be of some help.
-// Save this for AFTER the springboard course.
