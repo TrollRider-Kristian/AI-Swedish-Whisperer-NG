@@ -16,9 +16,24 @@ textarea {
 
 .json-feedback-buttons {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, auto);
     gap: 12px;
     margin: 20px 0px;
+
+    p, mat-progress-bar {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+
+    p {
+        // KRISTIAN_NOTE - grid has margins already, the natural margins of p are overkill.
+        margin: 0;
+    }
+
+    mat-progress-bar {
+        // KRISTIAN_NOTE - a little extra spacing between the progress bar and any buttons below it.
+        margin-bottom: 16px;
+    }
 }
 
 button {

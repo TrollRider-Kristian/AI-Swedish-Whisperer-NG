@@ -25,14 +25,18 @@
         <input #fileUpload class="file-upload-input-to-hide" type="file" (change)="on_json_file_uploaded($event)">
         <button mat-button (click)="fileUpload.click()">Upload JSON File</button>
         <button mat-button (click)="open_uploaded_json_file_dialog()">View Uploaded JSON File</button>
-        <!-- KRISTIAN_TODO_NOW - This button should be disabled until the file is uploaded.  So should the "Generate Feedback" button below. -->
+        <p>Most Recently Uploaded File: {{current_filename}}</p>
+        @if (current_filename != null) {
+            <p>File uploaded successfully!</p>
+        } @else {
+            <p>You are advised to upload a JSON file before proceeding with feedback generation and scoring below.</p>
+        }
         <button mat-button (click)="give_feedback_for_json_file()">Generate Feedback for Entire File</button>
         <button mat-button (click)="open_json_feedback_statements_dialog()">View Generated Feedback List for JSON File</button>
-        <!-- KRISTIAN_TODO_NOW - This button should be disabled until the file is uploaded. So should the "Score Generated Feedback List" button below... -->
+        <mat-progress-bar mode="determinate" [value]="feedback_generation_progress"></mat-progress-bar>
         <button mat-button (click)="score_feedback_generated_list()">Score Generated Feedback List</button>
         <button mat-button (click)="open_json_scores_list_dialog()">View Scores List for Feedback</button>
-        <!-- KRISTIAN_TODO_NOW - This "View Results" dialog button should also be disabled until the feedback scores exist. -->
+        <mat-progress-bar mode="determinate" [value]="scores_generation_progress"></mat-progress-bar>
     </div>
-    <!--KRISTIAN_TODO_NOW - Progress spinner with "% of file uploaded / feedback-ed / scored" should be present here. -->
 }
 <button mat-button (click)="redirect_user_to_topic_page()">Go Back And Choose Topic</button>

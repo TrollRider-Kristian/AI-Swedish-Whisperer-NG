@@ -7,13 +7,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Subject } from 'rxjs';
 import { client } from '../app.component';
 
-export async function solicit_feedback_for_given_question_and_response (question: string, response: string, progress_spinner_flag: Subject<boolean>): Promise<string> {
+export async function solicit_feedback_for_given_question_and_response (question: string, response: string, progress_spinner_flag?: Subject<boolean>): Promise<string> {
   // KRISTIAN_TODO_PART_2 - What if the user answers in English or refuses to answer in Swedish?
   let prompt_with_response_awaiting_feedback = 'Given the question of: ' + question +
     ', please provide feedback in English to the spelling and grammatical mistakes of each word in the following ' +
     ' user response: ' + response;
     
-  progress_spinner_flag.next(true);
+  progress_spinner_flag?.next(true);
 
   const { data, errors } = await client.queries.tutorSwedish({
     prompt: prompt_with_response_awaiting_feedback,
@@ -24,7 +24,7 @@ export async function solicit_feedback_for_given_question_and_response (question
   } else {
     console.log(errors);
   }
-  progress_spinner_flag.next(false);
+  progress_spinner_flag?.next(false);
   return data != null ? data as string : '';
 }
 
