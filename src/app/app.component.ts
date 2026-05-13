@@ -11,7 +11,6 @@ import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '../../amplify/data/resource';
 
 Amplify.configure(outputs);
-export const client = generateClient<Schema>();
 
 export enum WHICH_PAGE {
   TOPIC_SELECTION_PAGE,
@@ -34,25 +33,31 @@ export enum WHICH_PAGE {
   ],
 })
 export class AppComponent {
+  private _client = generateClient<Schema>();
   title = 'AI Swedish Whisperer';
   subtitle = 'A Tutor Assistant for Learners of the Swedish Language';
 
-  // KRISTIAN_TODO_NOW - Need an interface by which selecting a tutor returns client.queries.(tutorSwedish/ministralSwedish/gemmaSwedish/gemmaMiniSwedish)
-  // and binds to ALL prompt functions in the app.
   // KRISTIAN_TODO_PART_2 - If I get more specific with my prompting, I risk a sending a LOT of tokens to Bedrock.
   // And Bedrock costs $$$.  Part of the purpose of this app is to measure the comprehension of the LLM's as Swedish tutors.
   // These tokens are necessary.  However, I can create my own custom LLM in the future.
   // Perhaps there are some hard and fast rules in Swedish that don't require an LLM at all?  It's a prediction machine, but parts of Swedish are logical.
   // For example, all nouns ending with "a" (eg. "lampa") have plural forms ending in "or" (eg. "lampor").
   // Short-circuiting some model prediction with my own learnings in Swedish might be of some help.
-  current_swedish_tutor = new FormControl<string | null> (null, Validators.required);
-  private _swedish_LLM_tutors: string[] = [
-    'Mistral',
-    'Ministral',
-    'Gemma',
-    'Gemma-Mini',
+  current_swedish_tutor = new FormControl<(param_0: {prompt: string}) => any> (this._client.queries.tutorSwedish, Validators.required);
+
+  // KRISTIAN_TODO_PART_2 - Figure out how to import CustomOperationsMethodOptions, SingularReturnValue, and Nullable from amplify so that I don't have to
+  // cast 'value' as 'any' here.  Google suggests they come from either 'aws-amplify/api' or 'aws-amplify/api-graphql', but the import statements could not
+  // fetch these types from either of those libraries.  Looking in node_modules, all the types and functions in those files were intended for internal use only,
+  // suggesting that AWS doesn't want us to import these types directly and instead just export the client as a singleton throughout the project.
+  // I also tried 'export type TUTOR_FUNCTION = typeof (param_0: {prompt: string}, param_1: any) => any' as a shorthand for this lambda function that I could
+  // have to cast value as something other than 'any', but that didn't work either.  Casting value as 'any' for now because I have no other choice.
+  private _swedish_LLM_tutors: {value: (param_0: {prompt: string}) => any, display_value: string}[] = [
+    { value: this._client.queries.tutorSwedish, display_value: 'Mistral Large' },
+    { value: this._client.queries.ministralSwedish, display_value: 'Ministral' },
+    { value: this._client.queries.gemmaSwedish, display_value: 'Gemma' },
+    { value: this._client.queries.gemmaMiniSwedish, display_value: 'Gemma-Mini' },
   ];
-  public get swedish_LLM_tutors(): string[] {
+  public get swedish_LLM_tutors(): {value: any, display_value: string}[] {
     return this._swedish_LLM_tutors;
   }
 

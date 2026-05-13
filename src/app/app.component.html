@@ -5,7 +5,7 @@
     <mat-form-field>
         <mat-select [formControl]="current_swedish_tutor">
             @for (tutor of swedish_LLM_tutors; track tutor) {
-                <mat-option [value]="tutor">{{tutor}}</mat-option>
+                <mat-option [value]="tutor.value">{{tutor.display_value}}</mat-option>
             }
         </mat-select>
     </mat-form-field>
@@ -19,6 +19,7 @@
     }
     @if (this.current_app_page === Which_Page_Type.ANSWER_AND_FEEDBACK_PAGE) {
         <app-prompt-bedrock
+            [current_tutor]="current_swedish_tutor.value"
             [topic]="current_topic"
             [is_custom_user_question]="is_custom_user_question"
             (change_topic)="request_new_topic()"
@@ -27,6 +28,7 @@
     }
     @if (this.current_app_page === Which_Page_Type.FEEDBACK_SCORING_PAGE) {
         <score-feedback-component
+            [current_tutor]="current_swedish_tutor.value"
             [ai_generated_feedback]="current_feedback"
             (back_to_topic_page)="request_new_topic()">
         </score-feedback-component>

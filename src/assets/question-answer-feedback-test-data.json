@@ -206,7 +206,7 @@
         "id": 30,
         "question": "Var bor du nu?",
         "response": "Jag bor i Öland.",
-        "ai_feedback": "Use 'på' instead of 'i' for islands.",
+        "ai_feedback": "Use 'på' instead of 'i' when referring to being located on an island.",
         "corrected_response": "Jag bor på Öland."
     },
     {

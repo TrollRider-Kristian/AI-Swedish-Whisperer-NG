@@ -5,9 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Subject } from 'rxjs';
-import { client } from '../app.component';
 
-export async function solicit_feedback_for_given_question_and_response (question: string, response: string, progress_spinner_flag?: Subject<boolean>): Promise<string> {
+export async function solicit_feedback_for_given_question_and_response (tutor_func: (param_0: {prompt: string}) => any | null, question: string, response: string, progress_spinner_flag?: Subject<boolean>): Promise<string> {
   // KRISTIAN_TODO_PART_2 - What if the user answers in English or refuses to answer in Swedish?
   let prompt_with_response_awaiting_feedback = 'Given the question of: ' + question +
     ', please provide feedback in English to the spelling and grammatical mistakes of each word in the following ' +
@@ -15,17 +14,24 @@ export async function solicit_feedback_for_given_question_and_response (question
     
   progress_spinner_flag?.next(true);
 
-  const { data, errors } = await client.queries.tutorSwedish({
-    prompt: prompt_with_response_awaiting_feedback,
+  let return_data = null;
+  if (tutor_func != null) {
+    const { data, errors } = await tutor_func({
+      prompt: prompt_with_response_awaiting_feedback,
   });
 
   if (!errors) {
     // console.log (data); // KRISTIAN_NOTE - If the response doesn't populate correctly in the app, then troubleshoot this console log.
+    return_data = data;
   } else {
     console.log(errors);
   }
+  } else {
+    console.warn ('No tutor function specified.  Unable to do anything.');
+  }
+
   progress_spinner_flag?.next(false);
-  return data != null ? data as string : '';
+  return return_data != null ? return_data as string : '';
 }
 
 @Component({
@@ -36,6 +42,7 @@ export async function solicit_feedback_for_given_question_and_response (question
   styleUrl: './prompt-bedrock.component.scss',
 })
 export class PromptBedrockComponent implements OnInit, OnDestroy {
+  @Input({ required: true }) current_tutor!: any;
   @Input({ required: true }) topic!: string | null;
   @Input({ required: false }) is_custom_user_question!: boolean | null;
   change_topic = output<void>();
@@ -46,10 +53,6 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   private _feedback_is_loading_signal = new Subject <boolean>();
   feedback_is_loading: boolean = false;
   question_is_loading: boolean = false;
-
-  ministral_question_for_test: string = '';
-  gemma_question_for_test: string = '';
-  gemma_mini_question_for_test: string = '';
 
   constructor () {
     // KRISTIAN_NOTE - takeUntilDestroyed works for a very common use case, where I want a component to receive signals until it's destroyed.
@@ -66,9 +69,6 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   // That also means every other operation involving a connection to AWS (eg. prompting an AWS Bedrock LLM) will also fail unless I deploy the app.
   async ngOnInit(): Promise<void> {
     this.current_question = await this.pose_question_based_on_topic();
-    this.ministral_question_for_test = await this.test_ministral_question_based_on_topic();
-    this.gemma_question_for_test = await this.test_gemma_question_based_on_topic();
-    this.gemma_mini_question_for_test = await this.test_gemma_mini_question_based_on_topic();
   }
 
   ngOnDestroy (): void {
@@ -97,7 +97,7 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
         this.user_response = '';
       }
 
-      const { data, errors } = await client.queries.tutorSwedish({
+      const { data, errors } = await this.current_tutor({
         prompt: prompt_to_ask,
       });
 
@@ -111,52 +111,8 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
     }
   }
 
-  async test_gemma_question_based_on_topic (): Promise<string> {
-    console.log (client);
-    let prompt_to_ask = 'Please ask me a question in Swedish about: ' + this.topic + '.';
-    const { data, errors } = await client.queries.gemmaSwedish({
-      prompt: prompt_to_ask,
-    });
-
-    if (!errors) {
-    } else {
-      console.log (errors);
-    }
-
-    return data != null ? data : '';
-  }
-
-  async test_gemma_mini_question_based_on_topic (): Promise<string> {
-    console.log (client);
-    let prompt_to_ask = 'Please ask me a question in Swedish about: ' + this.topic + '.';
-    const { data, errors } = await client.queries.gemmaMiniSwedish({
-      prompt: prompt_to_ask,
-    });
-
-    if (!errors) {
-    } else {
-      console.log (errors);
-    }
-
-    return data != null ? data : '';
-  }
-
-  async test_ministral_question_based_on_topic (): Promise<string> {
-    let prompt_to_ask = 'Please ask me a question in Swedish about: ' + this.topic + '.';
-    const { data, errors } = await client.queries.ministralSwedish({
-      prompt: prompt_to_ask,
-    });
-
-    if (!errors) {
-    } else {
-      console.log (errors);
-    }
-
-    return data != null ? data : '';
-  }
-
   async solicit_feedback_for_response (): Promise<void> {
-    this.feedback = await solicit_feedback_for_given_question_and_response (this.current_question, this.user_response, this._feedback_is_loading_signal);
+    this.feedback = await solicit_feedback_for_given_question_and_response (this.current_tutor, this.current_question, this.user_response, this._feedback_is_loading_signal);
     // If feedback was successful, clear the user response.  Otherwise, save it so the user can try again without losing data.
     if (this.feedback?.length > 0) this.user_response = '';
   }
