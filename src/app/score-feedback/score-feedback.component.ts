@@ -123,8 +123,6 @@ export class ScoreFeedbackComponent {
       return data != null ? data : '';
   }
 
-  // KRISTIAN_TODO_NOW - get score as number.
-
   async set_feedback_score (ai_generated_feedback: string, feedback_answer_key: string) {
     this._feedback_score = await this.score_feedback (ai_generated_feedback, feedback_answer_key);
   }
@@ -179,8 +177,6 @@ export class ScoreFeedbackComponent {
     this.results_viewer_dialog_service.open_dialog (this._dialog, "LLM-Generated Feedback", this._json_feedback_statements);
   }
 
-  // KRISTIAN_TODO_NOW - Get the list of scores from _json_feedback_statements as an array of floats.
-
   // KRISTIAN_TODO_PART_2 - What if there's more ai feedback than feedback answers?  Display to the user a signal with a nice icon saying:
   // "X out of Y feedback statements had a feedback answer key and were graded successfully.  The rest are omitted."
   async score_feedback_generated_list(): Promise<void> {
@@ -210,8 +206,26 @@ export class ScoreFeedbackComponent {
     this._json_scores_list = scores;
   }
 
+  // KRISTIAN_NOTE - Match returns a custom object.  The inner string of the match itself lives at index 0, according to this:
+  // https://stackoverflow.com/questions/77627985/how-to-convert-array-like-object-stringmatch-result-to-array-in-typescript
+  parse_numeric_scores_from_scores_list(): number[] {
+    let numeric_scores: number[] = [];
+    this._json_scores_list?.forEach ((quintuplet: Feedback_AnswerKey_Score_Quintuplet) => {
+      const score_statement: string = quintuplet?.score != null ? quintuplet.score : '';
+      const match = score_statement.match(/\d+.\d*/);
+      const num_score = parseFloat(match != null ? match[0] : '');
+      numeric_scores.push(num_score);
+    })
+    return numeric_scores;
+  }
+
   open_json_scores_list_dialog (): void {
-    this.results_viewer_dialog_service.open_dialog (this._dialog, "Scores for LLM-Generated Feedback", this._json_scores_list);
+    this.results_viewer_dialog_service.open_dialog (
+      this._dialog,
+      "Scores for LLM-Generated Feedback",
+      this._json_scores_list,
+      this.parse_numeric_scores_from_scores_list(),
+    );
   }
 
   redirect_user_to_topic_page(): void {

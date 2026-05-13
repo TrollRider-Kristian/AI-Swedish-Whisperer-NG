@@ -19,12 +19,14 @@ export class ResultsViewerDialogService {
   open_dialog(
       dialog: MatDialog, 
       dialog_title: string, 
-      results_to_display: Question_Response_Feedback_Triplet[] | Feedback_AnswerKey_Score_Quintuplet[] | null
+      results_to_display: Question_Response_Feedback_Triplet[] | Feedback_AnswerKey_Score_Quintuplet[] | null,
+      stats?: number[],
     ): MatDialogRef<ResultsViewerDialogComponent, string[]> {
       return dialog.open (ResultsViewerDialogComponent, {
         data: { 
           'title': dialog_title,
           'body': results_to_display,
+          'stats': stats,
         }
     });
   }
@@ -54,9 +56,10 @@ export class ResultsViewerDialogComponent {
   // are stored here anyway.  Therefore, as non-ideal as this typing is, it works and I like it better than just casting body as 'any'.
   constructor (
     public dialog_ref: MatDialogRef<ResultsViewerDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public result_data: {title: string, body: Feedback_AnswerKey_Score_Quintuplet[] | null},
+    @Inject(MAT_DIALOG_DATA) public result_data: {title: string, body: Feedback_AnswerKey_Score_Quintuplet[] | null, stats: number[]},
   ) {
     // console.log (this.result_data); // KRISTIAN_NOTE - Uncomment to troubleshoot if dialog fails to display appropriate data.
+    console.log (this.result_data.stats); // KRISTIAN_TODO_NOW - We have the numerical array now.  Get the mean, median, and standard deviation from this!
   }
 
   check_result_type(result_body: {title: string, body: Feedback_AnswerKey_Score_Quintuplet[] | null}) {
