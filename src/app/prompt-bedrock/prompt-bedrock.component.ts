@@ -6,8 +6,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Subject } from 'rxjs';
 
-export async function solicit_feedback_for_given_question_and_response (tutor_func: (param_0: {prompt: string}) => any | null, question: string, response: string, progress_spinner_flag?: Subject<boolean>): Promise<string> {
-  // KRISTIAN_TODO_PART_2 - What if the user answers in English or refuses to answer in Swedish?
+// KRISTIAN_TODO_PART_2 - What if the user answers in English or refuses to answer in Swedish?
+export async function solicit_feedback_for_given_question_and_response (
+    tutor_func: (param_0: {prompt: string}) => any | null,
+    question: string,
+    response: string,
+    progress_spinner_flag?: Subject<boolean>
+  ): Promise<string> {
+
   let prompt_with_response_awaiting_feedback = 'Given the question of: ' + question +
     ', please provide feedback in English to the spelling and grammatical mistakes of each word in the following ' +
     ' user response: ' + response;
@@ -47,19 +53,43 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   @Input({ required: false }) is_custom_user_question!: boolean | null;
   change_topic = output<void>();
   feedback_scoring_event = output<string | null>();
-  current_question: string = '';
-  user_response: string = '';
-  feedback: string | null = null;
+
+  private _question_is_loading: boolean = false;
+  public get question_is_loading(): boolean {
+    return this._question_is_loading;
+  }
+  private _current_question: string = '';
+  public get current_question(): string {
+    return this._current_question;
+  }
+  private _clarification_is_loading: boolean = false;
+  public get clarification_is_loading(): boolean {
+    return this._clarification_is_loading;
+  }
+  // KRISTIAN_NOTE - These need to be public because they're tied to ngModel in the html file.
+  public unknown_word_or_phrase: string = '';
+  public user_response: string = '';
+  // ------------------------------------------------------------------
+  private _clarification_response: string = '';
+  public get clarification_response(): string {
+    return this._clarification_response;
+  }
   private _feedback_is_loading_signal = new Subject <boolean>();
-  feedback_is_loading: boolean = false;
-  question_is_loading: boolean = false;
+  private _feedback_is_loading: boolean = false;
+  public get feedback_is_loading(): boolean {
+    return this._feedback_is_loading;
+  }
+  private _feedback: string | null = null;
+  public get feedback(): string | null {
+    return this._feedback;
+  }
 
   constructor () {
     // KRISTIAN_NOTE - takeUntilDestroyed works for a very common use case, where I want a component to receive signals until it's destroyed.
     // Simple way to prevent memory leaks.
     // https://angular.dev/ecosystem/rxjs-interop/take-until-destroyed
     this._feedback_is_loading_signal.pipe (takeUntilDestroyed()).subscribe ((feedback_loading_state: boolean) => {
-      this.feedback_is_loading = feedback_loading_state;
+      this._feedback_is_loading = feedback_loading_state;
     });
   }
 
@@ -68,7 +98,7 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   // This means that I will fail to receive a response every time I want to test locally unless/until I actually deploy my app.
   // That also means every other operation involving a connection to AWS (eg. prompting an AWS Bedrock LLM) will also fail unless I deploy the app.
   async ngOnInit(): Promise<void> {
-    this.current_question = await this.pose_question_based_on_topic();
+    this._current_question = await this.pose_question_based_on_topic();
   }
 
   ngOnDestroy (): void {
@@ -76,7 +106,7 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   }
 
   public get question_or_feedback_is_loading(): boolean {
-    return this.question_is_loading === true || this.feedback_is_loading === true;
+    return this._question_is_loading === true || this._feedback_is_loading === true;
   }
 
   public get response_is_empty(): boolean {
@@ -90,10 +120,10 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
     if (this.is_custom_user_question === true) {
       return typeof(this.topic) === 'string' ? this.topic : '';
     } else {
-      this.question_is_loading = true;
+      this._question_is_loading = true;
       let prompt_to_ask = 'Please ask me a question in Swedish about: ' + this.topic + '.';
       if (this.user_response.length > 0) {
-        prompt_to_ask += 'Please make this question a follow-up to our user\'s last response of: ' + this.user_response + '.';
+        prompt_to_ask += 'Please ask me a follow-up question based upon the most recent of: ' + this.user_response + '.';
         this.user_response = '';
       }
 
@@ -106,19 +136,42 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
       } else {
         console.log (errors);
       }
-      this.question_is_loading = false;
+      this._question_is_loading = false;
       return data != null ? data as string : '';
     }
   }
 
+  // KRISTIAN_TODO_PART_2 - Is there a way to cap the number of characters on a response to a given prompt in an asynchronous LLM prompting function?
+  async ask_clarification_on_word_or_phrase (): Promise<string> {
+    this._clarification_is_loading = true;
+    let prompt_to_ask = 'Please translate to English the following unknown Swedish word or phrase: ' + this.unknown_word_or_phrase + '.';
+    const { data, errors } = await this.current_tutor({
+      prompt: prompt_to_ask,
+    });
+
+    if (errors) {
+      console.log (errors);
+    }
+    this._clarification_is_loading = false;
+    return data != null ? data as string : '';
+  }
+
+  async submit_clarification_question(): Promise<void> {
+    this._clarification_response = await this.ask_clarification_on_word_or_phrase();
+  }
+
   async solicit_feedback_for_response (): Promise<void> {
-    this.feedback = await solicit_feedback_for_given_question_and_response (this.current_tutor, this.current_question, this.user_response, this._feedback_is_loading_signal);
+    this._feedback = await solicit_feedback_for_given_question_and_response (this.current_tutor, this._current_question, this.user_response, this._feedback_is_loading_signal);
     // If feedback was successful, clear the user response.  Otherwise, save it so the user can try again without losing data.
-    if (this.feedback?.length > 0) this.user_response = '';
+    if (this._feedback?.length > 0) this.user_response = '';
   }
 
   public get split_feedback_into_bullet_points(): string[] | undefined {
-    return this.feedback?.split (/\d+\./);
+    return this._feedback?.split (/\d+\./);
+  }
+
+  async request_follow_up_question(): Promise<void> {
+    this._current_question = await this.pose_question_based_on_topic();
   }
 
   request_another_topic(): void {
@@ -126,6 +179,6 @@ export class PromptBedrockComponent implements OnInit, OnDestroy {
   }
 
   direct_user_to_feedback_scoring_page(): void {
-    this.feedback_scoring_event.emit(this.feedback);
+    this.feedback_scoring_event.emit(this._feedback);
   }
 }

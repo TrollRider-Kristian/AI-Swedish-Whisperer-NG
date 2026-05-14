@@ -6,9 +6,10 @@ currently out of the scope of the Springboard ML capstone project.
 This database table would be a solid follow-up suggestion after the capstone.
 =========================================================================*/
 
-// KRISTIAN_TODO_NOW - Now that I have 4 functional LLM's, consider the medium versions (12B for gemma, 14B for Mistral).
-// If the overall Swedish knowledge of the mini LLM's drops off too sharply from that of the large LLM's, then I
-// will require the medium LLM's for deeper analysis in my results writeup.  Otherwise, this can be a "part 2" assignment.
+// KRISTIAN_TODO_PART_2 - The best way to assess the effectiveness of each LLM is to have ALL of them
+// take turns grading each other in terms of mean, median, and standard deviation.  For the Springboard
+// AI / ML online course, I can achieve this with the LLM's here.
+// But as a follow-up, consider their respective medium versions too (12B for Gemma, 14B for Mistral).
 export const MISTRAL_MODEL_ID = 'mistral.mistral-large-3-675b-instruct';
 export const MINISTRAL_MODEL_ID = 'mistral.ministral-3-3b-instruct';
 export const GEMMA_MODEL_ID = 'google.gemma-3-27b-it';

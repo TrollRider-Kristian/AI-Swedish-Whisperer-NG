@@ -1,9 +1,21 @@
 <h2>Question from Bedrock Here:</h2>
 <div>
-    <!--KRISTIAN_TODO_NOW - The question uses many, many, MANY words that I do NOT recognize.-->
-    <!-- Input with prompt asking for English translation.  Allow a text box where the user asks for clarification on an unknown word or phrase in the question. -->
-    <mat-progress-spinner mode="indeterminate" *ngIf="question_is_loading == true"></mat-progress-spinner>
+    @if (question_is_loading === true) {
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    }
     <p>{{ current_question }}</p>
+    <h3>Unsure about a Word or Phrase?  Ask Here:</h3>
+    <input name="clarification" [(ngModel)]="unknown_word_or_phrase"/>
+    <button mat-button
+            (click)="submit_clarification_question()"
+            [disabled]="unknown_word_or_phrase.length <= 0 || clarification_is_loading === true">
+        Ask For Clarification
+    </button>
+    @if (clarification_is_loading === true) {
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    }
+    <p>{{ clarification_response }}</p>
+    <h3>Please Respond to the Question Here:</h3>
     <input name="prompt" [(ngModel)]="user_response"/>
     <button mat-button
             (click)="solicit_feedback_for_response()"
@@ -12,7 +24,9 @@
     </button>
 </div>
 <div>
-    <mat-progress-spinner mode="indeterminate" *ngIf="feedback_is_loading === true"></mat-progress-spinner>
+    @if (feedback_is_loading === true) {
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    }
     <!-- KRISTIAN_NOTE - Uncomment feedback if it doesn't populate correctly. -->
     <!-- <p>{{ feedback }}</p> -->
     @if (feedback != null) {
@@ -28,7 +42,7 @@
         Score My Feedback!
     </button>
     <button mat-button 
-            (click)="pose_question_based_on_topic()"
+            (click)="request_follow_up_question()"
             [disabled]="question_or_feedback_is_loading === true">
         Request Follow-Up Question
     </button>
