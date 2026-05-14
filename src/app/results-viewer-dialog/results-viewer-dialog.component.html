@@ -18,9 +18,13 @@
             <p>Score: {{ result['score'] }}</p>
         }
     }
-    <!--KRISTIAN_TODO_NOW - Using the numerical scores, get the mean, median, and standard deviation scores for a given LLM.  Get highest and lowest scores too! -->
+    @if (result_data['stats'] != null && result_data['stats'].length > 0) {
+        <p>Mean Score: {{ calc_mean_of_stats() }}</p>
+        <p>Median Score: {{ calc_median_of_stats() }}</p>
+        <p>Standard Deviation of Scores: {{ calc_standard_deviation_of_stats() }}</p>
+    }
 </mat-dialog-content>
 <mat-dialog-actions>
     <!--KRISTIAN_TODO_PART_2 - Make a "Save" button for downloading the feedback and scoring results to my hard drive.-->
-    <button mat-button (click)="close_dialog()">Close</button>
+    <button mat-button matDialogClose>Close</button>
 </mat-dialog-actions>

@@ -9,7 +9,7 @@ import {
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
-    // MatDialogClose,
+    MatDialogClose,
 } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { Question_Response_Feedback_Triplet, Feedback_AnswerKey_Score_Quintuplet } from '../score-feedback/score-feedback.component';
@@ -45,7 +45,7 @@ export class ResultsViewerDialogService {
     MatDialogContent,
     MatDialogContent,
     MatDialogActions,
-    // MatDialogClose,
+    MatDialogClose,
   ],
 })
 export class ResultsViewerDialogComponent {
@@ -59,14 +59,54 @@ export class ResultsViewerDialogComponent {
     @Inject(MAT_DIALOG_DATA) public result_data: {title: string, body: Feedback_AnswerKey_Score_Quintuplet[] | null, stats: number[]},
   ) {
     // console.log (this.result_data); // KRISTIAN_NOTE - Uncomment to troubleshoot if dialog fails to display appropriate data.
-    console.log (this.result_data.stats); // KRISTIAN_TODO_NOW - We have the numerical array now.  Get the mean, median, and standard deviation from this!
+    // KRISTIAN_TODO_PART_2 - I would prefer to use toSorted, but that requires es2023 or later on my JavaScript compiler version.  Look into how I can upgrade that.
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted
+    // For now, it doesn't really matter to the functions below whether the array is sorted, so we'll just sort it for now...
+    if (this.result_data?.stats != null) {
+      this.result_data.stats.sort((a, b) => a - b);
+    }
   }
 
   check_result_type(result_body: {title: string, body: Feedback_AnswerKey_Score_Quintuplet[] | null}) {
     return typeof(result_body);
   }
 
-  close_dialog (): void {
-    this.dialog_ref.close();
+  // KRISTIAN_NOTE - It's worth mentioning that mathjs supports mean, median, and standard deviation out of the box, but installing that dependency
+  // causes the memory bundle of this app to exceed the maximum budget by an amount high enough to cause an error when I attempt 'npm run build'.
+  // I could increase the budget, but I'd rather keep the bundle small, especially considering that library is designed primarily for JavaScript.
+  // TypeScript comes with enough Math operations of its own that makes it easy enough to code these here.
+  // KRISTIAN_TODO_PART_2 - If the need arises for more sophisticated math (eg. "I'm creating my own LLM and I need a derivative function"), then
+  // consider installing mathjs and increasing the memory budget.
+
+  calc_mean_of_stats(): number | null {
+    if (this.result_data?.stats?.length > 0) {
+      return this.result_data.stats.reduce ((accumulated_value, current_value) => accumulated_value + current_value) / this.result_data.stats.length;
+    }
+    return null; // if no stats, then not applicable
+  }
+
+  calc_median_of_stats(): number | null {
+    // KRISTIAN_NOTE - We sorted the stats array in the constructor, so let's just return the middle index.
+    if (this.result_data?.stats?.length > 0) {
+      const middle = Math.floor(this.result_data.stats.length / 2)
+      // If the array is of even length, return the average of the TWO middle entries
+      if (this.result_data.stats.length % 2 === 0) {
+        return (this.result_data.stats [middle] + this.result_data.stats [middle + 1]) / 2;
+      } else {
+        return this.result_data.stats[middle];
+      }
+    }
+    return null; // if no stats, then not applicable
+  }
+
+  calc_standard_deviation_of_stats(): number | null {
+    if (this.result_data?.stats?.length > 0) {
+      const mean = this.calc_mean_of_stats() as number;
+      const sums_of_square_diffs = this.result_data.stats.reduce ((accumulated_value, current_value) => accumulated_value + Math.pow(current_value - mean, 2));
+      // KRISTIAN_NOTE - Math.max to prevent zero division.  In this case, the mean of a single-valued array is itself, so the numerator is just 0.
+      const denominator = Math.max (this.result_data.stats.length - 1, 1);
+      return Math.sqrt(sums_of_square_diffs / denominator);
+    }
+    return null; // if no stats, then not applicable
   }
 }
