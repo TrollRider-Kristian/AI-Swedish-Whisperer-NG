@@ -53,14 +53,10 @@ export class ScoreFeedbackComponent {
   // -------------------------------------------------- Inputs for scoring a single feedback statement --------------------------------------
   
   @Input({ required: false }) ai_generated_feedback: string = '';
-  private _feedback_answer_key: string = '';
-  public get feedback_answer_key(): string {
-    return this._feedback_answer_key;
-  }
-  private _feedback_score_is_loading: boolean = false;
-  public get feedback_score_is_loading(): boolean {
-    return this._feedback_score_is_loading;
-  }
+  // KRISTIAN_NOTE - These need to be public because they're tied to ngModel in the html file.
+  public feedback_answer_key: string = '';
+  public feedback_score_is_loading: boolean = false;
+  // ------------------------------------------------------------------
   private _feedback_score: string | null = '';
   public get feedback_score(): string | null {
     return this._feedback_score;
@@ -99,7 +95,7 @@ export class ScoreFeedbackComponent {
   constructor (private _dialog: MatDialog) {}
 
   feedback_and_answer_key_are_empty() {
-    return this.ai_generated_feedback?.length <= 0 || this._feedback_answer_key?.length <= 0;
+    return this.ai_generated_feedback?.length <= 0 || this.feedback_answer_key?.length <= 0;
   }
 
   async score_feedback(ai_generated_feedback: string, feedback_answer_key: string): Promise<string> {
@@ -108,7 +104,7 @@ export class ScoreFeedbackComponent {
         " the semantic accuracy of the given AI-provided feedback based upon the given feedback answer key.  Please begin" +
         " the response immediately with the score before going into any reasons or justification.";
       
-      this._feedback_score_is_loading = true;
+      this.feedback_score_is_loading = true;
 
       const {data, errors} = await this.current_tutor({
         prompt: prompt_with_feedback_pair_awaiting_score,
@@ -119,7 +115,7 @@ export class ScoreFeedbackComponent {
         } else {
         console.log (errors);
       }
-      this._feedback_score_is_loading = false;
+      this.feedback_score_is_loading = false;
       return data != null ? data : '';
   }
 

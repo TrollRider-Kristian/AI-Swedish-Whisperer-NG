@@ -30,6 +30,7 @@ export enum TOPIC_SELECTION_METHOD {
     ],
 })
 export class SelectTopicForPracticeComponent {
+    // KRISTIAN_NOTE - These are all best left public because they are all either tied to the select or to ngModel.
     Topic_Selection_Method = TOPIC_SELECTION_METHOD;
     current_method = TOPIC_SELECTION_METHOD.CHOOSE_PREDEFINED_OPTION;
     user_selected_topic = new FormControl<string | null> (null, Validators.required);
@@ -38,6 +39,7 @@ export class SelectTopicForPracticeComponent {
     is_custom_user_question = output<boolean | null>();
     go_to_feedback_scoring_page = output<null>();
     custom_user_question: string = "";
+    // ------------------------------------------------------------------
     private _conversation_topics: string[] = [
         "Hobbies",
         "Work",
