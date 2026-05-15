@@ -302,59 +302,59 @@
     },
     {
         "id": 44,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vad vill du att jag ska göra med dörren?",
+        "response": "Jag föredrar dörren stängt.",
+        "ai_feedback": "Missing an 'att' after 'föredrar' and 'är' after 'dörren' because the phrase after 'att' should be an independent clause.  Also, 'stängt' should be 'stängd' because dörren is an en-noun.",
+        "corrected_response": "Jag föredrar att dörren är stangd."
     },
     {
         "id": 45,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Föredrar din lax grillad eller rökt?",
+        "response": "Jag föredrar min lax grillad.",
+        "ai_feedback": "Correct.",
+        "corrected_response": "Jag föredrar min lax grillad."
     },
     {
         "id": 46,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vad skulle du vilja ha till middag med ditt fläskkött?",
+        "response": "Jag vill ha några bakade potatiser.",
+        "ai_feedback": "The plural form of 'potatis' is 'potatis', not 'potatiser'.  Also, 'baked potato' is a compound word ('bakpotatis').",
+        "corrected_response": "Jag vill ha bakpotatis."
     },
     {
         "id": 47,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur mycket vin vill du ha?",
+        "response": "Jag vill ha ett fyllt glas.",
+        "ai_feedback": "A more suitable word for 'full' would be 'fullt' rather than 'fyllt' for 'filled'.",
+        "corrected_response": "Jag vill ha ett fullt glas."
     },
     {
         "id": 48,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vem är den där person?",
+        "response": "Jag vet inte.  Jag vet ingen här.",
+        "ai_feedback": "Use the present tense 'vet' for general knowledge, but use 'känner' for recognition of people.",
+        "corrected_response": "Jag vet inte.  Jag känner ingen här."
     },
     {
         "id": 49,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur mycket vet jag om din familj?",
+        "response": "Vem kan säga?  Jag vet ibland inte ens min egen familj.",
+        "ai_feedback": "The question is correct to use 'vet' because it is asking 'how much', but the response refers to knowledge of family and should use 'känner' instead.  Using 'ibland inte' is grammatically correct, but starting the sentence with 'ibland' might flow better.",
+        "corrected_response": "Vem kan säga det?  Ibland känner jag inte ens min egen familj."
     },
     {
         "id": 50,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Känner du Albert Einstein?",
+        "response": "Jag känner om Albert Einstein genom att läsa hans forskning.",
+        "ai_feedback": "To say you know of someone, use 'vet'.  'Känner' is reserved for when you have met someone personally.",
+        "corrected_response": "Jag vet om Albert Einstein genom att läsa hans forskning."
     },
     {
         "id": 51,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vet du om Albert Einstein?",
+        "response": "Jag träffade Albert Einstein och har kunnat honom tre år sedan.",
+        "ai_feedback": "When describing how long you have known someone personally, use 'känner' instead of 'vet'.  Also, 'i tre år' is correct here because it means 'for three years' while 'tre år sedan' means 'three years ago'.",
+        "corrected_response": "Jag träffade Albert Einstein och har känt honom i tre år."
     },
     {
         "id": 52,
