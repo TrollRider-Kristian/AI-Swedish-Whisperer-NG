@@ -409,43 +409,43 @@
         "id": 59,
         "question": "Vad rörde du just nu?",
         "response": "Jag kände kattens päls.",
-        "ai_feedback": "Missing 'på'.  When describing the feeling of a specific object, use 'känna på'.",
+        "ai_feedback": "Missing 'på'.  To describe the feeling of a specific object, use 'känna på'.",
         "corrected_response": "Jag kände på kattens päls."
     },
     {
         "id": 60,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vad har hänt?  Du ser nervös ut.",
+        "response": "Jag förlorade mina nycklar i parken.",
+        "ai_feedback": "Wrong version of 'lost'.  Use 'tappade' to describe misplacing an object.  Use 'förlorade' to describe a loss in a game or loss in an abstract sense.",
+        "corrected_response": "Jag tappade mina mycklar i parken."
     },
     {
         "id": 61,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vad har hänt?  Du ser ledsen ut.",
+        "response": "Jag tappade en schackturnering i går.",
+        "ai_feedback": "Wrong version of 'lost'.  Use 'tappade' to describe misplacing an object.  Use 'förlorade' to describe a loss in a game or loss in an abstract sense.",
+        "corrected_response": "Jag förlorade en schackturnering i går."
     },
     {
         "id": 62,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Varför var du trött på jobbet i går?",
+        "response": "I går morse, har jag sovit bara i fem timmar.",
+        "ai_feedback": "Use past perfect instead of present perfect to describe an action that finished in the past.  Also, the adverb ('bara') should come before the supinum form verb ('sovit').",
+        "corrected_response": "I går morse hade jag bara sovit i fem timmar."
     },
     {
         "id": 63,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Varför missade de tåget?",
+        "response": "Först hade de försovit sig, sedan hade de tappat sina nycklar.",
+        "ai_feedback": "When describing a sequence of one-time events that finished in the past, use the preterite tense rather than the past perfect.",
+        "corrected_response": "Först försov de sig, sedan tappade de sina nycklar."
     },
     {
         "id": 64,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vad gjorde du när du förlorade jobbet?",
+        "response": "Jag hade gick ut på en promenad.",
+        "ai_feedback": "Wrong conjugation of past perfect.  Use the supinum form ('gått') instead of the preterit form ('gick') after 'hade'.",
+        "corrected_response": "Jag hade gått ut på en promenad."
     },
     {
         "id": 65,
