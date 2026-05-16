@@ -332,7 +332,7 @@
         "id": 48,
         "question": "Vem är den där person?",
         "response": "Jag vet inte.  Jag vet ingen här.",
-        "ai_feedback": "Use the present tense 'vet' for general knowledge, but use 'känner' for recognition of people.",
+        "ai_feedback": "Use the present tense 'vet' to refer to knowing something, but use 'känner' for recognition of people.",
         "corrected_response": "Jag vet inte.  Jag känner ingen här."
     },
     {
@@ -358,45 +358,45 @@
     },
     {
         "id": 52,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vad kan du berätta om staden?",
+        "response": "Jag känner till några bra restauranger.",
+        "ai_feedback": "Correct.",
+        "corrected_response": "Jag känner till några bra restauranger."
     },
     {
         "id": 53,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur blev du vän med spionen?",
+        "response": "När han var i mitt kök lärde vi känna varandra.",
+        "ai_feedback": "Correct.",
+        "corrected_response": "När han var i mitt kök lärde vi känna varandra."
     },
     {
         "id": 54,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Varför älskar professorerna på universitetet dig?",
+        "response": "Jag kände till cellulära automater och hittade svar på svåra problemer.",
+        "ai_feedback": "Use 'kände till' when referring to something familiar.  A better fit for learning something new is 'lärde'.  Use the past tense of 'finna' ('fann') instead of that of 'hitta' when referring to an abstract discovery.",
+        "corrected_response": "Jag lärde mig cellulära automater och fann svar på svåra problem."
     },
     {
         "id": 55,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vad tycker du om byxorna?",
+        "response": "Jag känner tio år yngre i de här byxorna.",
+        "ai_feedback": "Missing reflexive verb.  When discussing one's feelings, use 'känner mig'.",
+        "corrected_response": "Jag känner mig tio år yngre i de här byxorna."
     },
     {
         "id": 56,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur mår du i dag?",
+        "response": "Jag känner trött eftersom jag sov inte bra.",
+        "ai_feedback": "Missing reflexive verb.  When discussing one's feelings, use 'känner mig'.  Also, wrong word order in the subordinate clause.  Change 'sov inte' to 'inte sov'.",
+        "corrected_response": "Jag känner mig trött eftersom jag inte sov bra."
     },
     {
         "id": 57,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vad minns du från den här staden?",
+        "response": "Jag känner den fantastiska japanska restaurangen på hörnet.",
+        "ai_feedback": "Missing the 'till' particle.  Use 'känner till' to express that awareness or familiarity of something or someone.",
+        "corrected_response": "Jag känner till den fantastiska japanska restaurangen på hörnet."
     },
     {
         "id": 58,
