@@ -366,8 +366,8 @@
     {
         "id": 53,
         "question": "Hur blev du vän med spionen?",
-        "response": "När han var i mitt kök lärde vi känna varandra.",
-        "ai_feedback": "Correct.",
+        "response": "När han var i mitt kök kände vi varandra.",
+        "ai_feedback": "Missing 'lärde'.  Using 'kände' by itself refers to a feeling or experience.  Use 'lärde känna' to refer to the act of getting to know someone else.",
         "corrected_response": "När han var i mitt kök lärde vi känna varandra."
     },
     {
@@ -400,17 +400,17 @@
     },
     {
         "id": 58,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vad är din favoritsak att röra vid?",
+        "response": "Det känns bra att röra vid en katts päls.  Det känns så mjukt!",
+        "ai_feedback": "Correct.",
+        "corrected_response": "Det känns bra att röra vid en katts päls.  Det känns så mjukt!"
     },
     {
         "id": 59,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vad rörde du just nu?",
+        "response": "Jag kände kattens päls.",
+        "ai_feedback": "Missing 'på'.  When describing the feeling of a specific object, use 'känna på'.",
+        "corrected_response": "Jag kände på kattens päls."
     },
     {
         "id": 60,
