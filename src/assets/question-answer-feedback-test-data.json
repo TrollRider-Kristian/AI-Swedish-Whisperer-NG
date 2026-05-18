@@ -528,8 +528,8 @@
         "id": 76,
         "question": "När avslutade du dina läxor?",
         "response": "Jag avslutade mina läxor i helgen.",
-        "ai_feedback": "Correct.  Technically, 'i helgen' can mean either 'last week' or 'next week', but this response is grammatically correct.",
-        "corrected_response": "Jag avslutade mina läxor i helgen."
+        "ai_feedback": "Technically correct, but 'i helgen' can also mean 'this weekend' or 'next weekend', so 'förra helgen' is preferred.",
+        "corrected_response": "Jag avslutade mina läxor förra helgen."
     },
     {
         "id": 77,
@@ -582,31 +582,31 @@
     },
     {
         "id": 84,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur gammal var hon när hon dog?",
+        "response": "Hon levte över hundra år.",
+        "ai_feedback": "Misspelled verb.  The preterite tense of 'leva' is 'levde'.  Also missing preposition 'i' before the number.",
+        "corrected_response": "Hon levde i över hundra år."
     },
     {
         "id": 85,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vilken bok läste du igår?",
+        "response": "Jag välde läsa Egils saga.",
+        "ai_feedback": "Misspelled verb.  The preterite tense of 'välja' is 'valde', not 'välde'.  Also missing an 'att' after 'valde'.",
+        "corrected_response": "Jag valde att läsa Egils saga."
     },
     {
         "id": 86,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vad gjorde du förra helgen?",
+        "response": "Jag spelade videospel hem.",
+        "ai_feedback": "Wrong use of 'hem'.  Use 'hemma' to describe a home activity.",
+        "corrected_response": "Jag spelade videospel hemma."
     },
     {
         "id": 87,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Var var du igår klockan sex?",
+        "response": "Jag var på väg hemma från parken.",
+        "ai_feedback": "Wrong use of 'hemma'.  Use 'hem' to describe the act of going home.",
+        "corrected_response": "Jag var på väg hem från parken."
     },
     {
         "id": 88,
