@@ -519,24 +519,24 @@
     },
     {
         "id": 75,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "När tänker du besöka trollkarlen?",
+        "response": "I torsdags ska jag upp i bergen genom att besöka trollkarlen.",
+        "ai_feedback": "Wrong timing.  'I torsdags' means 'last Thursday', but the sentence describes a future plan.  'På torsdag' means 'this Thursday' and is a better fit here.  Also, 'genom att' is misplaced here.  Use 'för att' instead, since it means 'in order to' and suggests an end goal.",
+        "corrected_response": "På torsdag ska jag upp i bergen för att besöka trollkarlen."
     },
     {
         "id": 76,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "När avslutade du dina läxor?",
+        "response": "Jag avslutade mina läxor i helgen.",
+        "ai_feedback": "Correct.  Technically, 'i helgen' can mean either 'last week' or 'next week', but this response is grammatically correct.",
+        "corrected_response": "Jag avslutade mina läxor i helgen."
     },
     {
         "id": 77,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur många år har du bott i Sverige?",
+        "response": "Jag har bott i Sverige förförra året sedan.",
+        "ai_feedback": "Wrong placement of 'sedan'.  To have 'sedan' mean 'since', one places it before the temporal expression ('förförra året).",
+        "corrected_response": "Jag har bott i Sverige sedan förrförra året."
     },
     {
         "id": 78,
