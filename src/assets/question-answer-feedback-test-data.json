@@ -449,52 +449,52 @@
     },
     {
         "id": 65,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vilken författare gillar du?",
+        "response": "Jag tror att Stephen King är en bra författare.",
+        "ai_feedback": "Wrong verb.  When describing a subjective opinion, use 'tycker' instead of 'tror'.",
+        "corrected_response": "Jag tycker att Stephen King är en bra författare."
     },
     {
         "id": 66,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vem vann schackturneringen?",
+        "response": "Jag tycker att trollkarlen vann schackturneringen.",
+        "ai_feedback": "Wrong verb.  When guessing a factual event, use 'tror' instead of 'tycker'.",
+        "corrected_response": "Jag tror att trollkarlen vann schackturneringen."
     },
     {
         "id": 67,
-        "question": "",
+        "question": "Vad ska du göra i helgen?",
         "response": "",
         "ai_feedback": "",
         "corrected_response": ""
     },
     {
         "id": 68,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vad sa spionen till dig i det där rummet i går?",
+        "response": "Jag tänker att spionen sade att hans favorit djur var en orm.",
+        "ai_feedback": "Wrong verb.  When trying to recall something someone else said, use 'tror' instead of 'tänker'.  Also, 'sade' is correct, but 'sa' is more natural.  Also, 'favorit djur' is a compound word.",
+        "corrected_response": "Jag tror att spionen sa att hans favoritdjur var en orm."
     },
     {
         "id": 69,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur känner spionen sig nu?",
+        "response": "Jag tycker att spionen känner sig lite ledsen.",
+        "ai_feedback": "Wrong verb.  One uses 'tycker' to speculate on someone else's perceived emotion, but here one uses 'tror' instead because they are guessing someone else's actual emotion.",
+        "corrected_response": "Jag tror att spionen känner sig lite ledsen."
     },
     {
         "id": 70,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur känner spionen sig nu?",
+        "response": "Jag tror att spionen verkar lite ledsen.",
+        "ai_feedback": "Wrong verb.  When guessing someone else's emotion based on how they seem, it is a personal opinion requiring 'tycker', not 'tror'.",
+        "corrected_response": "Jag tycker att spionen verkar lite ledsen."
     },
     {
         "id": 71,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur känner spionen sig nu?",
+        "response": "Jag tror att spionen ser ut lite ledsen.",
+        "ai_feedback": "Wrong verb.  When guessing someone else's emotion based on how they look, it is a personal opinion requiring 'tycker', not 'tror'.  Also, wrong adverb placement.  Place 'ut' after the emotion ('ledsen'), not before it.",
+        "corrected_response": "Jag tycker att spionen ser lite ledsen ut."
     },
     {
         "id": 72,
