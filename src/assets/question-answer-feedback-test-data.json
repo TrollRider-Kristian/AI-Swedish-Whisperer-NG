@@ -464,9 +464,9 @@
     {
         "id": 67,
         "question": "Vad ska du göra i helgen?",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "response": "Jag tror att jag vill simma i havet.",
+        "ai_feedback": "This is grammatically correct, but a more concise way to express one's future plans is by using 'tänker' followed by an infinitive.",
+        "corrected_response": "Jag tänker simma i havet."
     },
     {
         "id": 68,
@@ -498,24 +498,24 @@
     },
     {
         "id": 72,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vad funderar du på?",
+        "response": "Jag tänker min katt.",
+        "ai_feedback": "Missing 'på'.  Use of 'tänker' for the act of thinking about something is correct, but need to follow the verb with 'på'.",
+        "corrected_response": "Jag tänker på min katt."
     },
     {
         "id": 73,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur tvättade du mina byxor?",
+        "response": "Dina byxor tvättas med tvål av mig.",
+        "ai_feedback": "Wrong verb tense.  To use passive voice correctly, conjugate the verb to the right tense and then add 's'.  In this case, use the preterite tense ('tvättades') because the action took place in the past.",
+        "corrected_response": "Dina byxor tvättades med tvål av mig."
     },
     {
         "id": 74,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Har någon faktiskt läst 'Finnegans Wake'?",
+        "response": "Boken har lästs vid min vän.",
+        "ai_feedback": "Wrong preposition.  When using passive voice, use 'av' instead of 'vid' to denote by whom the action is done.",
+        "corrected_response": "Boken har lästs av min vän."
     },
     {
         "id": 75,
