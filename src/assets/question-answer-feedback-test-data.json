@@ -540,10 +540,10 @@
     },
     {
         "id": 78,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur ofta tränar du badminton?",
+        "response": "Jag tränar badminton varje onsdagar och fredagar.",
+        "ai_feedback": "Wrong adverb.  Either use 'varje' with the singular version of each weekday ('onsdag' / 'fredag') or use 'på' and leave the weekdays in their current plural forms.",
+        "corrected_response": "Jag tränar badminton på onsdagar och fredagar."
     },
     {
         "id": 79,
