@@ -610,38 +610,38 @@
     },
     {
         "id": 88,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vilken film skulle du vilja se?",
+        "response": "Jag vill se årets sämst filmen.",
+        "ai_feedback": "Incorrect superlative form.  An adjective following a possessive noun (årets) should be plural, so 'sämst' should be 'sämsta'.  Also, change 'filmen' to 'film' because it is possessed by another noun ('årets').",
+        "corrected_response": "Jag vill se årets sämsta film."
     },
     {
         "id": 89,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vilken film skulle du vilja se?",
+        "response": "Jag vill se årets mest dålig film.",
+        "ai_feedback": "Incorrect superlative form.  The adjective 'dålig' conjugates in the superlative to either 'sämst' or 'värst'.  Pick one and use its plural form because of the possessive noun 'årets'.",
+        "corrected_response": "Jag vill se årets sämsta film."
     },
     {
         "id": 90,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vilken apparat vill du köpa i den här butiken?",
+        "response": "Jag vill köpa den praktiskaste apparaten i den här butiken.",
+        "ai_feedback": "Incorrect superlative form.  The adjective 'praktisk' does not have a distinct superlative form in Swedish, so one should add 'mest' in front and use the correct form of 'praktisk', which is 'praktiska' here.",
+        "corrected_response": "Jag vill köpa den mest praktiska apparaten i den här butiken."
     },
     {
         "id": 91,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "När är du ledig att besöka oss?",
+        "response": "Jag kan komma på årets mest korta dagen.",
+        "ai_feedback": "Incorrect superlative form.  The adjective 'korta' conjugates to 'kortaste' in the superlative.  Also, 'dagen' is the object of a possessive noun ('årets') and should not be in the definite form.",
+        "corrected_response": "Jag kan komma på årets kortaste dag."
     },
     {
         "id": 92,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Skulle du vilja adoptera den här katten?",
+        "response": "Det är den vackeraste katten jag sett här.",
+        "ai_feedback": "Incorrect superlative form.  The adjective 'vacker' conjugates to 'vackraste' in the superlative form.  Also, missing 'har' before 'sett' because it is the supinum form of 'se'.",
+        "corrected_response": "Det är den vackraste katten jag har sett här."
     },
     {
         "id": 93,
