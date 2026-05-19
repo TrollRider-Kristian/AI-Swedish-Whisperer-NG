@@ -619,14 +619,14 @@
         "id": 89,
         "question": "Vilken film skulle du vilja se?",
         "response": "Jag vill se årets mest dålig film.",
-        "ai_feedback": "Incorrect superlative form.  The adjective 'dålig' conjugates in the superlative to either 'sämst' or 'värst'.  Pick one and use its plural form because of the possessive noun 'årets'.",
+        "ai_feedback": "Incorrect superlative form.  The adjective 'dålig' conjugates irregularly in the superlative to either 'sämst' or 'värst'.  Pick one and use its plural form because of the possessive noun 'årets'.",
         "corrected_response": "Jag vill se årets sämsta film."
     },
     {
         "id": 90,
         "question": "Vilken apparat vill du köpa i den här butiken?",
         "response": "Jag vill köpa den praktiskaste apparaten i den här butiken.",
-        "ai_feedback": "Incorrect superlative form.  The adjective 'praktisk' does not have a distinct superlative form in Swedish, so one should add 'mest' in front and use the correct form of 'praktisk', which is 'praktiska' here.",
+        "ai_feedback": "Incorrect superlative form.  The adjective 'praktisk' ends in 'isk', so it does not have a distinct superlative form in Swedish.  Therefore, add 'mest' in front and use the correct form of 'praktisk', which is 'praktiska' here.",
         "corrected_response": "Jag vill köpa den mest praktiska apparaten i den här butiken."
     },
     {
@@ -645,24 +645,24 @@
     },
     {
         "id": 93,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vilket berg klättrade trollkarlen igen?",
+        "response": "Trollkarlen klättrade det högsta berget.",
+        "ai_feedback": "Correct.",
+        "corrected_response": "Trollkarlen klättrade det högsta berget."
     },
     {
         "id": 94,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Vill du titta på TV före eller efter att du är klar med dina läxor?",
+        "response": "Jag ska sätta TV:n nu.",
+        "ai_feedback": "Missing particle 'på' after 'sätta'.  The verb 'sätta' by itself means 'to put' rather than 'to turn on'.",
+        "corrected_response": "Jag ska sätta på TV:n nu."
     },
     {
         "id": 95,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Varför sov du sent i natt?",
+        "response": "Jag började sova när det ringde på dörren.",
+        "ai_feedback": "Wrong verb choice.  Use 'somna' to describe the state of falling asleep, while 'sova' fits best for the state of being asleep.",
+        "corrected_response": "Jag började somna när det ringde på dörren."
     },
     {
         "id": 96,
