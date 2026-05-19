@@ -666,37 +666,37 @@
     },
     {
         "id": 96,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "När åt draken upp trollkarlen igår?",
+        "response": "Draken åt upp trollkarlen ungefär klockan nio.",
+        "ai_feedback": "Correct.",
+        "corrected_response": "Draken åt upp trollkarlen ungefär klockan nio."
     },
     {
         "id": 97,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Varför köpte du det där ljuset?",
+        "response": "Det är det starkaste ljuset i butiken.",
+        "ai_feedback": "Correct.",
+        "corrected_response": "Det är det starkaste ljuset i butiken."
     },
     {
         "id": 98,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur vet du att ost är gott?",
+        "response": "Jag hade provat alla ostar tills jag hittade den bästa.",
+        "ai_feedback": "Unnatural use of 'tills' here.  Since the end condition for the action ('hade provat alla ostar') occurred in the past, 'innan', which means 'before', is a better fit here.",
+        "corrected_response": "Jag hade provat alla ostar innan jag hittade den bästa."
     },
     {
         "id": 99,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur många språk planerar du att lära dig?",
+        "response": "Jag vet inte, men jag ska lära mig fler än fyra.",
+        "ai_feedback": "Correct.",
+        "corrected_response": "Jag vet inte, men jag ska lära mig fler än fyra."
     },
     {
         "id": 100,
-        "question": "",
-        "response": "",
-        "ai_feedback": "",
-        "corrected_response": ""
+        "question": "Hur kan du springa så mycket varje dag?",
+        "response": "Jag har sprungit lite varje dag tills jag kunde springa mer.",
+        "ai_feedback": "Correct.",
+        "corrected_response": "Jag har sprungit lite varje dag tills jag kunde springa mer."
     }
 ]
