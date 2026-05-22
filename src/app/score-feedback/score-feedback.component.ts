@@ -208,9 +208,13 @@ export class ScoreFeedbackComponent {
     let numeric_scores: number[] = [];
     this._json_scores_list?.forEach ((quintuplet: Feedback_AnswerKey_Score_Quintuplet) => {
       const score_statement: string = quintuplet?.score != null ? quintuplet.score : '';
-      const match = score_statement.match(/\d+.\d*/);
-      const num_score = parseFloat(match != null ? match[0] : '');
-      numeric_scores.push(num_score);
+      const match = score_statement.match(/\d+(.\d+)?/);
+      // Don't match the forward slash if it appears in the match.  Push the numerator "8" of "8/10" into the array.
+      // console.log (match);
+      if (match != null) {
+        const numer = match[0].split ('/')[0];
+        numeric_scores.push (parseFloat(numer));
+      }
     })
     return numeric_scores;
   }
