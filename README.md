@@ -27,6 +27,8 @@ To launch the application, run the following commands:
 `npm run build`
 `npm run start`
 
+Once it builds and runs, go to localhost:4200 to use the app.
+
 ## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
