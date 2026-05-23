@@ -1,8 +1,10 @@
 # Welcome to the AI-Swedish-Whisperer-NG
 
+This app is built from the AWS Amplify starter repo for an Angular application and is deployed on AWS Amplify.
+
 ## How It Works
 
-I used the template for an Angular application designed to run on AWS Amplify to create a wrapper UI for an AI Swedish tutor program.
+This is a wrapper UI for an AI Swedish tutor program.
 It sends and receives prompts from any one of four LLM's on AWS Bedrock in order to teach the user Swedish.
 
 It invites the user to select a predetermined topic or decide a custom topic.  Then, it sends a prompt to one of four LLM's of the user's choice
@@ -17,11 +19,9 @@ and grammatical mistakes.  The user may choose one of the following LLM's:
 In addition, there's a scoring component in the app allowing the user to rate feedback provided by the LLM against a known specific feedback answer.
 On a score from 1 to 10, the LLM will grade its own feedback against the provided "feedback answer key".
 
-This app is deployed on AWS Amplify.
-
 ## Usage
 
-To launch the application, run the following commands:
+To launch the application locally, run the following commands:
 
 `npm install`
 `npm run build`
